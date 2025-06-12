@@ -173,7 +173,7 @@
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        <span class="dnerf">Spelke Segments</span> : Segmenting Objects by Physical Cohesion and Motion Consistency
         free-viewpoint
         portraits.
       </h2>
@@ -275,13 +275,12 @@
 
     <div class="columns is-centered">
 
-      <!-- Visual Effects. -->
+      <!-- Point-Prompted Segmentation. -->
       <div class="column">
         <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
+          <h2 class="title is-3">Point-Prompted Segmentation</h2>
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            Prompt any part of an object and get the Spelke-aligned segment
           </p>
           <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
             <source src="./static/videos/dollyzoom-stacked.mp4"
@@ -289,16 +288,13 @@
           </video>
         </div>
       </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
+      <!-- Object Discovery -->
       <div class="column">
-        <h2 class="title is-3">Matting</h2>
+        <h2 class="title is-3">Object Discovery</h2>
         <div class="columns is-centered">
           <div class="column content">
             <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+              Zero-shot detection of every Spelke-aligned objects within your scene
             </p>
             <video id="matting-video" controls playsinline height="100%">
               <source src="./static/videos/matting.mp4"
@@ -317,12 +313,10 @@
         <h2 class="title is-3">Animation</h2>
 
         <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
+        <h3 class="title is-4">Object Manipulation</h3>
         <div class="content has-text-justified">
           <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
+            Spelke-aligned segments for more reliable 3D editing as a downstream application
           </p>
         </div>
         <div class="columns is-vcentered interpolation-panel">
