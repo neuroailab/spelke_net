@@ -274,12 +274,23 @@
     <!-- Benchmarking Spelke Segments -->
     <div class="content has-text-centered">
       <h2 class="title is-3">Benchmarking Spelke Segments</h2>
-      <p>
-        Prompt any part of an object and get the Spelke-aligned segment
-      </p>
-      <video id="dollyzoom" autoplay controls muted loop playsinline width="100%">
-        <source src="./static/videos/dollyzoom-stacked.mp4" type="video/mp4">
-      </video>
+
+      <!-- Image with caption -->
+      <figure class="image is-inline-block">
+        <img src="./static/images/benchmark_comparison.png"
+             class="interpolation-image"
+             alt="Comparison between datasets on single example." />
+        <figcaption class="is-size-6 has-text-grey mt-2">
+          Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark
+        </figcaption>
+      </figure>
+
+      <!-- Main body paragraph -->
+      <div class="content has-text-justified mt-5">
+        <p>
+          No existing dataset tests a model’s ability to segment objects based on physical co-movement—a core requirement for tasks like manipulation and planning. SpelkeBench fills this gap by evaluating whether models can discover “Spelke objects”: regions that move together when force is applied, regardless of category or appearance. As seen in the example above, existing methods often segment subparts of objects or include immovable, amorphous background regions—like camera lenses or the wall behind—that do not reflect real-world interaction. We construct <strong>SpelkeBench</strong> by curating 550 images from two sources: (1) <strong>EntitySeg</strong>, where we filter raw annotations to exclude amorphous backgrounds and static fixtures, then hand-annotate centroids; and (2) <strong>OpenX</strong>,, where we refine SAM-generated masks with a few manually placed points, then annotate “poke” points.
+        </p>
+      </div>
     </div>
 
     <!-- Object Discovery -->
