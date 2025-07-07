@@ -363,15 +363,16 @@
   <div style="margin-top: 2rem;">
     <h3 class="title is-4">Using Spelke Segments for Physically Plausible Object Manipulation</h3>
     <p>
-      placeholder
+      While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
     </p>
-    <figure class="image is-4by3" style="margin-top: 1rem;">
-      <img src="./static/images/placeholder.png" alt="placeholder">
-      <figcaption>placeholder.</figcaption>
-    </figure>
+    <div style="margin-top: 1rem;">
+      <video controls autoplay muted loop playsinline width="100%">
+        <source src="./static/videos/usingsegments.mov" type="video/mp4">
+      </video>
+      <p class="has-text-centered" style="margin-top: 0.5rem;">Comparison of SpelkeNet and SAM for Object Manipulation.</p>
+    </div>
   </div>
 </div>
-
 
 <!-- SECTION: Emergent Properties -->
 <div class="content has-text-centered" style="margin-top: 3rem;">
