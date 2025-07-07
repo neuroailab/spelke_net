@@ -382,7 +382,6 @@
   </p>
 </div>
 
-<!-- Subsections container: left-aligned and narrower width -->
 <div class="content" style="text-align: left; max-width: 900px; margin: 0 auto;">
 
   <!-- Subsection 1: Material Property Understanding -->
@@ -391,9 +390,9 @@
     <p>
       The model learns material properties, distinguishing rigid objects which move uniformly versus deformable materials which exhibit varied motion patterns dependent on the virtual poke point.
     </p>
-    <figure class="image is-4by3" style="margin-top: 1rem;">
-      <img src="./static/images/materials.png" alt="Material Understanding">
-      <figcaption>Motion Probability map differences for rigid vs deformable objects</figcaption>
+    <figure style="margin-top: 1rem; text-align: center;">
+      <img src="./static/images/materials.png" alt="Material Understanding" style="height: 300px; object-fit: contain; max-width: 100%;">
+      <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Motion Probability map differences for rigid vs deformable objects</figcaption>
     </figure>
   </div>
 
@@ -403,9 +402,9 @@
     <p>
       The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
     </p>
-    <figure class="image is-4by3" style="margin-top: 1rem;">
-      <img src="./static/images/supportrelationships.png" alt="Support Relationships">
-      <figcaption>Displaying support relationship understanding through stacked object segments</figcaption>
+    <figure style="margin-top: 1rem; text-align: center;">
+      <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 300px; object-fit: contain; max-width: 100%;">
+      <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Displaying support relationship understanding through stacked object segments</figcaption>
     </figure>
   </div>
 </div>
