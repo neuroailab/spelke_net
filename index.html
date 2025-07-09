@@ -172,9 +172,9 @@
         <source src="./static/videos/teaser.mov"
                 type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
+      <!-- <h2 class="subtitle has-text-centered">
         <span class="dnerf">Spelke Segments</span> : Segmenting Objects by Physical Cohesion and Motion Consistency.
-      </h2>
+      </h2> -->
     </div>
   </div>
 </section>
@@ -188,7 +188,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Segments in computer vision are often defined by semantic considerations, and are highly dependent on category-specific conventions. In contrast, developmental psychology suggests that humans perceive the world in terms of Spelke objects--groupings of stuff that reliably move together when acted on by physical forces. Spelke objects thus operate on category-agnostic causal motion relationships---which could potentially better support tasks like manipulation and planning. Here, we first benchmark the Spelke object concept---introducing the <strong>SpelkeBench</strong> dataset which contains a wide variety of well-defined Spelke segments in natural images. Next, to extract Spelke segments from images algorithmically, we build  <strong>SpelkeNet</strong>, a class of visual world models trained to predict distributions over future motions.  \lrasseg supports estimation of two key concepts for Spelke-object discovery: (1) the motion affordance map, identifying regions likely to move under a poke, and (2) the expected-displacement map, capturing how the rest of the scene will move. These concepts are used for "statistical counterfactual probing"---representing diverse "virtual pokes" on regions of high motion-affordance, with the resultant expected displacement maps to define Spelke segments as statistical aggregates of correlated motion statistics. We find that <strong>SpelkeNet</strong> outperforms supervised baselines like SegmentAnything (SAM) on <strong>SpelkeBench</strong>. Finally, we show that the Spelke concept is practically useful for downstream applications, yielding superior performance on the 3DEditBench benchmark for physical object manipulation when used in a variety of off-the-shelf object manipulation models. 
+            Segments in computer vision are often defined by semantic considerations, and are highly dependent on category-specific conventions. In contrast, developmental psychology suggests that humans perceive the world in terms of Spelke objects--groupings of stuff that reliably move together when acted on by physical forces. Spelke objects thus operate on category-agnostic causal motion relationships---which could potentially better support tasks like manipulation and planning. Here, we first benchmark the Spelke object concept---introducing the <strong>SpelkeBench</strong> dataset which contains a wide variety of well-defined Spelke segments in natural images. Next, to extract Spelke segments from images algorithmically, we build  <strong>SpelkeNet</strong>, a class of visual world models trained to predict distributions over future motions. <strong>SpelkeNet</strong> supports estimation of two key concepts for Spelke-object discovery: (1) the motion affordance map, identifying regions likely to move under a poke, and (2) the expected-displacement map, capturing how the rest of the scene will move. These concepts are used for "statistical counterfactual probing"---representing diverse "virtual pokes" on regions of high motion-affordance, with the resultant expected displacement maps to define Spelke segments as statistical aggregates of correlated motion statistics. We find that <strong>SpelkeNet</strong> outperforms supervised baselines like SegmentAnything (SAM) on <strong>SpelkeBench</strong>. Finally, we show that the Spelke concept is practically useful for downstream applications, yielding superior performance on the 3DEditBench benchmark for physical object manipulation when used in a variety of off-the-shelf object manipulation models. 
           </p>
         </div>
       </div>
@@ -206,7 +206,7 @@
       <figure class="image is-inline-block">
         <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
-             alt="Comparison between datasets on single example." />
+             alt="Comparison between datasets." />
         <figcaption class="is-size-6 has-text-grey mt-2">
           Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark
         </figcaption>
@@ -244,19 +244,19 @@
     </p>
   
     <!-- Carousel Container -->
-    <div style="margin-top: 1rem; position: relative; max-width: 600px; margin-left: auto; margin-right: auto;">
+    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
       
       <!-- Carousel Images Container -->
       <div id="affordance-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
         <div id="carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <img src="./static/images/affordancemap/1.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/2.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/3.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/4.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/5.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/6.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/7.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/8.png" style="width: 33.333%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/7.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/affordancemap/8.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
         </div>
       </div>
       
