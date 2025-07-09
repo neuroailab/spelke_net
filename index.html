@@ -215,7 +215,7 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5">
         <p>
-          No existing dataset tests a model’s ability to segment objects based on physical co-movement—a core requirement for tasks like manipulation and planning. SpelkeBench fills this gap by evaluating whether models can discover “Spelke objects”: regions that move together when force is applied, regardless of category or appearance. As seen in the example above, existing methods often segment subparts of objects or include immovable, amorphous background regions—like only the camera lens or the wall behind—that do not reflect real-world interaction. We construct <strong>SpelkeBench</strong> by curating 550 images from two sources: (1) <strong>EntitySeg</strong>, where we filter raw annotations to exclude amorphous backgrounds and static fixtures, then hand-annotate centroids; and (2) <strong>OpenX</strong>, where we refine SAM-generated masks with a few manually placed points, then annotate “poke” points.
+          No existing dataset tests a model's ability to segment objects based on physical co-movement—a core requirement for tasks like manipulation and planning. SpelkeBench fills this gap by evaluating whether models can discover "Spelke objects": regions that move together when force is applied, regardless of category or appearance. As seen in the example above, existing methods often segment subparts of objects or include immovable, amorphous background regions—like only the camera lens or the wall behind—that do not reflect real-world interaction. We construct <strong>SpelkeBench</strong> by curating 550 images from two sources: (1) <strong>EntitySeg</strong>, where we filter raw annotations to exclude amorphous backgrounds and static fixtures, then hand-annotate centroids; and (2) <strong>OpenX</strong>, where we refine SAM-generated masks with a few manually placed points, then annotate "poke" points.
         </p>
       </div>
     </div>
@@ -335,13 +335,81 @@
     <p>
       Once we identify movable regions, we can simulate interactions. The expected displacement map 𝔼<sub>disp</sub> shows how the entire scene responds to a virtual poke at location <em>i<sub>k</sub></em>. By conditioning LRAS on this poke and computing the probability-weighted average of predicted flows, we obtain a vector field revealing how motion propagates.
     </p>
-    <figure class="image" style="margin-top: 1rem;">
-      <img src="./static/images/expecteddisplacement_example1.png" 
-           alt="expected displacement example vis" 
-           style="height: 300px; width: auto;">
-      <figcaption>Expected displacement within scene given a virtual poke point.</figcaption>
-    </figure>    
+    
+    <!-- Expected Displacement Carousel Container -->
+    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+      
+      <!-- Carousel Images Container -->
+      <div id="displacement-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+        <div id="displacement-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
+          <img src="./static/images/expecteddisplacement/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/expecteddisplacement/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/expecteddisplacement/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/expecteddisplacement/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/expecteddisplacement/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/expecteddisplacement/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+        </div>
+      </div>
+      
+      <!-- Navigation Buttons -->
+      <button id="displacement-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+      <button id="displacement-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+      
+      <!-- Image Counter -->
+      <div id="displacement-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 6</div>
+    </div>
+    
+    <!-- Caption -->
+    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
+      Expected displacement within scene given a virtual poke point
+    </p>
   </div>
+  
+  <script>
+  (function() {
+    let displacementCurrentIndex = 0;
+    const displacementTotalImages = 6;
+    const displacementImagesPerView = 3;
+    const displacementMaxIndex = displacementTotalImages - displacementImagesPerView; // 3 (positions 0-3)
+    const displacementCarouselImages = document.getElementById('displacement-carousel-images');
+    const displacementImageCounter = document.getElementById('displacement-image-counter');
+    const displacementPrevBtn = document.getElementById('displacement-prev-btn');
+    const displacementNextBtn = document.getElementById('displacement-next-btn');
+    
+    function updateDisplacementCarousel() {
+      const translateX = -displacementCurrentIndex * (100 / displacementImagesPerView); // Move by 33.333%
+      displacementCarouselImages.style.transform = `translateX(${translateX}%)`;
+      
+      const startImage = displacementCurrentIndex + 1;
+      const endImage = Math.min(displacementCurrentIndex + displacementImagesPerView, displacementTotalImages);
+      displacementImageCounter.textContent = `${startImage}-${endImage} / ${displacementTotalImages}`;
+    }
+    
+    function nextDisplacementImage() {
+      if (displacementCurrentIndex < displacementMaxIndex) {
+        displacementCurrentIndex++;
+      } else {
+        displacementCurrentIndex = 0; // Loop back to start
+      }
+      updateDisplacementCarousel();
+    }
+    
+    function prevDisplacementImage() {
+      if (displacementCurrentIndex > 0) {
+        displacementCurrentIndex--;
+      } else {
+        displacementCurrentIndex = displacementMaxIndex; // Loop to end
+      }
+      updateDisplacementCarousel();
+    }
+    
+    displacementNextBtn.addEventListener('click', nextDisplacementImage);
+    displacementPrevBtn.addEventListener('click', prevDisplacementImage);
+    
+    // Initialize
+    updateDisplacementCarousel();
+  })();
+  </script>
 
 
   <!-- Subsection 4: Spelke Object Discovery Algorithm -->
@@ -363,13 +431,77 @@
     <p>
       While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
     </p>
-    <div style="margin-top: 1rem;">
-      <video controls autoplay muted loop playsinline width="100%">
-        <source src="./static/videos/usingsegments.mov" type="video/mp4">
-      </video>
-      <p class="has-text-centered" style="margin-top: 0.5rem;">Comparison of SpelkeNet and SAM for Object Manipulation.</p>
+    
+    <!-- Object Manipulation Carousel Container -->
+    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+      
+      <!-- Carousel Images Container -->
+      <div id="manipulation-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+        <div id="manipulation-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
+          <img src="./static/images/objectmanipulation/1.png" style="width: 100%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/objectmanipulation/2.png" style="width: 100%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/objectmanipulation/3.png" style="width: 100%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+        </div>
+      </div>
+      
+      <!-- Navigation Buttons -->
+      <button id="manipulation-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+      <button id="manipulation-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+      
+      <!-- Image Counter -->
+      <div id="manipulation-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
     </div>
+    
+    <!-- Caption -->
+    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
+      Comparison of SpelkeNet and SAM for Object Manipulation
+    </p>
   </div>
+  
+  <script>
+  (function() {
+    let manipulationCurrentIndex = 0;
+    const manipulationTotalImages = 3;
+    const manipulationImagesPerView = 1;
+    const manipulationMaxIndex = manipulationTotalImages - manipulationImagesPerView; // 2 (positions 0-2)
+    const manipulationCarouselImages = document.getElementById('manipulation-carousel-images');
+    const manipulationImageCounter = document.getElementById('manipulation-image-counter');
+    const manipulationPrevBtn = document.getElementById('manipulation-prev-btn');
+    const manipulationNextBtn = document.getElementById('manipulation-next-btn');
+    
+    function updateManipulationCarousel() {
+      const translateX = -manipulationCurrentIndex * (100 / manipulationImagesPerView); // Move by 100%
+      manipulationCarouselImages.style.transform = `translateX(${translateX}%)`;
+      
+      const currentImage = manipulationCurrentIndex + 1;
+      manipulationImageCounter.textContent = `${currentImage} / ${manipulationTotalImages}`;
+    }
+    
+    function nextManipulationImage() {
+      if (manipulationCurrentIndex < manipulationMaxIndex) {
+        manipulationCurrentIndex++;
+      } else {
+        manipulationCurrentIndex = 0; // Loop back to start
+      }
+      updateManipulationCarousel();
+    }
+    
+    function prevManipulationImage() {
+      if (manipulationCurrentIndex > 0) {
+        manipulationCurrentIndex--;
+      } else {
+        manipulationCurrentIndex = manipulationMaxIndex; // Loop to end
+      }
+      updateManipulationCarousel();
+    }
+    
+    manipulationNextBtn.addEventListener('click', nextManipulationImage);
+    manipulationPrevBtn.addEventListener('click', prevManipulationImage);
+    
+    // Initialize
+    updateManipulationCarousel();
+  })();
+  </script>
 </div>
 
 <!-- SECTION: Emergent Properties -->
