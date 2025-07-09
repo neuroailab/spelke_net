@@ -429,7 +429,7 @@
   <div style="margin-top: 2rem;">
     <h3 class="title is-4">Using Spelke Segments for Physically Plausible Object Manipulation</h3>
     <p>
-      While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
+      While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
     </p>
     
     <!-- Object Manipulation Carousel Container -->
@@ -521,7 +521,7 @@
       The model learns material properties, distinguishing rigid objects which move uniformly versus deformable materials which exhibit varied motion patterns dependent on the virtual poke point.
     </p>
     <figure style="margin-top: 1rem; text-align: center;">
-      <img src="./static/images/material.png" alt="Material Understanding" style="height: 600px; object-fit: contain; max-width: 100%;">
+      <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
       <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Motion Probability map differences for rigid vs deformable objects</figcaption>
     </figure>
   </div>
@@ -533,7 +533,7 @@
       The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
     </p>
     <figure style="margin-top: 1rem; text-align: center;">
-      <img src="./static/images/supportrelationship.png" alt="Support Relationships" style="height: 600px; object-fit: contain; max-width: 100%;">
+      <img src="./static/images/supportrelationship.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
       <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Displaying support relationship understanding through stacked object segments</figcaption>
     </figure>
   </div>
