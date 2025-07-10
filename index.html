@@ -169,7 +169,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mov"
+        <source src="./static/videos/teaser_final.mov"
                 type="video/mp4">
       </video>
       <!-- <h2 class="subtitle has-text-centered">
@@ -234,6 +234,14 @@
     <p>
       LRAS is a transformer-based model that treats visual understanding as a sequence prediction problem. Like language models predict next words, LRAS predicts image patches and their motion. The key innovation is its vocabulary design: each content token (RGB or flow) pairs with a pointer token specifying its location, enabling queries in any spatial order. Given a sequence <em>z</em> = <em>x</em> ⊕ [<em>c</em>] ⊕ <em>f</em> (RGB tokens, camera pose, flow tokens), LRAS outputs distributions Ψ(<em>z</em>) = {𝒟[<em>i<sub>k</sub></em>]} for all spatial locations. This flexibility allows us to probe scenes with "virtual pokes" by simply appending flow tokens at specific locations.
     </p>
+    <figure class="image is-inline-block">
+      <img src="./static/images/lras_architecture.png"
+           class="interpolation-image"
+           alt="LRAS Architecture" />
+      <figcaption class="is-size-6 has-text-grey mt-2">
+        LRAS Architecture
+      </figcaption>
+    </figure>
   </div>
 
   <!-- Subsection 2: Motion Affordance Maps -->
@@ -438,9 +446,9 @@
       <!-- Carousel Images Container -->
       <div id="manipulation-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
         <div id="manipulation-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <img src="./static/images/objmanipulation/1.png" style="width: 100%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/objmanipulation/2.png" style="width: 100%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/objmanipulation/3.png" style="width: 100%; height: 400px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/objmanipulation/1.png" style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/objmanipulation/2.png" style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          <img src="./static/images/objmanipulation/3.png" style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
         </div>
       </div>
       
@@ -533,7 +541,7 @@
       The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
     </p>
     <figure style="margin-top: 1rem; text-align: center;">
-      <img src="./static/images/supportrelationship.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
+      <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
       <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Displaying support relationship understanding through stacked object segments</figcaption>
     </figure>
   </div>
