@@ -90,30 +90,42 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Discovering and using Spelke Segments</h1>
           <div class="is-size-5 publication-authors">
+            <!-- Equal contribution authors -->
             <span class="author-block">
-              <a href="https://keunhong.com">Rahul Venkatesh</a><sup>1</sup>,</span>
+              <a href="#">Rahul Venkatesh</a><sup>*1</sup>,</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Klemen Kotar</a><sup>2</sup>,</span>
+              <a href="#">Klemen Kotar</a><sup>*1</sup>,</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Authorr</a><sup>2</sup>,
-            </span>
+              <a href="#">Lilian Naing Chen</a><sup>*1</sup>,</span>
+            <br>
+            <!-- Second row of authors -->
             <span class="author-block">
-              <a href="http://sofienbouaziz.com">Author</a><sup>2</sup>,
-            </span>
+              <a href="#">Seoungwoo Kim</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://www.danbgoldman.com">Author</a><sup>2</sup>,
-            </span>
+              <a href="#">Luca Thomas Wheeler</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Author</a><sup>1,2</sup>,
-            </span>
+              <a href="#">Jared Watrous</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Author</a><sup>2</sup>
-            </span>
+              <a href="#">Honglin Chen</a><sup>4</sup>,</span>
+            <br>
+            <!-- Third row of authors -->
+            <span class="author-block">
+              <a href="#">Daniel Bear</a><sup>5</sup>,</span>
+            <span class="author-block">
+              <a href="#">Stefan Stojanov</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="#">Daniel Yamins</a><sup>1,2,3</sup></span>
           </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Stanford University,</span>
-            <span class="author-block"><sup>2</sup>OpenAI</span>
+          <div class="is-size-5 publication-authors" style="margin-top: 0.5em;">
+            <span class="author-block"><sup>1</sup>Department of Computer Science, <sup>2</sup>Department of Psychology,</span><br>
+            <span class="author-block"><sup>3</sup>Wu Tsai Neurosciences Institute, Stanford University</span><br>
+            <span class="author-block"><sup>4</sup>OpenAI,</span>
+            <span class="author-block"><sup>5</sup>Noetik Inc.</span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.5em;">
+            <span class="author-block">*Equal contribution. Author order randomly decided.</span>
           </div>
 
           <div class="column has-text-centered">
@@ -169,7 +181,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser_final.mov"
+        <source src="./static/videos/teaser.mov"
                 type="video/mp4">
       </video>
       <!-- <h2 class="subtitle has-text-centered">
@@ -430,6 +442,47 @@
         <source src="./static/videos/objdiscoveryalgo.mov" type="video/mp4">
       </video>
       <p class="has-text-centered" style="margin-top: 0.5rem;"></p>
+    </div>
+    
+    <!-- Quantitative Results Table -->
+    <div style="margin-top: 2rem;">
+      <h4 class="title is-5" style="text-align: center;">Quantitative Evaluation</h4>
+      <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
+        <caption style="margin-bottom: 1rem; font-style: italic; color: #666;">
+          <strong>Quantitative evaluation of point-prompted segmentation accuracy across models.</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+        </caption>
+        <thead>
+          <tr style="border-bottom: 2px solid #000;">
+            <th style="padding: 8px 12px;"></th>
+            <th style="padding: 8px 12px;">SAM</th>
+            <th style="padding: 8px 12px;">DINOv1-B/8</th>
+            <th style="padding: 8px 12px;">DINOv2-L/14</th>
+            <th style="padding: 8px 12px;">DINOv2-G/14</th>
+            <th style="padding: 8px 12px;">CWM</th>
+            <th style="padding: 8px 12px;">LRAS-Seg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px 12px; text-align: left;">AR</td>
+            <td style="padding: 8px 12px;">0.4816</td>
+            <td style="padding: 8px 12px;">0.2708</td>
+            <td style="padding: 8px 12px;">0.2524</td>
+            <td style="padding: 8px 12px;">0.2254</td>
+            <td style="padding: 8px 12px;">0.3271</td>
+            <td style="padding: 8px 12px; font-weight: bold;">0.5411</td>
+          </tr>
+          <tr style="border-bottom: 2px solid #000;">
+            <td style="padding: 8px 12px; text-align: left;">mIoU</td>
+            <td style="padding: 8px 12px;">0.6225</td>
+            <td style="padding: 8px 12px;">0.4990</td>
+            <td style="padding: 8px 12px;">0.4931</td>
+            <td style="padding: 8px 12px;">0.4553</td>
+            <td style="padding: 8px 12px;">0.4807</td>
+            <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
