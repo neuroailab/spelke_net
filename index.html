@@ -42,28 +42,6 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-    </div>
-
-  </div>
-</nav>
-
-
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -167,11 +145,30 @@
 
 
 <section class="section">
+
+  <div class="container is-max-desktop">
+
+    <!-- Defining Spelke Objects -->
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: Physically Grounded Segmentation</h2>
+
+      <!-- Main body paragraph -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          Drawing from developmental psychology, we introduce Spelke Objects—a definition of objecthood inspired by how infants naturally parse the visual world. Infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
+          Existing datasets like COCO and ADE20K define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
+          Spelke segments thus offer a more natural alignment with physical manipulation tasks by identifying regions that respond coherently to forces. This grounding enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object rearrangement. By focusing on motion coherence rather than semantic categories, this approach provides robots with a more actionable understanding of their physical environment.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
   <div class="container is-max-desktop">
 
     <!-- Benchmarking Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: Measuring Physical Coherence in Segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: Benchmarking Spelke aligned segmentation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -185,7 +182,7 @@
         <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
              alt="Comparison between datasets." 
-             style="max-width: 400px; width: 100%;" />
+             style="max-width: 600px; width: 100%;" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
           <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark:</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls) highlighting the fundamental gap between current segmentation methods and physically coherent object boundaries.
         </figcaption>
