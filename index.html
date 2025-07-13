@@ -195,12 +195,6 @@
     <div class="content">
       <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeNet: operationalizing Spelke segmentation</h2>
 
-      <div class="content has-text-justified mt-5 is-size-6">
-        <p>
-          SpelkeNet combines transformer-based sequence modeling with virtual physics simulations to discover objects through their motion coherence. The system consists of three key components that work together to identify Spelke segments from static images.
-        </p>
-      </div>
-
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS)</h3>
@@ -484,9 +478,6 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Quantitative Evaluation</h3>
         <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
-          <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
-            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
-          </caption>
           <thead>
             <tr style="border-bottom: 2px solid #000;">
               <th style="padding: 8px 12px;"></th>
@@ -518,6 +509,10 @@
               <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
             </tr>
           </tbody>
+          <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
+            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+          </caption>
+          <thead>
         </table>
       </div>
     </div>
