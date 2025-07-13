@@ -63,17 +63,8 @@
           More Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
+          <a class="navbar-item" href="https://arxiv.org/abs/2504.03875">
+            LRAS
           </a>
         </div>
       </div>
@@ -88,7 +79,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Discovering and using Spelke Segments</h1>
+          <h1 class="title is-1 publication-title">Discovering and Using Spelke Segments</h1>
 
           <!-- Smaller font size applied here -->
           <div style="font-size: 0.85rem;">
@@ -187,43 +178,30 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Segments in computer vision are often defined by semantic considerations, and are highly dependent on category-specific conventions. In contrast, developmental psychology suggests that humans perceive the world in terms of Spelke objects--groupings of stuff that reliably move together when acted on by physical forces. Spelke objects thus operate on category-agnostic causal motion relationships---which could potentially better support tasks like manipulation and planning. Here, we first benchmark the Spelke object concept---introducing the <strong>SpelkeBench</strong> dataset which contains a wide variety of well-defined Spelke segments in natural images. Next, to extract Spelke segments from images algorithmically, we build  <strong>SpelkeNet</strong>, a class of visual world models trained to predict distributions over future motions. <strong>SpelkeNet</strong> supports estimation of two key concepts for Spelke-object discovery: (1) the motion affordance map, identifying regions likely to move under a poke, and (2) the expected-displacement map, capturing how the rest of the scene will move. These concepts are used for "statistical counterfactual probing"---representing diverse "virtual pokes" on regions of high motion-affordance, with the resultant expected displacement maps to define Spelke segments as statistical aggregates of correlated motion statistics. We find that <strong>SpelkeNet</strong> outperforms supervised baselines like SegmentAnything (SAM) on <strong>SpelkeBench</strong>. Finally, we show that the Spelke concept is practically useful for downstream applications, yielding superior performance on the 3DEditBench benchmark for physical object manipulation when used in a variety of off-the-shelf object manipulation models. 
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
 
     <!-- Benchmarking Spelke Segments -->
-    <div class="content has-text-centered">
-      <h2 class="title is-3">Benchmarking Spelke Segments</h2>
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: Measuring Physical Coherence in Segmentation</h2>
+
+      <!-- Main body paragraph -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          To systematically evaluate segmentation algorithms against Spelke principles, we introduce SpelkeBench—a hand-annotated 500-image dataset that measures how well model outputs align with physically coherent object boundaries rather than semantic categories.
+        </p>
+      </div>
 
       <!-- Image with caption -->
-      <figure class="image is-inline-block">
+      <figure class="image is-inline-block has-text-centered">
         <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
              alt="Comparison between datasets." />
-        <figcaption class="is-size-6 has-text-grey mt-2">
-          Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+          Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark: Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls) highlighting the fundamental gap between current segmentation methods and physically coherent object boundaries.
         </figcaption>
       </figure>
-
-      <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-5">
-        <p>
-          No existing dataset tests a model's ability to segment objects based on physical co-movement—a core requirement for tasks like manipulation and planning. SpelkeBench fills this gap by evaluating whether models can discover "Spelke objects": regions that move together when force is applied, regardless of category or appearance. As seen in the example above, existing methods often segment subparts of objects or include immovable, amorphous background regions—like only the camera lens or the wall behind—that do not reflect real-world interaction. We construct <strong>SpelkeBench</strong> by curating 550 images from two sources: (1) <strong>EntitySeg</strong>, where we filter raw annotations to exclude amorphous backgrounds and static fixtures, then hand-annotate centroids; and (2) <strong>OpenX</strong>, where we refine SAM-generated masks with a few manually placed points, then annotate "poke" points.
-        </p>
-      </div>
     </div>
+  </div>
+
 
 <!-- Operationalizing Spelke Segmentation -->
 <div class="content has-text-centered" style="margin-top: 3rem;">
@@ -551,7 +529,7 @@
 
   <!-- Subsection 5: Using Spelke Segments for Physically Plausible Object Manipulation -->
   <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Using Spelke Segments for Physically Plausible Object Manipulation</h3>
+    <h3 class="title is-4">Using Spelke segments for Physically Plausible Object Manipulation</h3>
     <p>
       While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
     </p>
