@@ -151,15 +151,15 @@
 
     <!-- Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: Physically Grounded Segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: defining segmentation based on motion coherence</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Drawing from developmental psychology, we introduce Spelke Objects—a definition of objecthood inspired by how infants naturally parse the visual world. Infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
+          Drawing from developmental psychology, we introduce the notion of Spelke Objects—a definition of objecthood inspired by how infants naturally parse the visual world. Infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
         </p>
         <p>
-          Existing datasets like COCO and ADE20K define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
+          Existing segmentation datasets like COCO and ADE20K define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
         </p>
         </p>
           Spelke segments thus offer a more natural alignment with physical manipulation tasks by identifying regions that respond coherently to forces. This grounding enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object rearrangement. By focusing on motion coherence rather than semantic categories, this approach provides robots with a more actionable understanding of their physical environment.
@@ -170,12 +170,14 @@
 
     <!-- Benchmarking Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: Benchmarking Spelke aligned segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: benchmarking spelke aligned segmentation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           To systematically evaluate segmentation algorithms against Spelke principles, we introduce SpelkeBench—a hand-annotated 500-image dataset that measures how well model outputs align with physically coherent object boundaries rather than semantic categories.
+        </p>
+        <p> We curate the dataset from two complementary sources: EntitySeg, featuring high-resolution internet imagery with dense segmentation annotations, and OpenX-Embodiment, consisting of real-world egocentric robot interactions. This contrast enables evaluation across both curated image domains and physically grounded robotics environments.
         </p>
       </div>
 
@@ -183,8 +185,7 @@
       <figure class="image is-inline-block has-text-centered">
         <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
-             alt="Comparison between datasets." 
-             style="max-width: 600px; width: 100%;" />
+             alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
           <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark:</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls) highlighting the fundamental gap between current segmentation methods and physically coherent object boundaries.
         </figcaption>
