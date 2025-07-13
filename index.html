@@ -509,11 +509,11 @@
               <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
             </tr>
           </tbody>
-          <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
-            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
-          </caption>
           <thead>
         </table>
+        <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
+          <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+        </caption>
       </div>
     </div>
 
@@ -523,7 +523,9 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
+          Segmentation plays a crucial role in object-centric scene editing, where users click on objects and provide edit prompts for 2D or 3D transformations. 
+          The segmentation model generates edit masks from these point selections, making mask quality critical for realistic results. For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
+          As such, Spelke segments prove particularly valuable for this application, yielding more realistic scene edits as we demonstrate in our experiments with SpelkeNet.
         </p>
       </div>
       
@@ -532,7 +534,7 @@
              class="interpolation-image"
              alt="Object manipulation schematic." />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Object Manipulation Pipeline:</strong> From single-click segmentation to physically plausible 3D object editing
+          <strong>Object Manipulation Pipeline:</strong> From single-click segmentation prompts to physically plausible 3D object editing
         </figcaption>
       </figure>
       
@@ -564,7 +566,7 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Comparison of SpelkeNet and SAM for Object Manipulation:</strong> SpelkeNet segments enable more coherent object editing by respecting physical boundaries
+        <strong>Comparison of SpelkeNet and SAM for Object Manipulation:</strong> SpelkeNet segments enable more coherent and physically plausible object editing by respecting physical boundaries as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
       </figcaption>
       
       <script>
@@ -619,7 +621,7 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Beyond discovering object boundaries, SpelkeNet exhibits several emergent properties that demonstrate a deeper understanding of physical scene structure. These capabilities arise naturally from the motion-based training objective without explicit supervision.
+          Beyond discovering object boundaries, SpelkeNet exhibits emergent properties that demonstrate a deeper understanding of physical scene structure. These capabilities arise naturally from the motion-based training objective without explicit supervision.
         </p>
       </div>
 
@@ -630,33 +632,31 @@
           The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type based on the uniformity of the probability of motion across the object in response to the virtual poke point.
         </p>
         
+        <figure class="image is-inline-block has-text-centered">
+          <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
+          <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+            Rigid objects like laptops and cardboard boxes tend to exhibit a
+          uniform probability across the segment, while deformable objects such as cloth and plastic covers
+          often show more localized motion responses near the poke point.
+          </figcaption>
+        </figure>
       </div>
-      
-      <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          Rigid objects like laptops and cardboard boxes tend to exhibit a
-        uniform probability across the segment, while deformable objects such as cloth and plastic covers
-        often show more localized motion responses near the poke point.
-        </figcaption>
-      </figure>
 
       <!-- Subsection 2: Understanding Support Relationships -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          <strong>Understanding Support Relationships:</strong> As LRAS develops an implicit understanding of "what moves together" through training on large-scale internet videos, it naturally 
+          <strong>Understanding Support Relationships:</strong> As our model develops an implicit understanding of "what moves together" through this motion-based training objective, it naturally 
           reveals support relationships. Specifically, when virtually poking stacked objects, the model extends the captured segment to its supported objects which would, as would align with our intuition of the true physical movement, move along with it. 
         </p>
-      </div>
       
-      <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports.
-        </figcaption>
-      </figure>
+        <figure class="image is-inline-block has-text-centered">
+          <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
+          <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+            When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports.
+          </figcaption>
+        </figure>
+      </div>
     </div>
-
   </div>
 </section>
 
@@ -675,7 +675,6 @@
 }</code></pre>
   </div>
 </section>
-
 
 
 <footer class="footer">
