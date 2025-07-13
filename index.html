@@ -625,31 +625,34 @@
 
       <!-- Subsection 1: Material Property Understanding -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Material Property Understanding</h3>
         <p>
-          The model learns material properties, distinguishing rigid objects which move uniformly versus deformable materials which exhibit varied motion patterns dependent on the virtual poke point.
+          <strong>Material Property Understanding:</strong> 
+          The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type based on the uniformity of the probability of motion across the object in response to the virtual poke point.
         </p>
+        
       </div>
       
       <figure class="image is-inline-block has-text-centered">
         <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Material Property Understanding:</strong> Motion probability maps reveal different responses for rigid versus deformable objects
+          Rigid objects like laptops and cardboard boxes tend to exhibit a
+        uniform probability across the segment, while deformable objects such as cloth and plastic covers
+        often show more localized motion responses near the poke point.
         </figcaption>
       </figure>
 
       <!-- Subsection 2: Understanding Support Relationships -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Understanding Support Relationships</h3>
         <p>
-          The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
+          <strong>Understanding Support Relationships:</strong> As LRAS develops an implicit understanding of "what moves together" through training on large-scale internet videos, it naturally 
+          reveals support relationships. Specifically, when virtually poking stacked objects, the model extends the captured segment to its supported objects which would, as would align with our intuition of the true physical movement, move along with it. 
         </p>
       </div>
       
       <figure class="image is-inline-block has-text-centered">
         <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Support Relationship Understanding:</strong> Different segmentation results based on poke location reveal understanding of object stacking
+          When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports.
         </figcaption>
       </figure>
     </div>
