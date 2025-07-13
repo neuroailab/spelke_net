@@ -137,8 +137,7 @@
                 type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        Overview of SpelkeNet’s capabilities.
-        <!-- <span class="dnerf">SpelkeNet</span> : -->
+        Overview of SpelkeNet's capabilities.
       </h2>
     </div>
   </div>
@@ -149,7 +148,7 @@
 
   <div class="container is-max-desktop">
 
-    <!-- Defining Spelke Objects -->
+    <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
       <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: defining segmentation based on motion coherence</h2>
 
@@ -168,9 +167,9 @@
 
     </div>
 
-    <!-- Benchmarking Spelke Segments -->
+    <!-- SEC 2: Benchmarking Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: benchmarking spelke aligned segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: benchmarking Spelke aligned segmentation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -191,473 +190,494 @@
         </figcaption>
       </figure>
     </div>
-  </div>
 
+    <!-- SEC 3: Operationalizing Spelke Segments -->
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeNet: operationalizing Spelke segmentation</h2>
 
-<!-- Operationalizing Spelke Segmentation -->
-<div class="content has-text-centered" style="margin-top: 3rem;">
-  <h2 class="title is-3">Operationalizing Spelke Segmentation</h2>
-</div>
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          SpelkeNet combines transformer-based sequence modeling with virtual physics simulations to discover objects through their motion coherence. The system consists of three key components that work together to identify Spelke segments from static images.
+        </p>
+      </div>
 
-<!-- Subsections container: left-aligned and narrower width -->
-<div class="content" style="text-align: left; max-width: 900px; margin: 0 auto;">
-
-  <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Local Random Access Sequence Modeling (LRAS)</h3>
-    <p>
-      LRAS is a transformer-based model that treats visual understanding as a sequence prediction problem. Like language models predict next words, LRAS predicts image patches and their motion. The key innovation is its vocabulary design: each content token (RGB or flow) pairs with a pointer token specifying its location, enabling queries in any spatial order. Given a sequence <em>z</em> = <em>x</em> ⊕ [<em>c</em>] ⊕ <em>f</em> (RGB tokens, camera pose, flow tokens), LRAS outputs distributions Ψ(<em>z</em>) = {𝒟[<em>i<sub>k</sub></em>]} for all spatial locations. This flexibility allows us to probe scenes with "virtual pokes" by simply appending flow tokens at specific locations.
-    </p>
-    <figure class="image is-inline-block">
-      <img src="./static/images/lras_architecture.png"
-           class="interpolation-image"
-           alt="LRAS Architecture" />
-      <figcaption class="is-size-6 has-text-grey mt-2">
-        LRAS Architecture
-      </figcaption>
-    </figure>
-  </div>
-
-  <!-- Subsection 2: Motion Affordance Maps -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Motion Affordance Maps</h3>
-    <p>
-      Before applying virtual forces, we need to know where objects can move. The probability of motion map <em>p</em><sub>motion</sub> identifies these movable regions by analyzing LRAS's predictions under zero camera motion. For each location, we sum the probabilities of flow tokens exceeding a motion threshold τ, creating a heatmap highlighting interactive elements like cups or tools while suppressing static backgrounds.
-    </p>
-  
-    <!-- Carousel Container -->
-    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
-      
-      <!-- Carousel Images Container -->
-      <div id="affordance-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-        <div id="carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <img src="./static/images/affordancemap/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/7.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/affordancemap/8.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-        </div>
+      <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS)</h3>
+        <p>
+          LRAS is a transformer-based model that treats visual understanding as a sequence prediction problem. Like language models predict next words, LRAS predicts image patches and their motion. The key innovation is its vocabulary design: each content token (RGB or flow) pairs with a pointer token specifying its location, enabling queries in any spatial order. Given a sequence <em>z</em> = <em>x</em> ⊕ [<em>c</em>] ⊕ <em>f</em> (RGB tokens, camera pose, flow tokens), LRAS outputs distributions Ψ(<em>z</em>) = {𝒟[<em>i<sub>k</sub></em>]} for all spatial locations. This flexibility allows us to probe scenes with "virtual pokes" by simply appending flow tokens at specific locations.
+        </p>
       </div>
       
-      <!-- Navigation Buttons -->
-      <button id="prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
-      <button id="next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
-      
-      <!-- Image Counter -->
-      <div id="image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 8</div>
-    </div>
-    
-    <!-- Caption -->
-    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
-      Input image and associated affordance map showing likely areas of motion
-    </p>
-  </div>
-  
-  <script>
-  (function() {
-    let currentIndex = 0;
-    const totalImages = 8;
-    const imagesPerView = 3;
-    const maxIndex = totalImages - imagesPerView; // 5 (positions 0-5)
-    const carouselImages = document.getElementById('carousel-images');
-    const imageCounter = document.getElementById('image-counter');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    
-    function updateCarousel() {
-      const translateX = -currentIndex * (100 / imagesPerView); // Move by 33.333%
-      carouselImages.style.transform = `translateX(${translateX}%)`;
-      
-      const startImage = currentIndex + 1;
-      const endImage = Math.min(currentIndex + imagesPerView, totalImages);
-      imageCounter.textContent = `${startImage}-${endImage} / ${totalImages}`;
-    }
-    
-    function nextImage() {
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-      } else {
-        currentIndex = 0; // Loop back to start
-      }
-      updateCarousel();
-    }
-    
-    function prevImage() {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = maxIndex; // Loop to end
-      }
-      updateCarousel();
-    }
-    
-    nextBtn.addEventListener('click', nextImage);
-    prevBtn.addEventListener('click', prevImage);
-    
-    // Optional: Auto-advance every 5 seconds
-    // setInterval(nextImage, 5000);
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft') prevImage();
-      if (e.key === 'ArrowRight') nextImage();
-    });
-    
-    // Initialize
-    updateCarousel();
-  })();
-  </script>
+      <figure class="image is-inline-block has-text-centered">
+        <img src="./static/images/lras_architecture.png"
+            class="interpolation-image"
+            alt="LRAS Architecture" />
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+          <strong>LRAS Architecture:</strong> Transformer-based model enabling flexible spatial querying through pointer-content token pairs
+        </figcaption>
+      </figure>
 
-  <!-- Subsection 3: Expected Displacement Maps -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Expected Displacement Maps</h3>
-    <p>
-      Once we identify movable regions, we can simulate interactions. The expected displacement map 𝔼<sub>disp</sub> shows how the entire scene responds to a virtual poke at location <em>i<sub>k</sub></em>. By conditioning LRAS on this poke and computing the probability-weighted average of predicted flows, we obtain a vector field revealing how motion propagates.
-    </p>
-    
-    <!-- Expected Displacement Carousel Container -->
-    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
-      
-      <!-- Carousel Images Container -->
-      <div id="displacement-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-        <div id="displacement-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <img src="./static/images/expecteddisplacement_/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/expecteddisplacement_/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/expecteddisplacement_/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/expecteddisplacement_/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/expecteddisplacement_/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-          <img src="./static/images/expecteddisplacement_/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-        </div>
+      <!-- Subsection 2: Motion Affordance Maps -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
+        <p>
+          Before applying virtual forces, we need to know where objects can move. The probability of motion map <em>p</em><sub>motion</sub> identifies these movable regions by analyzing LRAS's predictions under zero camera motion. For each location, we sum the probabilities of flow tokens exceeding a motion threshold τ, creating a heatmap highlighting interactive elements like cups or tools while suppressing static backgrounds.
+        </p>
       </div>
       
-      <!-- Navigation Buttons -->
-      <button id="displacement-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
-      <button id="displacement-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
-      
-      <!-- Image Counter -->
-      <div id="displacement-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 6</div>
-    </div>
-    
-    <!-- Caption -->
-    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
-      Expected displacement within scene given a virtual poke point
-    </p>
-  </div>
-  
-  <script>
-  (function() {
-    let displacementCurrentIndex = 0;
-    const displacementTotalImages = 6;
-    const displacementImagesPerView = 3;
-    const displacementMaxIndex = displacementTotalImages - displacementImagesPerView; // 3 (positions 0-3)
-    const displacementCarouselImages = document.getElementById('displacement-carousel-images');
-    const displacementImageCounter = document.getElementById('displacement-image-counter');
-    const displacementPrevBtn = document.getElementById('displacement-prev-btn');
-    const displacementNextBtn = document.getElementById('displacement-next-btn');
-    
-    function updateDisplacementCarousel() {
-      const translateX = -displacementCurrentIndex * (100 / displacementImagesPerView); // Move by 33.333%
-      displacementCarouselImages.style.transform = `translateX(${translateX}%)`;
-      
-      const startImage = displacementCurrentIndex + 1;
-      const endImage = Math.min(displacementCurrentIndex + displacementImagesPerView, displacementTotalImages);
-      displacementImageCounter.textContent = `${startImage}-${endImage} / ${displacementTotalImages}`;
-    }
-    
-    function nextDisplacementImage() {
-      if (displacementCurrentIndex < displacementMaxIndex) {
-        displacementCurrentIndex++;
-      } else {
-        displacementCurrentIndex = 0; // Loop back to start
-      }
-      updateDisplacementCarousel();
-    }
-    
-    function prevDisplacementImage() {
-      if (displacementCurrentIndex > 0) {
-        displacementCurrentIndex--;
-      } else {
-        displacementCurrentIndex = displacementMaxIndex; // Loop to end
-      }
-      updateDisplacementCarousel();
-    }
-    
-    displacementNextBtn.addEventListener('click', nextDisplacementImage);
-    displacementPrevBtn.addEventListener('click', prevDisplacementImage);
-    
-    // Initialize
-    updateDisplacementCarousel();
-  })();
-  </script>
-
-
-  <!-- Subsection 4: Spelke Object Discovery Algorithm -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Spelke Object Discovery Algorithm</h3>
-    <p>
-    </p>
-    
-    <!-- Object Discovery Carousel Container -->
-    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
-      
-      <!-- Carousel Videos Container -->
-      <div id="discovery-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-        <div id="discovery-carousel-videos" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objdiscovery/3.mov" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objdiscovery/2.mov" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objdiscovery/1.mov" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      
-      <!-- Navigation Buttons -->
-      <button id="discovery-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
-      <button id="discovery-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
-      
-      <!-- Image Counter -->
-      <div id="discovery-video-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
-    </div>
-    
-    <!-- Caption -->
-    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
-      Spelke object discovery process visualization
-    </p>
-    
-    <script>
-    (function() {
-      let discoveryCurrentIndex = 0;
-      const discoveryTotalVideos = 3;
-      const discoveryVideosPerView = 1;
-      const discoveryMaxIndex = discoveryTotalVideos - discoveryVideosPerView; // 2 (positions 0-2)
-      const discoveryCarouselVideos = document.getElementById('discovery-carousel-videos');
-      const discoveryVideoCounter = document.getElementById('discovery-video-counter');
-      const discoveryPrevBtn = document.getElementById('discovery-prev-btn');
-      const discoveryNextBtn = document.getElementById('discovery-next-btn');
-      
-      function updateDiscoveryCarousel() {
-        const translateX = -discoveryCurrentIndex * (100 / discoveryVideosPerView); // Move by 100%
-        discoveryCarouselVideos.style.transform = `translateX(${translateX}%)`;
+      <!-- Carousel Container -->
+      <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
         
-        const currentVideo = discoveryCurrentIndex + 1;
-        discoveryVideoCounter.textContent = `${currentVideo} / ${discoveryTotalVideos}`;
-      }
-      
-      function nextDiscoveryVideo() {
-        if (discoveryCurrentIndex < discoveryMaxIndex) {
-          discoveryCurrentIndex++;
-        } else {
-          discoveryCurrentIndex = 0; // Loop back to start
-        }
-        updateDiscoveryCarousel();
-      }
-      
-      function prevDiscoveryVideo() {
-        if (discoveryCurrentIndex > 0) {
-          discoveryCurrentIndex--;
-        } else {
-          discoveryCurrentIndex = discoveryMaxIndex; // Loop to end
-        }
-        updateDiscoveryCarousel();
-      }
-      
-      discoveryNextBtn.addEventListener('click', nextDiscoveryVideo);
-      discoveryPrevBtn.addEventListener('click', prevDiscoveryVideo);
-      
-      // Initialize
-      updateDiscoveryCarousel();
-    })();
-    </script>
-    
-    <!-- Quantitative Results Table -->
-    <div style="margin-top: 2rem;">
-      <h4 class="title is-5" style="text-align: center;">Quantitative Evaluation</h4>
-      <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
-        <caption style="margin-bottom: 1rem; font-style: italic; color: #666;">
-          <strong>Quantitative evaluation of point-prompted segmentation accuracy across models.</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
-        </caption>
-        <thead>
-          <tr style="border-bottom: 2px solid #000;">
-            <th style="padding: 8px 12px;"></th>
-            <th style="padding: 8px 12px;">SAM</th>
-            <th style="padding: 8px 12px;">DINOv1-B/8</th>
-            <th style="padding: 8px 12px;">DINOv2-L/14</th>
-            <th style="padding: 8px 12px;">DINOv2-G/14</th>
-            <th style="padding: 8px 12px;">CWM</th>
-            <th style="padding: 8px 12px;">LRAS-Seg</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid #ddd;">
-            <td style="padding: 8px 12px; text-align: left;">AR</td>
-            <td style="padding: 8px 12px;">0.4816</td>
-            <td style="padding: 8px 12px;">0.2708</td>
-            <td style="padding: 8px 12px;">0.2524</td>
-            <td style="padding: 8px 12px;">0.2254</td>
-            <td style="padding: 8px 12px;">0.3271</td>
-            <td style="padding: 8px 12px; font-weight: bold;">0.5411</td>
-          </tr>
-          <tr style="border-bottom: 2px solid #000;">
-            <td style="padding: 8px 12px; text-align: left;">mIoU</td>
-            <td style="padding: 8px 12px;">0.6225</td>
-            <td style="padding: 8px 12px;">0.4990</td>
-            <td style="padding: 8px 12px;">0.4931</td>
-            <td style="padding: 8px 12px;">0.4553</td>
-            <td style="padding: 8px 12px;">0.4807</td>
-            <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- Subsection 5: Using Spelke Segments for Physically Plausible Object Manipulation -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Using Spelke segments for Physically Plausible Object Manipulation</h3>
-    <p>
-      While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
-    </p>
-    <figure class="image is-inline-block">
-      <img src="./static/images/object_manip_schematic.png"
-           class="interpolation-image"
-           alt="Object manipulation schematic." />
-      <figcaption class="is-size-6 has-text-grey mt-2">
-        Object manipulation schematic
-      </figcaption>
-    </figure>
-    
-    <!-- Object Manipulation Carousel Container -->
-    <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
-      
-      <!-- Carousel Videos Container -->
-      <div id="manipulation-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-        <div id="manipulation-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-          <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objmanipulation/1_.mov" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objmanipulation/2_.mov" type="video/mp4">
-          </video>
-          <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <source src="./static/videos/objmanipulation/3_.mov" type="video/mp4">
-          </video>
+        <!-- Carousel Images Container -->
+        <div id="affordance-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+          <div id="carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
+            <img src="./static/images/affordancemap/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/7.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/affordancemap/8.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          </div>
         </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+        <button id="next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+        
+        <!-- Image Counter -->
+        <div id="image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 8</div>
       </div>
       
-      <!-- Navigation Buttons -->
-      <button id="manipulation-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
-      <button id="manipulation-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+      <!-- Caption -->
+      <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
+        <strong>Motion Affordance Maps:</strong> Input images paired with probability heatmaps showing regions likely to exhibit motion under applied forces
+      </figcaption>
       
-      <!-- Image Counter -->
-      <div id="manipulation-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
+      <script>
+      (function() {
+        let currentIndex = 0;
+        const totalImages = 8;
+        const imagesPerView = 3;
+        const maxIndex = totalImages - imagesPerView; // 5 (positions 0-5)
+        const carouselImages = document.getElementById('carousel-images');
+        const imageCounter = document.getElementById('image-counter');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        
+        function updateCarousel() {
+          const translateX = -currentIndex * (100 / imagesPerView); // Move by 33.333%
+          carouselImages.style.transform = `translateX(${translateX}%)`;
+          
+          const startImage = currentIndex + 1;
+          const endImage = Math.min(currentIndex + imagesPerView, totalImages);
+          imageCounter.textContent = `${startImage}-${endImage} / ${totalImages}`;
+        }
+        
+        function nextImage() {
+          if (currentIndex < maxIndex) {
+            currentIndex++;
+          } else {
+            currentIndex = 0; // Loop back to start
+          }
+          updateCarousel();
+        }
+        
+        function prevImage() {
+          if (currentIndex > 0) {
+            currentIndex--;
+          } else {
+            currentIndex = maxIndex; // Loop to end
+          }
+          updateCarousel();
+        }
+        
+        nextBtn.addEventListener('click', nextImage);
+        prevBtn.addEventListener('click', prevImage);
+        
+        // Optional: Auto-advance every 5 seconds
+        // setInterval(nextImage, 5000);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowLeft') prevImage();
+          if (e.key === 'ArrowRight') nextImage();
+        });
+        
+        // Initialize
+        updateCarousel();
+      })();
+      </script>
+
+      <!-- Subsection 3: Expected Displacement Maps -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
+        <p>
+          Once we identify movable regions, we can simulate interactions. The expected displacement map 𝔼<sub>disp</sub> shows how the entire scene responds to a virtual poke at location <em>i<sub>k</sub></em>. By conditioning LRAS on this poke and computing the probability-weighted average of predicted flows, we obtain a vector field revealing how motion propagates.
+        </p>
+      </div>
+      
+      <!-- Expected Displacement Carousel Container -->
+      <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+        
+        <!-- Carousel Images Container -->
+        <div id="displacement-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+          <div id="displacement-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
+            <img src="./static/images/expecteddisplacement_/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement_/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement_/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement_/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement_/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement_/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+          </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="displacement-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+        <button id="displacement-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+        
+        <!-- Image Counter -->
+        <div id="displacement-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 6</div>
+      </div>
+      
+      <!-- Caption -->
+      <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
+        <strong>Expected Displacement Maps:</strong> Vector fields showing predicted motion propagation throughout the scene from virtual poke points
+      </figcaption>
+      
+      <script>
+      (function() {
+        let displacementCurrentIndex = 0;
+        const displacementTotalImages = 6;
+        const displacementImagesPerView = 3;
+        const displacementMaxIndex = displacementTotalImages - displacementImagesPerView; // 3 (positions 0-3)
+        const displacementCarouselImages = document.getElementById('displacement-carousel-images');
+        const displacementImageCounter = document.getElementById('displacement-image-counter');
+        const displacementPrevBtn = document.getElementById('displacement-prev-btn');
+        const displacementNextBtn = document.getElementById('displacement-next-btn');
+        
+        function updateDisplacementCarousel() {
+          const translateX = -displacementCurrentIndex * (100 / displacementImagesPerView); // Move by 33.333%
+          displacementCarouselImages.style.transform = `translateX(${translateX}%)`;
+          
+          const startImage = displacementCurrentIndex + 1;
+          const endImage = Math.min(displacementCurrentIndex + displacementImagesPerView, displacementTotalImages);
+          displacementImageCounter.textContent = `${startImage}-${endImage} / ${displacementTotalImages}`;
+        }
+        
+        function nextDisplacementImage() {
+          if (displacementCurrentIndex < displacementMaxIndex) {
+            displacementCurrentIndex++;
+          } else {
+            displacementCurrentIndex = 0; // Loop back to start
+          }
+          updateDisplacementCarousel();
+        }
+        
+        function prevDisplacementImage() {
+          if (displacementCurrentIndex > 0) {
+            displacementCurrentIndex--;
+          } else {
+            displacementCurrentIndex = displacementMaxIndex; // Loop to end
+          }
+          updateDisplacementCarousel();
+        }
+        
+        displacementNextBtn.addEventListener('click', nextDisplacementImage);
+        displacementPrevBtn.addEventListener('click', prevDisplacementImage);
+        
+        // Initialize
+        updateDisplacementCarousel();
+      })();
+      </script>
     </div>
-    
-    <!-- Caption -->
-    <p style="text-align: center; margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">
-      Comparison of SpelkeNet and SAM for Object Manipulation
-    </p>
-  </div>
-  
-  <script>
-  (function() {
-    let manipulationCurrentIndex = 0;
-    const manipulationTotalImages = 3;
-    const manipulationImagesPerView = 1;
-    const manipulationMaxIndex = manipulationTotalImages - manipulationImagesPerView; // 2 (positions 0-2)
-    const manipulationCarouselImages = document.getElementById('manipulation-carousel-images');
-    const manipulationImageCounter = document.getElementById('manipulation-image-counter');
-    const manipulationPrevBtn = document.getElementById('manipulation-prev-btn');
-    const manipulationNextBtn = document.getElementById('manipulation-next-btn');
-    
-    function updateManipulationCarousel() {
-      const translateX = -manipulationCurrentIndex * (100 / manipulationImagesPerView); // Move by 100%
-      manipulationCarouselImages.style.transform = `translateX(${translateX}%)`;
+
+    <!-- SEC 4: Spelke Object Discovery Algorithm -->
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Object Discovery Algorithm</h2>
       
-      const currentImage = manipulationCurrentIndex + 1;
-      manipulationImageCounter.textContent = `${currentImage} / ${manipulationTotalImages}`;
-    }
-    
-    function nextManipulationImage() {
-      if (manipulationCurrentIndex < manipulationMaxIndex) {
-        manipulationCurrentIndex++;
-      } else {
-        manipulationCurrentIndex = 0; // Loop back to start
-      }
-      updateManipulationCarousel();
-    }
-    
-    function prevManipulationImage() {
-      if (manipulationCurrentIndex > 0) {
-        manipulationCurrentIndex--;
-      } else {
-        manipulationCurrentIndex = manipulationMaxIndex; // Loop to end
-      }
-      updateManipulationCarousel();
-    }
-    
-    manipulationNextBtn.addEventListener('click', nextManipulationImage);
-    manipulationPrevBtn.addEventListener('click', prevManipulationImage);
-    
-    // Initialize
-    updateManipulationCarousel();
-  })();
-  </script>
-</div>
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          The Spelke Object Discovery Algorithm combines motion affordance and expected displacement maps to segment objects based on their physical coherence. By iteratively applying virtual pokes and analyzing the resulting motion patterns, the algorithm groups regions that move together as single units, effectively discovering Spelke segments without requiring semantic labels.
+        </p>
+      </div>
+      
+      <!-- Object Discovery Carousel Container -->
+      <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+        
+        <!-- Carousel Videos Container -->
+        <div id="discovery-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+          <div id="discovery-carousel-videos" style="display: flex; transition: transform 0.3s ease-in-out;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objdiscovery/3.mov" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objdiscovery/2.mov" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objdiscovery/1.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="discovery-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+        <button id="discovery-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+        
+        <!-- Image Counter -->
+        <div id="discovery-video-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
+      </div>
+      
+      <!-- Caption -->
+      <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
+        <strong>Spelke Object Discovery Process:</strong> Visualization of iterative virtual poking and region grouping based on motion coherence
+      </figcaption>
+      
+      <script>
+      (function() {
+        let discoveryCurrentIndex = 0;
+        const discoveryTotalVideos = 3;
+        const discoveryVideosPerView = 1;
+        const discoveryMaxIndex = discoveryTotalVideos - discoveryVideosPerView; // 2 (positions 0-2)
+        const discoveryCarouselVideos = document.getElementById('discovery-carousel-videos');
+        const discoveryVideoCounter = document.getElementById('discovery-video-counter');
+        const discoveryPrevBtn = document.getElementById('discovery-prev-btn');
+        const discoveryNextBtn = document.getElementById('discovery-next-btn');
+        
+        function updateDiscoveryCarousel() {
+          const translateX = -discoveryCurrentIndex * (100 / discoveryVideosPerView); // Move by 100%
+          discoveryCarouselVideos.style.transform = `translateX(${translateX}%)`;
+          
+          const currentVideo = discoveryCurrentIndex + 1;
+          discoveryVideoCounter.textContent = `${currentVideo} / ${discoveryTotalVideos}`;
+        }
+        
+        function nextDiscoveryVideo() {
+          if (discoveryCurrentIndex < discoveryMaxIndex) {
+            discoveryCurrentIndex++;
+          } else {
+            discoveryCurrentIndex = 0; // Loop back to start
+          }
+          updateDiscoveryCarousel();
+        }
+        
+        function prevDiscoveryVideo() {
+          if (discoveryCurrentIndex > 0) {
+            discoveryCurrentIndex--;
+          } else {
+            discoveryCurrentIndex = discoveryMaxIndex; // Loop to end
+          }
+          updateDiscoveryCarousel();
+        }
+        
+        discoveryNextBtn.addEventListener('click', nextDiscoveryVideo);
+        discoveryPrevBtn.addEventListener('click', prevDiscoveryVideo);
+        
+        // Initialize
+        updateDiscoveryCarousel();
+      })();
+      </script>
+      
+      <!-- Quantitative Results Table -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Quantitative Evaluation</h3>
+        <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
+          <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
+            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+          </caption>
+          <thead>
+            <tr style="border-bottom: 2px solid #000;">
+              <th style="padding: 8px 12px;"></th>
+              <th style="padding: 8px 12px;">SAM</th>
+              <th style="padding: 8px 12px;">DINOv1-B/8</th>
+              <th style="padding: 8px 12px;">DINOv2-L/14</th>
+              <th style="padding: 8px 12px;">DINOv2-G/14</th>
+              <th style="padding: 8px 12px;">CWM</th>
+              <th style="padding: 8px 12px;">LRAS-Seg</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #ddd;">
+              <td style="padding: 8px 12px; text-align: left;">AR</td>
+              <td style="padding: 8px 12px;">0.4816</td>
+              <td style="padding: 8px 12px;">0.2708</td>
+              <td style="padding: 8px 12px;">0.2524</td>
+              <td style="padding: 8px 12px;">0.2254</td>
+              <td style="padding: 8px 12px;">0.3271</td>
+              <td style="padding: 8px 12px; font-weight: bold;">0.5411</td>
+            </tr>
+            <tr style="border-bottom: 2px solid #000;">
+              <td style="padding: 8px 12px; text-align: left;">mIoU</td>
+              <td style="padding: 8px 12px;">0.6225</td>
+              <td style="padding: 8px 12px;">0.4990</td>
+              <td style="padding: 8px 12px;">0.4931</td>
+              <td style="padding: 8px 12px;">0.4553</td>
+              <td style="padding: 8px 12px;">0.4807</td>
+              <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<!-- SECTION: Emergent Properties -->
-<div class="content has-text-centered" style="margin-top: 3rem;">
-  <h2 class="title is-3">Emergent Properties</h2>
-  <p>
-    Emergent Properties of SpelkeNet
-  </p>
-</div>
+    <!-- SEC 5: Using Spelke Segments for Physically Plausible Object Manipulation -->
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Using Spelke segments for Physically Plausible Object Manipulation</h2>
+      
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          While interactive segmentation methods like SAM can achieve good results with multiple user prompts, this approach is impractical for real-time applications and impossible in autonomous robotics settings where no human is available to provide guidance. Having segmentation models that directly produce physically meaningful, movable object masks from a single prompt offers significant advantages for downstream tasks like 3D object manipulation, where understanding true object boundaries—rather than arbitrary visual parts—is crucial for physically plausible edits.
+        </p>
+      </div>
+      
+      <figure class="image is-inline-block has-text-centered">
+        <img src="./static/images/object_manip_schematic.png"
+             class="interpolation-image"
+             alt="Object manipulation schematic." />
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+          <strong>Object Manipulation Pipeline:</strong> From single-click segmentation to physically plausible 3D object editing
+        </figcaption>
+      </figure>
+      
+      <!-- Object Manipulation Carousel Container -->
+      <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+        
+        <!-- Carousel Videos Container -->
+        <div id="manipulation-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+          <div id="manipulation-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
+            <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objmanipulation/1_.mov" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objmanipulation/2_.mov" type="video/mp4">
+            </video>
+            <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+              <source src="./static/videos/objmanipulation/3_.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <button id="manipulation-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+        <button id="manipulation-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+        
+        <!-- Image Counter -->
+        <div id="manipulation-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
+      </div>
+      
+      <!-- Caption -->
+      <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
+        <strong>Comparison of SpelkeNet and SAM for Object Manipulation:</strong> SpelkeNet segments enable more coherent object editing by respecting physical boundaries
+      </figcaption>
+      
+      <script>
+      (function() {
+        let manipulationCurrentIndex = 0;
+        const manipulationTotalImages = 3;
+        const manipulationImagesPerView = 1;
+        const manipulationMaxIndex = manipulationTotalImages - manipulationImagesPerView; // 2 (positions 0-2)
+        const manipulationCarouselImages = document.getElementById('manipulation-carousel-images');
+        const manipulationImageCounter = document.getElementById('manipulation-image-counter');
+        const manipulationPrevBtn = document.getElementById('manipulation-prev-btn');
+        const manipulationNextBtn = document.getElementById('manipulation-next-btn');
+        
+        function updateManipulationCarousel() {
+          const translateX = -manipulationCurrentIndex * (100 / manipulationImagesPerView); // Move by 100%
+          manipulationCarouselImages.style.transform = `translateX(${translateX}%)`;
+          
+          const currentImage = manipulationCurrentIndex + 1;
+          manipulationImageCounter.textContent = `${currentImage} / ${manipulationTotalImages}`;
+        }
+        
+        function nextManipulationImage() {
+          if (manipulationCurrentIndex < manipulationMaxIndex) {
+            manipulationCurrentIndex++;
+          } else {
+            manipulationCurrentIndex = 0; // Loop back to start
+          }
+          updateManipulationCarousel();
+        }
+        
+        function prevManipulationImage() {
+          if (manipulationCurrentIndex > 0) {
+            manipulationCurrentIndex--;
+          } else {
+            manipulationCurrentIndex = manipulationMaxIndex; // Loop to end
+          }
+          updateManipulationCarousel();
+        }
+        
+        manipulationNextBtn.addEventListener('click', nextManipulationImage);
+        manipulationPrevBtn.addEventListener('click', prevManipulationImage);
+        
+        // Initialize
+        updateManipulationCarousel();
+      })();
+      </script>
+    </div>
 
-<div class="content" style="text-align: left; max-width: 900px; margin: 0 auto;">
+    <!-- SEC 6: Emergent Properties -->
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent Properties</h2>
+      
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          Beyond discovering object boundaries, SpelkeNet exhibits several emergent properties that demonstrate a deeper understanding of physical scene structure. These capabilities arise naturally from the motion-based training objective without explicit supervision.
+        </p>
+      </div>
 
-  <!-- Subsection 1: Material Property Understanding -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Material Property Understanding</h3>
-    <p>
-      The model learns material properties, distinguishing rigid objects which move uniformly versus deformable materials which exhibit varied motion patterns dependent on the virtual poke point.
-    </p>
-    <figure style="margin-top: 1rem; text-align: center;">
-      <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
-      <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Motion Probability map differences for rigid vs deformable objects</figcaption>
-    </figure>
+      <!-- Subsection 1: Material Property Understanding -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Material Property Understanding</h3>
+        <p>
+          The model learns material properties, distinguishing rigid objects which move uniformly versus deformable materials which exhibit varied motion patterns dependent on the virtual poke point.
+        </p>
+      </div>
+      
+      <figure class="image is-inline-block has-text-centered">
+        <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+          <strong>Material Property Understanding:</strong> Motion probability maps reveal different responses for rigid versus deformable objects
+        </figcaption>
+      </figure>
+
+      <!-- Subsection 2: Understanding Support Relationships -->
+      <div class="content has-text-justified mt-5 is-size-6">
+        <h3 class="has-text-weight-bold is-size-6">Understanding Support Relationships</h3>
+        <p>
+          The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
+        </p>
+      </div>
+      
+      <figure class="image is-inline-block has-text-centered">
+        <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+          <strong>Support Relationship Understanding:</strong> Different segmentation results based on poke location reveal understanding of object stacking
+        </figcaption>
+      </figure>
+    </div>
+
   </div>
-
-  <!-- Subsection 2: Understanding Support Relationships -->
-  <div style="margin-top: 2rem;">
-    <h3 class="title is-4">Understanding Support Relationships</h3>
-    <p>
-      The model captures support relationships in stacked objects: virtual pokes on bottom objects predict motion for the entire supported stack above, while pokes on top objects predict motion only for that isolated object, demonstrating understanding of physical dependency and support relationships in a scene.
-    </p>
-    <figure style="margin-top: 1rem; text-align: center;">
-      <img src="./static/images/supportrelationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
-      <figcaption style="margin-top: 0.5rem; font-style: italic; color: #666; font-size: 0.9rem;">Displaying support relationship understanding through stacked object segments</figcaption>
-    </figure>
-  </div>
-</div>
+</section>
 
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@misc{venkatesh2025discoveringandusingsegments,
+  title        = {Discovering and using Spelke segments}, 
+  author       = {Rahul Venkatesh and Klemen Kotar and Lilian Naing Chen and Seoungwoo Kim and Luca Thomas Wheeler and Jared Watrous and Ashley Xu and Gia Ancone and Wanhee Lee and Honglin Chen and Daniel Bear and Stefan Stojanov and Daniel Yamins},
+  year         = {2025},
+  eprint       = {TODO},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CV},
+  url          = {TODO}, 
 }</code></pre>
   </div>
 </section>
+
 
 
 <footer class="footer">
