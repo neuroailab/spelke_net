@@ -58,16 +58,6 @@
       </span>
       </a>
 
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://arxiv.org/abs/2504.03875">
-            LRAS
-          </a>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -194,9 +184,10 @@
       <figure class="image is-inline-block has-text-centered">
         <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
-             alt="Comparison between datasets." />
+             alt="Comparison between datasets." 
+             style="max-width: 400px; width: 100%;" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark: Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls) highlighting the fundamental gap between current segmentation methods and physically coherent object boundaries.
+          <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark:</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls) highlighting the fundamental gap between current segmentation methods and physically coherent object boundaries.
         </figcaption>
       </figure>
     </div>
