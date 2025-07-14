@@ -150,7 +150,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: defining segmentation based on motion coherence</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: defining segmentation based on motion</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -163,7 +163,7 @@
         </p>
           Spelke segments thus offer a more natural alignment with physical manipulation tasks by identifying regions that respond coherently to forces. 
           This grounding enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object manipulation. 
-          Defining segments based on motion coherence rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene.
+          Defining segments based on motion rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene.
         </p>
       </div>
 
@@ -348,7 +348,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
         <button id="displacement-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
         
         <!-- Image Counter -->
-        <div id="displacement-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 6</div>
+        <div id="displacement-image-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 5</div>
       </div>
       
       <!-- Caption -->
@@ -359,7 +359,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
       <script>
       (function() {
         let displacementCurrentIndex = 0;
-        const displacementTotalImages = 6;
+        const displacementTotalImages = 5;
         const displacementImagesPerView = 3;
         const displacementMaxIndex = displacementTotalImages - displacementImagesPerView; // 3 (positions 0-3)
         const displacementCarouselImages = document.getElementById('displacement-carousel-images');
@@ -444,7 +444,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Spelke Object Discovery Process:</strong> Visualization of iterative virtual poking and region grouping based on motion coherence
+        <strong>Spelke Object Discovery Algorithm</strong>
       </figcaption>
       
       <script>
