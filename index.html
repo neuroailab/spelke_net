@@ -160,7 +160,7 @@
           In contrast, existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
         </p>
         </p>
-          Spelke segments address this limitation by identifying regions that respond coherently to forces, offering more natural alignment with physical manipulation tasks.
+          Spelke segments address this limitation by identifying regions that respond cohesively to forces, offering more natural alignment with physical manipulation tasks.
           This grounding based in motion enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object manipulation. 
           Defining segments based on motion rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene.
         </p>
@@ -175,7 +175,7 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          To systematically evaluate segmentation algorithms against Spelke principles, we introduce <strong>SpelkeBench</strong>—a hand-annotated 500-image dataset that measures how well model outputs align with physically coherent object boundaries rather than semantic categories.
+          To systematically evaluate segmentation algorithms against Spelke principles, we introduce <strong>SpelkeBench</strong>—a hand-annotated 500-image dataset that measures how well model outputs align with motion-defined object boundaries rather than semantic categories.
         </p>
         <p> We curate the dataset from two complementary sources: EntitySeg, featuring high-resolution internet imagery with dense segmentation annotations, and OpenX-Embodiment, consisting of real-world egocentric robot interactions. This contrast enables evaluation across both curated image domains and physically grounded robotics environments.
         </p>
@@ -187,7 +187,7 @@
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark:</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls), demonstrating that current segmentation methods fail to capture the notion of segments based on physically coherent object boundaries.
+          <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark.</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls), demonstrating that current segmentation methods fail to capture the notion of Spelke segments.
         </figcaption>
       </figure>
     </div>
@@ -353,7 +353,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Expected Displacement Maps:</strong> Vector fields showing predicted motion propagation throughout the scene from virtual poke points
+        <strong>Expected Displacement Maps.</strong> Vector fields showing predicted motion propagation throughout the scene from virtual poke points
       </figcaption>
       
       <script>
@@ -409,10 +409,10 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic virtual experimentation. Our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
+          Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic "virtual pokes". Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
         </p>
         <p>
-          We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of physically coherent objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to coherent object extraction. 
+          We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of Spelke objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to object extraction. 
         </p>
       </div>
       
@@ -444,7 +444,8 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Spelke Object Discovery Algorithm</strong>
+        <strong>Spelke Object Discovery Algorithm.</strong>
+        Multiple virtual pokes are applied at locations sampled from the <em>p</em><sub>motion</sub> map. As shown, this approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
       </figcaption>
       
       <script>
@@ -494,7 +495,6 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Quantitative Results Table -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Quantitative Evaluation</h3>
         <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
           <thead>
             <tr style="border-bottom: 2px solid #000;">
@@ -529,7 +529,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
           </tbody>
           <thead>
         </table>
-        <caption class="is-size-6 has-text-grey mt-2" style="margin-bottom: 1rem; font-style: italic;">
+        <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic;">
           <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
         </caption>
       </div>
@@ -584,7 +584,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Comparison of SpelkeNet and SAM for Object Manipulation:</strong> SpelkeNet segments enable more coherent and physically plausible object editing by respecting physical boundaries as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
+        <strong>Comparison of SpelkeNet and SAM for Object Manipulation.</strong> SpelkeNet segments enable more physically plausible object editing by respecting physical boundaries as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
       </figcaption>
       
       <script>
