@@ -155,13 +155,15 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Drawing from developmental psychology, we introduce the notion of Spelke Objects—a definition of objecthood inspired by how infants naturally parse the visual world. Infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
+          Drawing from developmental psychology, we introduce the notion of <strong>Spelke Objects</strong>—a definition of objecthood inspired by how infants naturally parse the visual world. Namely, infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
         </p>
         <p>
-          Existing segmentation datasets like COCO and ADE20K define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
+          Existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
         </p>
         </p>
-          Spelke segments thus offer a more natural alignment with physical manipulation tasks by identifying regions that respond coherently to forces. This grounding enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object rearrangement. By focusing on motion coherence rather than semantic categories, this approach provides robots with a more actionable understanding of their physical environment.
+          Spelke segments thus offer a more natural alignment with physical manipulation tasks by identifying regions that respond coherently to forces. 
+          This grounding enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object manipulation. 
+          Defining segments based on motion coherence rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene.
         </p>
       </div>
 
@@ -174,7 +176,7 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          To systematically evaluate segmentation algorithms against Spelke principles, we introduce SpelkeBench—a hand-annotated 500-image dataset that measures how well model outputs align with physically coherent object boundaries rather than semantic categories.
+          To systematically evaluate segmentation algorithms against Spelke principles, we introduce <strong>SpelkeBench</strong>—a hand-annotated 500-image dataset that measures how well model outputs align with physically coherent object boundaries rather than semantic categories.
         </p>
         <p> We curate the dataset from two complementary sources: EntitySeg, featuring high-resolution internet imagery with dense segmentation annotations, and OpenX-Embodiment, consisting of real-world egocentric robot interactions. This contrast enables evaluation across both curated image domains and physically grounded robotics environments.
         </p>
@@ -197,9 +199,10 @@
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Defining SpelkeNet as an instance of Local Random Access Sequence Modeling (LRAS)</h3>
+        <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS)</h3>
         <p>
-          Local Random Access Sequence Modeling (LRAS) is a sequence model inspired by large language models that causally predicts locally quantized image (RGB) and optical flow patches. The LRAS model operates on a unified vocabulary comprising RGB and flow "content" tokens and "pointer" tokens for each modality that specify spatial locations in the image grid. This vocabulary can be partitioned into four disjoint sets: RGB pointer tokens $\mathcal{I}^{\text{(rgb)}}$, RGB content tokens $\mathcal{X}$, flow pointer tokens $\mathcal{I}^{\text{(flow)}}$, and flow content tokens $\mathcal{F}$.
+          <strong>LRAS</strong> is a sequence model inspired by large language models that causally predicts locally quantized image (RGB) and optical flow patches. The LRAS model operates on a unified vocabulary comprising RGB and flow "content" tokens and "pointer" tokens for each modality that specify spatial locations in the image grid.
+          This vocabulary can be partitioned into four disjoint sets: RGB pointer tokens 𝓘<sup>(rgb)</sup>, RGB content tokens 𝓧, flow pointer tokens 𝓘<sup>(flow)</sup>, and flow content tokens 𝓕.
         </p>
         <p>
           The key innovation lies in LRAS's sequence design: each content token is paired with a corresponding pointer token specifying its spatial location, enabling sequences to be arranged in arbitrary spatial order while allowing pointer tokens to serve as modality-specific queries. This flexible, composable architecture makes LRAS particularly well-suited for discovering pixel co-movement through virtual interventions. Unlike diffusion models requiring dense global conditioning, LRAS supports sparse, localized conditioning—enabling us to inject virtual "pokes" by simply appending a flow token representing desired motion paired with a pointer token indicating spatial location. 
@@ -214,7 +217,8 @@
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>LRAS Architecture:</strong> Transformer-based model enabling flexible spatial querying through pointer-content token pairs
+          <strong>LRAS Architecture:</strong> SpelkeNet tokenizes images and flow fields into spatially-indexed sequences, outputs categorical distributions over flow tokens.
+          Sampling from these distributions yields a complete flow field in pixel space that we use for discovering segments.
         </figcaption>
       </figure>
 
@@ -225,7 +229,8 @@
           To discover Spelke objects, we must first identify candidate locations where virtual pokes can be applied—pixels lying on regions likely to move under external forces. We refer to this as the probability of motion affordance map, denoted <em>p</em><sub>motion</sub>. Such motion-centric affordance maps prove especially valuable in robotics applications for identifying high-motion regions that respond to interaction (e.g., cups or plates)
         </p>
         <p>
-          To compute <em>p</em><sub>motion</sub>, we define a set of flow tokens corresponding to motion greater than threshold τ, then sum their estimated probabilities. As flow tokens are not directly interpretable, we map each flow token to a 2D flow vector through epigraphy on the flow vocabulary—statistically aggregating typical input flow fields that produced each token. Given RGB tokens concatenated with zero camera motion to discount camera effects, we obtain predicted flow distributions and compute motion probability at each spatial location by summing over tokens representing significant motion. This yields a 2D heatmap of regions likely to move under external forces, as illustrated in our examples. 
+          To compute <em>p</em><sub>motion</sub>, we define a set of flow tokens corresponding to motionpanel we show that sampling from these distributions yields a complete flow field in pixel
+space that we use for discovering co-moving entities/segments. greater than threshold τ, then sum their estimated probabilities. As flow tokens are not directly interpretable, we map each flow token to a 2D flow vector through epigraphy on the flow vocabulary—statistically aggregating typical input flow fields that produced each token. Given RGB tokens concatenated with zero camera motion to discount camera effects, we obtain predicted flow distributions and compute motion probability at each spatial location by summing over tokens representing significant motion. This yields a 2D heatmap of regions likely to move under external forces, as illustrated in our examples. 
         </p>
       </div>
       
@@ -330,12 +335,11 @@
         <!-- Carousel Images Container -->
         <div id="displacement-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
           <div id="displacement-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-            <img src="./static/images/expecteddisplacement_/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement_/2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement_/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement_/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement_/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement_/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/6.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
           </div>
         </div>
         
