@@ -197,9 +197,15 @@
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS)</h3>
+        <h3 class="has-text-weight-bold is-size-6">Defining SpelkeNet as an instance of Local Random Access Sequence Modeling (LRAS)</h3>
         <p>
-          LRAS is a transformer-based model that treats visual understanding as a sequence prediction problem. Like language models predict next words, LRAS predicts image patches and their motion. The key innovation is its vocabulary design: each content token (RGB or flow) pairs with a pointer token specifying its location, enabling queries in any spatial order. Given a sequence <em>z</em> = <em>x</em> ⊕ [<em>c</em>] ⊕ <em>f</em> (RGB tokens, camera pose, flow tokens), LRAS outputs distributions Ψ(<em>z</em>) = {𝒟[<em>i<sub>k</sub></em>]} for all spatial locations. This flexibility allows us to probe scenes with "virtual pokes" by simply appending flow tokens at specific locations.
+          Local Random Access Sequence Modeling (LRAS) is a sequence model inspired by large language models that causally predicts locally quantized image (RGB) and optical flow patches. The LRAS model operates on a unified vocabulary comprising RGB and flow "content" tokens and "pointer" tokens for each modality that specify spatial locations in the image grid. This vocabulary can be partitioned into four disjoint sets: RGB pointer tokens $\mathcal{I}^{\text{(rgb)}}$, RGB content tokens $\mathcal{X}$, flow pointer tokens $\mathcal{I}^{\text{(flow)}}$, and flow content tokens $\mathcal{F}$.
+        </p>
+        <p>
+          The key innovation lies in LRAS's sequence design: each content token is paired with a corresponding pointer token specifying its spatial location, enabling sequences to be arranged in arbitrary spatial order while allowing pointer tokens to serve as modality-specific queries. This flexible, composable architecture makes LRAS particularly well-suited for discovering pixel co-movement through virtual interventions. Unlike diffusion models requiring dense global conditioning, LRAS supports sparse, localized conditioning—enabling us to inject virtual "pokes" by simply appending a flow token representing desired motion paired with a pointer token indicating spatial location. 
+        </p>
+        <p>
+          Building on this foundation, we introduce <strong>SpelkeNet</strong>, an instance of LRAS specifically designed for Spelke object discovery through strategic sequence design that reveals which pixels move together as cohesive units under applied forces.
         </p>
       </div>
       
@@ -216,7 +222,10 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
         <p>
-          Before applying virtual forces, we need to know where objects can move. The probability of motion map <em>p</em><sub>motion</sub> identifies these movable regions by analyzing LRAS's predictions under zero camera motion. For each location, we sum the probabilities of flow tokens exceeding a motion threshold τ, creating a heatmap highlighting interactive elements like cups or tools while suppressing static backgrounds.
+          To discover Spelke objects, we must first identify candidate locations where virtual pokes can be applied—pixels lying on regions likely to move under external forces. We refer to this as the probability of motion affordance map, denoted <em>p</em><sub>motion</sub>. Such motion-centric affordance maps prove especially valuable in robotics applications for identifying high-motion regions that respond to interaction (e.g., cups or plates)
+        </p>
+        <p>
+          To compute <em>p</em><sub>motion</sub>, we define a set of flow tokens corresponding to motion greater than threshold τ, then sum their estimated probabilities. As flow tokens are not directly interpretable, we map each flow token to a 2D flow vector through epigraphy on the flow vocabulary—statistically aggregating typical input flow fields that produced each token. Given RGB tokens concatenated with zero camera motion to discount camera effects, we obtain predicted flow distributions and compute motion probability at each spatial location by summing over tokens representing significant motion. This yields a 2D heatmap of regions likely to move under external forces, as illustrated in our examples. 
         </p>
       </div>
       
@@ -309,8 +318,10 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
         <p>
-          Once we identify movable regions, we can simulate interactions. The expected displacement map 𝔼<sub>disp</sub> shows how the entire scene responds to a virtual poke at location <em>i<sub>k</sub></em>. By conditioning LRAS on this poke and computing the probability-weighted average of predicted flows, we obtain a vector field revealing how motion propagates.
+          Having identified regions of high motion-affordance, we leverage LRAS's sequential design to apply virtual pokes at candidate locations. We obtain the "expected displacement map"—an estimate of likely flow at each location conditioned on a virtual poke. This map provides valuable guidance about how objects might move before physical contact occurs, which can prove especially useful in robotics settings for predicting interaction outcomes.
         </p>
+        <p>
+          Specifically, Our approach exploits LRAS's flexible sequence composition by constructing input sequences that include virtual pokes. We represent a poke as a flow token <em>f</em><sub>k</sub> at location <em>i</em><sub>k</sub>, appending this poke to our base sequence: <strong>z</strong> = <strong>x</strong> ⊕ [<em>c</em>=0] ⊕ [(<em>i</em><sub>k</sub>, <em>f</em><sub>k</sub>)]. The model then predicts how this localized intervention propagates throughout the scene. We compute expected displacement as the probability-weighted average of flow vectors, where each vector maps to flow tokens. This yields a dense 2D vector field revealing how the entire scene would respond to the applied poke, effectively discovering which pixels move together as cohesive units.         </p>
       </div>
       
       <!-- Expected Displacement Carousel Container -->
@@ -394,7 +405,10 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          The Spelke Object Discovery Algorithm combines motion affordance and expected displacement maps to segment objects based on their physical coherence. By iteratively applying virtual pokes and analyzing the resulting motion patterns, the algorithm groups regions that move together as single units, effectively discovering Spelke segments without requiring semantic labels.
+          Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic virtual experimentation. Our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
+        </p>
+        <p>
+          We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of physically coherent objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to coherent object extraction. 
         </p>
       </div>
       
@@ -486,7 +500,7 @@
               <th style="padding: 8px 12px;">DINOv2-L/14</th>
               <th style="padding: 8px 12px;">DINOv2-G/14</th>
               <th style="padding: 8px 12px;">CWM</th>
-              <th style="padding: 8px 12px;">LRAS-Seg</th>
+              <th style="padding: 8px 12px;">SpelkeNet</th>
             </tr>
           </thead>
           <tbody>
