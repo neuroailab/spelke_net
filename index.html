@@ -133,16 +133,15 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser_vid.mov"
+        <source src="./static/videos/teaser.mov"
                 type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
-        Overview of SpelkeNet's capabilities.
+      <h2 class="subtitle has-text-centered is-size-5 has-text-grey mt-4" style="font-style: italic;">
+        <strong>Overview of SpelkeNet's Capabilities.</strong> Our model first predicts a probability of motion map, indicating regions likely to undergo movement—candidate movable objects. We sample a point from this map and apply a virtual poke. Conditioned on this intervention, our model completes the flow field, revealing object boundaries. From this, we extract a segment corresponding to an entity that would move as a cohesive whole (i.e. a Spelke object). On the right, we illustrate how these discovered segments can be used in a physical object editing pipeline, ensuring that edits are applied to groups of pixels that would move together in the real world. We show that the Spelke segments we discover enable more physically plausible object manipulation.
       </h2>
     </div>
   </div>
 </section>
-
 
 <section class="section">
 
@@ -668,7 +667,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
         </p>
       
         <figure class="image is-inline-block has-text-centered">
-          <img src="./static/images/supp_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
+          <img src="./static/images/support_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
             When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports.
           </figcaption>
