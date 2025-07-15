@@ -65,6 +65,12 @@
               <span class="author-block">
                 <a href="#">Jared Watrous</a><sup>1</sup>,</span>
               <span class="author-block">
+                <a href="#">Ashley Xu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="#">Gia Ancone</a><sup>1</sup>,</span>  
+              <span class="author-block">
+                <a href="#">Wanhee Lee</a><sup>1</sup>,</span>  
+              <span class="author-block">
                 <a href="#">Honglin Chen</a><sup>2</sup>,</span>
               <span class="author-block">
                 <a href="#">Daniel Bear</a><sup>3</sup>,</span>
@@ -133,11 +139,16 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mov"
+        <source src="./static/videos/teaser_vid.mov"
                 type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered 6 has-text-grey mt-4" style="font-style: italic;">
-        <strong>Overview of SpelkeNet's Capabilities.</strong> Our model first predicts a probability of motion map, indicating regions likely to undergo movement—i.e. candidate movable objects. We sample a point from this map and apply a virtual poke. Conditioned on this intervention, our model completes the flow field, revealing object boundaries. From this, we extract a segment corresponding to an entity that would move as a cohesive whole (i.e. a Spelke object). On the right, we illustrate how these discovered segments can be used in a physical object editing pipeline, ensuring that edits are applied to groups of pixels that would move together in the real world. We show that the Spelke segments we discover enable more physically plausible object manipulation.
+      <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic;">
+        <strong>Overview of SpelkeNet's Capabilities.</strong> 
+        On the left, our model first predicts a probability of motion map, indicating regions likely to undergo movement. 
+        We sample a point from this map and apply a virtual poke. 
+        Conditioned on this intervention, our model completes the flow field, revealing object boundaries from which we extract a segment corresponding to an entity that would move together when acted on by physical forces.
+        On the right, we illustrate how these discovered segments can be used in a physical object editing pipeline, 
+        ensuring that edits are applied to groups of pixels that would move together in the real world, enabling more physically plausible object manipulation.
       </h2>
     </div>
   </div>
@@ -149,20 +160,20 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Objects: defining segmentation based on motion</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">A Better Definition of Segmentation for Physical Manipulation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Drawing from developmental psychology, we introduce the notion of <strong>Spelke Objects</strong>—a definition of objecthood inspired by how infants naturally parse the visual world. Namely, infants instinctively segment their environment into bounded units that move as cohesive wholes, enabling them to track and predict object behavior under physical forces and laying the groundwork for intuitive physical reasoning.
+          Conventional definitions of segmentation are not aligned with physical manipulation tasks.
+          This can be seen in existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a>, which define segments through semantic labels (e.g. car, tree, sky). 
+          While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
         </p>
-        <p>
-          In contrast, existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> define segments through semantic labels (e.g. car, tree, sky). While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
         </p>
-        </p>
-          Spelke segments address this limitation by identifying regions that respond cohesively to forces, offering more natural alignment with physical manipulation tasks.
-          This grounding based in motion enables more reliable prediction of interaction outcomes—essential for common robotics tasks like grasping, pushing, and object manipulation. 
-          Defining segments based on motion rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene.
+          We thus introduce the notion of <strong>Spelke objects</strong>—groupings of physical things that reliably move together when acted on by physical forces.
+          Spelke segments address this limitation by identifying groupings of pixels that respond together to forces, offering more natural alignment with physical manipulation tasks.
+          Grounding the definition of segments in co-movement of pixels rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene,
+          which is essential for common robotics tasks like grasping, pushing, and object manipulation. 
         </p>
       </div>
 
@@ -188,7 +199,8 @@
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Comparison of SAM segments, raw EntitySeg Annotations, and our SpelkeBench Benchmark.</strong> Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls), demonstrating that current segmentation methods fail to capture the notion of Spelke segments.
+          Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls), 
+          demonstrating that current segmentation methods fail to capture the notion of Spelke segments.
         </figcaption>
       </figure>
     </div>
@@ -548,15 +560,6 @@ space that we use for discovering co-moving entities/segments. greater than thre
         </p>
       </div>
       
-      <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/object_manip_schematic.png"
-             class="interpolation-image"
-             alt="Object manipulation schematic." />
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>Object Manipulation Pipeline:</strong> From single-click segmentation prompts to physically plausible 3D object editing
-        </figcaption>
-      </figure>
-      
       <!-- Object Manipulation Carousel Container -->
       <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
         
@@ -585,7 +588,9 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Comparison of SpelkeNet and SAM for Object Manipulation.</strong> SpelkeNet segments enable more physically plausible object editing by respecting physical boundaries as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
+        <strong>Comparison of SpelkeNet and SAM for Object Manipulation.</strong> 
+        From single-point segmentation prompt, the generated segment is used as input to an object manipulation model along with a 3D edit prompt (e.g. rotation, translation).
+        We show that SpelkeNet segments enable more physically plausible object editing by respecting physical boundaries as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
       </figcaption>
       
       <script>
@@ -729,20 +734,17 @@ space that we use for discovering co-moving entities/segments. greater than thre
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Beyond discovering object boundaries, SpelkeNet exhibits emergent properties that demonstrate a deeper understanding of physical scene structure. These capabilities arise naturally from the motion-based training objective without explicit supervision.
+          Beyond discovering object boundaries, SpelkeNet exhibits emergent properties that demonstrate a deeper understanding of physical scene structure.
         </p>
       </div>
 
       <!-- Subsection 1: Material Property Understanding -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <p>
-          <strong>Material Property Understanding:</strong> 
-          The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type based on the uniformity of the probability of motion across the object in response to the virtual poke point.
-        </p>
         
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+            The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type.
             Rigid objects like laptops and cardboard boxes tend to exhibit a
           uniform probability across the segment, while deformable objects such as cloth and plastic covers
           often show more localized motion responses near the poke point.
@@ -752,15 +754,10 @@ space that we use for discovering co-moving entities/segments. greater than thre
 
       <!-- Subsection 2: Understanding Support Relationships -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <p>
-          <strong>Understanding Support Relationships:</strong> An understanding of support relationships develops out of an implicit understanding of "what moves together" through the motion-based training objective. 
-          Specifically, when virtually poking stacked objects, the model extends the captured segment to its supported objects which would, as would align with our intuition of the true physical movement, move along with it. 
-        </p>
-      
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/support_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-            When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports.
+            When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
           </figcaption>
         </figure>
       </div>
