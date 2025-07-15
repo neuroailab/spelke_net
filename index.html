@@ -229,8 +229,7 @@
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>LRAS Architecture.</strong> SpelkeNet tokenizes images and flow fields into spatially-indexed sequences, outputs categorical distributions over flow tokens.
-          Sampling from these distributions yields a complete flow field in pixel space that we use for discovering segments.
+          <strong>LRAS Architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. These token pairs are passed as an unordered sequence into the model, which outputs a categorical distribution <em>D</em>[<em>i</em>] over flow tokens for each spatial location <em>i</em>. In the <strong>right</strong> panel we show that sampling from these distributions yields a complete flow field in pixel space that we use for discovering co-moving entities/segments.
         </figcaption>
       </figure>
 
