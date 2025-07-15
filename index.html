@@ -342,9 +342,9 @@
         <p>
           Another useful structure extracted from SpelkeNet is the <strong>expected displacement map</strong>, denoted <em>𝔼</em><sub>disp</sub>>, 
           which is an estimate of likely flow at each location conditioned on a virtual poke. 
+          To obtain <em>𝔼</em><sub>disp</sub>>, we apply a virtual poke at a desired location to obtain a predicted distribution, which we then compute a probability-weighted
+          average over the flow vectors, giving us a dense 2D vector field over spatial locations.
         </p>
-        <p>
-          Specifically, Our approach exploits LRAS's flexible sequence composition by constructing input sequences that include virtual pokes. We represent a poke as a flow token <em>f</em><sub>k</sub> at location <em>i</em><sub>k</sub>, appending this poke to our base sequence: <strong>z</strong> = <strong>x</strong> ⊕ [<em>c</em>=0] ⊕ [(<em>i</em><sub>k</sub>, <em>f</em><sub>k</sub>)]. The model then predicts how this localized intervention propagates throughout the scene. We compute expected displacement as the probability-weighted average of flow vectors, where each vector maps to flow tokens. This yields a dense 2D vector field revealing how the entire scene would respond to the applied poke, effectively discovering which pixels move together as cohesive units.         </p>
       </div>
       
       <!-- Expected Displacement Carousel Container -->
@@ -371,7 +371,7 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Expected Displacement Maps.</strong> Vector fields showing predicted motion propagation throughout the scene from virtual poke points
+        <strong>Expected Displacement Maps.</strong> Vector fields showing predicted motion from a completed flow field throughout the scene from virtual poke points
       </figcaption>
       
       <script>
@@ -426,10 +426,12 @@
         
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
-            Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic virtual pokes. Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
-          </p>
-          <p>
-            We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of Spelke objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to object extraction. 
+            Building on the previously discussed structures, we now combine <em>p</em><sub>motion</sub> and <em>𝔼</em><sub>disp</sub> to discover Spelke objects. 
+            We first sample a location from <em>p</em><sub>motion, then apply virtual pokes in diverse directions at this location. 
+            For each poke direction, we compute <em>𝔼</em><sub>disp</sub>. 
+            To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. 
+            This statistical aggregation reveals regions that consistently respond together regardless of poke direction—further implicitly aligning our discovered objects with the notion of Spelke objects which consistently move together. 
+            Finally, entropy-based Otsu thresholding extracts our desired Spelke segment.
           </p>
         </div>
         
