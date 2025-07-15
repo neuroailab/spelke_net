@@ -50,7 +50,7 @@
           <h1 class="title is-1 publication-title">Discovering and using Spelke segments</h1>
 
           <!-- Smaller font size applied here -->
-          <div style="font-size: 0.85rem;">
+          <div style="font-size: 0.75rem;">
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="#">Rahul Venkatesh</a><sup>*1</sup>,</span>
@@ -80,7 +80,7 @@
                 <a href="#">Daniel Yamins</a><sup>1</sup></span>
             </div>
 
-            <div class="is-size-5 publication-authors" style="margin-top: 0.5em;">
+            <div class="is-size-6 publication-authors" style="margin-top: 0.5em;">
               <span class="author-block"><sup>1</sup>Stanford University</span>
               <span class="author-block"><sup>2</sup>OpenAI,</span>
               <span class="author-block"><sup>3</sup>Noetik Inc.</span>
@@ -181,7 +181,7 @@
 
     <!-- SEC 2: Benchmarking Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeBench: benchmarking Spelke aligned segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Benchmarking Spelke-aligned Segmentation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -200,14 +200,14 @@
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
           Existing segmentation approaches like SAM and EntitySeg frequently produce segments that diverge significantly from Spelke criteria (e.g. camera subcomponents and immovable walls), 
-          demonstrating that current segmentation methods fail to capture the notion of Spelke segments.
+          This is apparent when examining the segments above produced by SAM/EntitysSeg—these segments do not represent units that we would intuit move together as a whole, demonstrating that current segmentation methods fail to capture the notion of Spelke segments.
         </figcaption>
       </figure>
     </div>
 
     <!-- SEC 3: Operationalizing Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeNet: operationalizing Spelke segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Operationalizing Spelke segmentation</h2>
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -414,137 +414,136 @@ space that we use for discovering co-moving entities/segments. greater than thre
         updateDisplacementCarousel();
       })();
       </script>
-    </div>
-
-    <!-- SEC 4: Spelke Object Discovery Algorithm -->
-    <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Object Discovery Algorithm</h2>
-      
-      <div class="content has-text-justified mt-5 is-size-6">
-        <p>
-          Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic "virtual pokes". Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
-        </p>
-        <p>
-          We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of Spelke objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to object extraction. 
-        </p>
-      </div>
-      
-      <!-- Object Discovery Carousel Container -->
-      <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
+      <!-- subsection 4: Spelke Object Discovery Algorithm -->
+      <div class="content">
+        <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke Object Discovery Algorithm</h2>
         
-        <!-- Carousel Videos Container -->
-        <div id="discovery-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
-          <div id="discovery-carousel-videos" style="display: flex; transition: transform 0.3s ease-in-out;">
-            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/obj_discovery/3.mov" type="video/mp4">
-            </video>
-            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/obj_discovery/2.mov" type="video/mp4">
-            </video>
-            <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/obj_discovery/1.mov" type="video/mp4">
-            </video>
-          </div>
+        <div class="content has-text-justified mt-5 is-size-6">
+          <p>
+            Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic "virtual pokes". Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
+          </p>
+          <p>
+            We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of Spelke objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to object extraction. 
+          </p>
         </div>
         
-        <!-- Navigation Buttons -->
-        <button id="discovery-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
-        <button id="discovery-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
-        
-        <!-- Image Counter -->
-        <div id="discovery-video-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
-      </div>
-      
-      <!-- Caption -->
-      <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
-        <strong>Spelke Object Discovery Algorithm.</strong>
-        Multiple virtual pokes are applied at locations sampled from the <em>p</em><sub>motion</sub> map. As shown, this approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
-      </figcaption>
-      
-      <script>
-      (function() {
-        let discoveryCurrentIndex = 0;
-        const discoveryTotalVideos = 3;
-        const discoveryVideosPerView = 1;
-        const discoveryMaxIndex = discoveryTotalVideos - discoveryVideosPerView; // 2 (positions 0-2)
-        const discoveryCarouselVideos = document.getElementById('discovery-carousel-videos');
-        const discoveryVideoCounter = document.getElementById('discovery-video-counter');
-        const discoveryPrevBtn = document.getElementById('discovery-prev-btn');
-        const discoveryNextBtn = document.getElementById('discovery-next-btn');
-        
-        function updateDiscoveryCarousel() {
-          const translateX = -discoveryCurrentIndex * (100 / discoveryVideosPerView); // Move by 100%
-          discoveryCarouselVideos.style.transform = `translateX(${translateX}%)`;
+        <!-- Object Discovery Carousel Container -->
+        <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
           
-          const currentVideo = discoveryCurrentIndex + 1;
-          discoveryVideoCounter.textContent = `${currentVideo} / ${discoveryTotalVideos}`;
-        }
+          <!-- Carousel Videos Container -->
+          <div id="discovery-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
+            <div id="discovery-carousel-videos" style="display: flex; transition: transform 0.3s ease-in-out;">
+              <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+                <source src="./static/videos/obj_discovery/3.mov" type="video/mp4">
+              </video>
+              <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+                <source src="./static/videos/obj_discovery/2.mov" type="video/mp4">
+              </video>
+              <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+                <source src="./static/videos/obj_discovery/1.mov" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          
+          <!-- Navigation Buttons -->
+          <button id="discovery-prev-btn" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">‹</button>
+          <button id="discovery-next-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10;">›</button>
+          
+          <!-- Image Counter -->
+          <div id="discovery-video-counter" style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 12px; z-index: 10;">1 / 3</div>
+        </div>
         
-        function nextDiscoveryVideo() {
-          if (discoveryCurrentIndex < discoveryMaxIndex) {
-            discoveryCurrentIndex++;
-          } else {
-            discoveryCurrentIndex = 0; // Loop back to start
+        <!-- Caption -->
+        <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic;">
+          <strong>Spelke Object Discovery Algorithm.</strong>
+          Multiple virtual pokes are applied at locations sampled from the <em>p</em><sub>motion</sub> map. As shown, this approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
+        </figcaption>
+        
+        <script>
+        (function() {
+          let discoveryCurrentIndex = 0;
+          const discoveryTotalVideos = 3;
+          const discoveryVideosPerView = 1;
+          const discoveryMaxIndex = discoveryTotalVideos - discoveryVideosPerView; // 2 (positions 0-2)
+          const discoveryCarouselVideos = document.getElementById('discovery-carousel-videos');
+          const discoveryVideoCounter = document.getElementById('discovery-video-counter');
+          const discoveryPrevBtn = document.getElementById('discovery-prev-btn');
+          const discoveryNextBtn = document.getElementById('discovery-next-btn');
+          
+          function updateDiscoveryCarousel() {
+            const translateX = -discoveryCurrentIndex * (100 / discoveryVideosPerView); // Move by 100%
+            discoveryCarouselVideos.style.transform = `translateX(${translateX}%)`;
+            
+            const currentVideo = discoveryCurrentIndex + 1;
+            discoveryVideoCounter.textContent = `${currentVideo} / ${discoveryTotalVideos}`;
           }
-          updateDiscoveryCarousel();
-        }
-        
-        function prevDiscoveryVideo() {
-          if (discoveryCurrentIndex > 0) {
-            discoveryCurrentIndex--;
-          } else {
-            discoveryCurrentIndex = discoveryMaxIndex; // Loop to end
+          
+          function nextDiscoveryVideo() {
+            if (discoveryCurrentIndex < discoveryMaxIndex) {
+              discoveryCurrentIndex++;
+            } else {
+              discoveryCurrentIndex = 0; // Loop back to start
+            }
+            updateDiscoveryCarousel();
           }
+          
+          function prevDiscoveryVideo() {
+            if (discoveryCurrentIndex > 0) {
+              discoveryCurrentIndex--;
+            } else {
+              discoveryCurrentIndex = discoveryMaxIndex; // Loop to end
+            }
+            updateDiscoveryCarousel();
+          }
+          
+          discoveryNextBtn.addEventListener('click', nextDiscoveryVideo);
+          discoveryPrevBtn.addEventListener('click', prevDiscoveryVideo);
+          
+          // Initialize
           updateDiscoveryCarousel();
-        }
+        })();
+        </script>
         
-        discoveryNextBtn.addEventListener('click', nextDiscoveryVideo);
-        discoveryPrevBtn.addEventListener('click', prevDiscoveryVideo);
-        
-        // Initialize
-        updateDiscoveryCarousel();
-      })();
-      </script>
-      
-      <!-- Quantitative Results Table -->
-      <div class="content has-text-justified mt-5 is-size-6">
-        <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
-          <thead>
-            <tr style="border-bottom: 2px solid #000;">
-              <th style="padding: 8px 12px;"></th>
-              <th style="padding: 8px 12px;">SAM</th>
-              <th style="padding: 8px 12px;">DINOv1-B/8</th>
-              <th style="padding: 8px 12px;">DINOv2-L/14</th>
-              <th style="padding: 8px 12px;">DINOv2-G/14</th>
-              <th style="padding: 8px 12px;">CWM</th>
-              <th style="padding: 8px 12px;">SpelkeNet</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;">AR</td>
-              <td style="padding: 8px 12px;">0.4816</td>
-              <td style="padding: 8px 12px;">0.2708</td>
-              <td style="padding: 8px 12px;">0.2524</td>
-              <td style="padding: 8px 12px;">0.2254</td>
-              <td style="padding: 8px 12px;">0.3271</td>
-              <td style="padding: 8px 12px; font-weight: bold;">0.5411</td>
-            </tr>
-            <tr style="border-bottom: 2px solid #000;">
-              <td style="padding: 8px 12px; text-align: left;">mIoU</td>
-              <td style="padding: 8px 12px;">0.6225</td>
-              <td style="padding: 8px 12px;">0.4990</td>
-              <td style="padding: 8px 12px;">0.4931</td>
-              <td style="padding: 8px 12px;">0.4553</td>
-              <td style="padding: 8px 12px;">0.4807</td>
-              <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
-            </tr>
-          </tbody>
-          <thead>
-        </table>
-        <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic;">
-          <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
-        </caption>
+        <!-- Quantitative Results Table -->
+        <div class="content has-text-justified mt-5 is-size-6">
+          <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
+            <thead>
+              <tr style="border-bottom: 2px solid #000;">
+                <th style="padding: 8px 12px;"></th>
+                <th style="padding: 8px 12px;">SAM</th>
+                <th style="padding: 8px 12px;">DINOv1-B/8</th>
+                <th style="padding: 8px 12px;">DINOv2-L/14</th>
+                <th style="padding: 8px 12px;">DINOv2-G/14</th>
+                <th style="padding: 8px 12px;">CWM</th>
+                <th style="padding: 8px 12px;">SpelkeNet</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 8px 12px; text-align: left;">AR</td>
+                <td style="padding: 8px 12px;">0.4816</td>
+                <td style="padding: 8px 12px;">0.2708</td>
+                <td style="padding: 8px 12px;">0.2524</td>
+                <td style="padding: 8px 12px;">0.2254</td>
+                <td style="padding: 8px 12px;">0.3271</td>
+                <td style="padding: 8px 12px; font-weight: bold;">0.5411</td>
+              </tr>
+              <tr style="border-bottom: 2px solid #000;">
+                <td style="padding: 8px 12px; text-align: left;">mIoU</td>
+                <td style="padding: 8px 12px;">0.6225</td>
+                <td style="padding: 8px 12px;">0.4990</td>
+                <td style="padding: 8px 12px;">0.4931</td>
+                <td style="padding: 8px 12px;">0.4553</td>
+                <td style="padding: 8px 12px;">0.4807</td>
+                <td style="padding: 8px 12px; font-weight: bold;">0.6811</td>
+              </tr>
+            </tbody>
+            <thead>
+          </table>
+          <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic;">
+            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+          </caption>
+        </div>
       </div>
     </div>
 
@@ -730,7 +729,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
 
     <!-- SEC 6: Emergent Properties -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent Properties</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent Properties of SpelkeNet</h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
