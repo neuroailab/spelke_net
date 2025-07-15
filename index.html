@@ -52,6 +52,7 @@
           <!-- Smaller font size applied here -->
           <div style="font-size: 0.85rem;">
             <div class="is-size-6 publication-authors">
+              <div>
               <span class="author-block">
                 <a href="#">Rahul Venkatesh</a><sup>*1</sup>,</span>
               <span class="author-block">
@@ -63,21 +64,24 @@
               <span class="author-block">
                 <a href="#">Luca Thomas Wheeler</a><sup>1</sup>,</span>
               <span class="author-block">
-                <a href="#">Jared Watrous</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="#">Ashley Xu</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="#">Gia Ancone</a><sup>1</sup>,</span>  
-              <span class="author-block">
-                <a href="#">Wanhee Lee</a><sup>1</sup>,</span>  
-              <span class="author-block">
-                <a href="#">Honglin Chen</a><sup>2</sup>,</span>
-              <span class="author-block">
-                <a href="#">Daniel Bear</a><sup>3</sup>,</span>
-              <span class="author-block">
-                <a href="#">Stefan Stojanov</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="#">Daniel Yamins</a><sup>1</sup></span>
+                <a href="#">Jared Watrous</a><sup>1</sup>,</span> 
+              </div>
+              <div>
+                <span class="author-block">
+                <a href="#">Ashley Xu</a><sup>1</sup>,</span> 
+                <span class="author-block">
+                  <a href="#">Gia Ancone</a><sup>1</sup>,</span>  
+                <span class="author-block">
+                  <a href="#">Wanhee Lee</a><sup>1</sup>,</span>  
+                <span class="author-block">
+                  <a href="#">Honglin Chen</a><sup>2</sup>,</span>
+                <span class="author-block">
+                  <a href="#">Daniel Bear</a><sup>3</sup>,</span>
+                <span class="author-block">
+                  <a href="#">Stefan Stojanov</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="#">Daniel Yamins</a><sup>1</sup></span>
+              </div>
             </div>
 
             <div class="is-size-6 publication-authors" style="margin-top: 0.5em;">
@@ -165,15 +169,14 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Conventional definitions of segmentation are not aligned with physical manipulation tasks.
-          This can be seen in existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a>, which define segments through semantic labels (e.g. car, tree, sky). 
-          While useful, these categories fail to capture how objects actually move or interact physically, overlooking the critical properties that determine how segments respond to applied forces.
+          Conventional definitions of segmentation are not well-aligned with physical manipulation tasks.
+          This is exemplified in existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a>, which define segments through semantic labels (e.g. car, tree, sky). 
+          While useful, these segments fail to capture object boundaries based on what actually moves together, overlooking the critical properties that determine how segments respond to applied forces in physical manipulation tasks.
         </p>
         </p>
-          We thus introduce the notion of <strong>Spelke objects</strong>—groupings of physical things that reliably move together when acted on by physical forces.
-          Spelke segments address this limitation by identifying groupings of pixels that respond together to forces, offering more natural alignment with physical manipulation tasks.
-          Grounding the definition of segments in co-movement of pixels rather than semantic categories paves the way for a more practical, physically grounded understanding of the scene,
-          which is essential for common robotics tasks like grasping, pushing, and object manipulation. 
+          To address this limitation in existing definitions, we thus introduce the notion of <strong>Spelke objects</strong>—groupings of physical things that reliably move together when acted on by physical forces, offering more natural alignment with physical manipulation tasks.
+          Grounding the definition of segments in co-movement of pixels rather than semantic categories paves the way for a more practical, physically grounded representation of the scene,
+          which is essential for common robotics tasks like object manipulation and planning.
         </p>
       </div>
 
@@ -187,15 +190,13 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           To systematically evaluate segmentation algorithms against Spelke principles, we introduce <strong>SpelkeBench</strong>—a 500-image dataset that measures how well model outputs align with motion-defined object boundaries rather than semantic categories.
-        </p>
-        <p> 
           We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. This contrast enables evaluation across both curated image domains and physically grounded robotics environments.
         </p>
       </div>
 
       <!-- Image with caption -->
       <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/benchmark_comparison.png"
+        <img src="./static/images/benchmark.png"
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
@@ -207,41 +208,45 @@
 
     <!-- SEC 3: Operationalizing Spelke Segments -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Operationalizing Spelke segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Operationalizing Spelke Segmentation</h2>
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS)</h3>
+        <h3 class="has-text-weight-bold is-size-6">SpelkeNet Using Local Random Access Sequence Modeling (LRAS) Paradigm</h3>
         <p>
-          <strong>LRAS</strong> is a sequence model inspired by large language models that causally predicts locally quantized image (RGB) and optical flow patches. The LRAS model operates on a unified vocabulary comprising RGB and flow "content" tokens and "pointer" tokens for each modality that specify spatial locations in the image grid.
-          This vocabulary can be partitioned into four disjoint sets: RGB pointer tokens 𝓘<sup>(rgb)</sup>, RGB content tokens 𝓧, flow pointer tokens 𝓘<sup>(flow)</sup>, and flow content tokens 𝓕.
+          <strong>LRAS</strong> is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes
+          content tokens representing RGB or flow in an arbitrary spatial order. this sequential design leads to a flexible architecture
+          which can accept a sequence composed of any subset of the combined sequence.
         </p>
         <p>
-          The key innovation lies in LRAS's sequence design: each content token is paired with a corresponding pointer token specifying its spatial location, enabling sequences to be arranged in arbitrary spatial order while allowing pointer tokens to serve as modality-specific queries. This flexible, composable architecture makes LRAS particularly well-suited for discovering pixel co-movement through virtual interventions. Unlike diffusion models requiring dense global conditioning, LRAS supports sparse, localized conditioning—enabling us to inject virtual "pokes" by simply appending a flow token representing desired motion paired with a pointer token indicating spatial location. 
-        </p>
-        <p>
-          Building on this foundation, we introduce <strong>SpelkeNet</strong>, an instance of LRAS specifically designed for Spelke object discovery through strategic sequence design that reveals which pixels move together as cohesive units under applied forces.
+          Building on this foundation, we introduce <strong>SpelkeNet</strong>, an instance of LRAS specifically 
+          designed for Spelke object discovery by capitalizing on LRAS's composable sequence design.
+          Specifically, SpelkeNet applies sparse, localized interventions by simply appending a flow token representing the desired motion-i.e. a <strong>virtual poke</strong>--to be applied and a corresponding pointer token indicating location of poke. 
+          SpelkeNet then discovers Spelke objects completing the remaining token sequence and extracting the completed flow field indicating how the rest of the scene will respond.    
         </p>
       </div>
       
       <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/lras_architecture.png"
+        <img src="./static/images/architecture.png"
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-          <strong>LRAS Architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. These token pairs are passed as an unordered sequence into the model, which outputs a categorical distribution <em>D</em>[<em>i</em>] over flow tokens for each spatial location <em>i</em>. In the <strong>right</strong> panel we show that sampling from these distributions yields a complete flow field in pixel space that we use for discovering co-moving entities/segments.
+          <strong>SpelkeNet Architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. These token pairs are passed as an unordered sequence into the model, which outputs a categorical distribution <em>D</em>[<em>i</em>] over flow tokens for each spatial location <em>i</em>. In the <strong>right</strong> panel we show that sampling from these distributions yields a complete flow field in pixel space that we use for discovering co-moving entities/segments.
         </figcaption>
       </figure>
 
       <!-- Subsection 2: Motion Affordance Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
+        <h3 class="has-text-weight-bold is-size-6">Using Motion Affordance Maps to Identify Virtual Poke Locations</h3>
         <p>
-          To discover Spelke objects, we must first identify candidate locations where virtual pokes can be applied—pixels lying on regions likely to move under external forces. We refer to this as the probability of motion affordance map, denoted <em>p</em><sub>motion</sub>. Such motion-centric affordance maps prove especially valuable in robotics applications for identifying high-motion regions that respond to interaction (e.g., cups or plates)
+          To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
+          We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted <em>p</em><sub>motion</sub>, which is a structure that we extract from SpelkeNet.
+          To compute <em>p</em><sub>motion</sub>, we concatenate the RGB token sequence with a token indicating zero camera camera motion to obtain the predicted flow token distributions,
+          which is sumemd at each spatial location to yield a 2D heatmap of regions likely to move under external forces.
         </p>
-        <p>
-          To compute <em>p</em><sub>motion</sub>, we define a set of flow tokens corresponding to motionpanel we show that sampling from these distributions yields a complete flow field in pixel
-space that we use for discovering co-moving entities/segments. greater than threshold τ, then sum their estimated probabilities. As flow tokens are not directly interpretable, we map each flow token to a 2D flow vector through epigraphy on the flow vocabulary—statistically aggregating typical input flow fields that produced each token. Given RGB tokens concatenated with zero camera motion to discount camera effects, we obtain predicted flow distributions and compute motion probability at each spatial location by summing over tokens representing significant motion. This yields a 2D heatmap of regions likely to move under external forces, as illustrated below. 
+        <p> 
+          Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions that respond to interaction (e.g., cups or plates) and excluding
+          low-motion regions (e.g., sky or ground) which do not typically do not move upon external forces.
         </p>
       </div>
       
@@ -333,9 +338,10 @@ space that we use for discovering co-moving entities/segments. greater than thre
 
       <!-- Subsection 3: Expected Displacement Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
+        <h3 class="has-text-weight-bold is-size-6">Using Expected Displacement Maps for Flow Completion</h3>
         <p>
-          Having identified regions of high motion-affordance, we leverage LRAS's sequential design to apply virtual pokes at candidate locations. We obtain the "expected displacement map"—an estimate of likely flow at each location conditioned on a virtual poke. This map provides valuable guidance about how objects might move before physical contact occurs, which can prove especially useful in robotics settings for predicting interaction outcomes.
+          Another useful structure extracted from SpelkeNet is the <strong>expected displacement map</strong>, denoted <em>𝔼</em><sub>disp</sub>>, 
+          which is an estimate of likely flow at each location conditioned on a virtual poke. 
         </p>
         <p>
           Specifically, Our approach exploits LRAS's flexible sequence composition by constructing input sequences that include virtual pokes. We represent a poke as a flow token <em>f</em><sub>k</sub> at location <em>i</em><sub>k</sub>, appending this poke to our base sequence: <strong>z</strong> = <strong>x</strong> ⊕ [<em>c</em>=0] ⊕ [(<em>i</em><sub>k</sub>, <em>f</em><sub>k</sub>)]. The model then predicts how this localized intervention propagates throughout the scene. We compute expected displacement as the probability-weighted average of flow vectors, where each vector maps to flow tokens. This yields a dense 2D vector field revealing how the entire scene would respond to the applied poke, effectively discovering which pixels move together as cohesive units.         </p>
@@ -420,7 +426,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
         
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
-            Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic "virtual pokes". Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
+            Building on the previously discussed structures, we now combine these components to discover Spelke objects through systematic virtual pokes. Specifically, our approach leverages the sequential design of SpelkeNet to perform counterfactual probing. 
           </p>
           <p>
             We first sample a location <em>k</em> with high motion probability (<em>p</em><sub>motion</sub>(<em>k</em>) > τ<sub>p</sub>), then apply virtual pokes in diverse directions {<em>f</em><sup>(r)</sup>} at this location. For each poke direction, we compute the expected displacement field. To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. This statistical aggregation reveals regions that consistently respond together regardless of poke direction—the hallmark of Spelke objects. Finally, Otsu thresholding extracts our desired Spelke segment, completing the discovery process from motion affordance identification through counterfactual probing to object extraction. 
@@ -743,7 +749,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-            The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type.
+            <strong>Material Property Understanding.</strong> The generated probability of motion maps can be used to infer physical attributes such as rigidity or material type.
             Rigid objects like laptops and cardboard boxes tend to exhibit a
           uniform probability across the segment, while deformable objects such as cloth and plastic covers
           often show more localized motion responses near the poke point.
@@ -756,7 +762,7 @@ space that we use for discovering co-moving entities/segments. greater than thre
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/support_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
-            When applying a "virtual poke" to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
+            <strong>Support Relationships Understanding.</strong>. When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
           </figcaption>
         </figure>
       </div>
