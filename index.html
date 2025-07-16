@@ -212,7 +212,7 @@
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">SpelkeNet Using Local Random Access Sequence Modeling (LRAS) Paradigm</h3>
+        <h3 class="has-text-weight-bold is-size-6">Local Random Access Sequence Modeling (LRAS) Paradigm</h3>
         <p>
           <strong>LRAS</strong> is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes
           content tokens representing RGB or flow in an arbitrary spatial order. this sequential design leads to a flexible architecture
@@ -237,7 +237,7 @@
 
       <!-- Subsection 2: Motion Affordance Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Using Motion Affordance Maps to Identify Virtual Poke Locations</h3>
+        <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
         <p>
           To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
           We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted <em>p</em><sub>motion</sub>, which is a structure that we extract from SpelkeNet.
@@ -338,7 +338,7 @@
 
       <!-- Subsection 3: Expected Displacement Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Using Expected Displacement Maps for Flow Completion</h3>
+        <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
         <p>
           Another useful structure extracted from SpelkeNet is the <strong>expected displacement map</strong>, denoted <em>𝔼</em><sub>disp</sub>>, 
           which is an estimate of likely flow at each location conditioned on a virtual poke. 
@@ -427,7 +427,7 @@
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
             Building on the previously discussed structures, we now combine <em>p</em><sub>motion</sub> and <em>𝔼</em><sub>disp</sub> to discover Spelke objects. 
-            We first sample a location from <em>p</em><sub>motion, then apply virtual pokes in diverse directions at this location. 
+            We first sample a location from <em>p</em><sub>motion</sub>, then apply virtual pokes in diverse directions at this location. 
             For each poke direction, we compute <em>𝔼</em><sub>disp</sub>. 
             To identify pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all interventions. 
             This statistical aggregation reveals regions that consistently respond together regardless of poke direction—further implicitly aligning our discovered objects with the notion of Spelke objects which consistently move together. 
@@ -549,7 +549,7 @@
             <thead>
           </table>
           <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic;">
-            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. LRAS-Seg significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+            <strong>Quantitative evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet significantly outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
           </caption>
         </div>
       </div>
@@ -562,8 +562,14 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           Segmentation plays a crucial role in object-centric scene editing, where users click on objects and provide edit prompts for 2D or 3D transformations. 
-          The segmentation model generates edit masks from these point selections, making mask quality critical for realistic results. For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
+          The segmentation model creates edit masks from generated segments, making mask quality critical for realistic results. For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
           As such, Spelke segments prove particularly valuable for this application, yielding more realistic scene edits as we demonstrate in our experiments with SpelkeNet.
+        </p>
+
+        <p>
+          To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
+          Specifically, we use <strong>3DEditBench</strong>, a benchmark containing 100 real world image pairs with
+associated ground truth point prompts and 3D scene edits (e.g. rotations, translations, inter-object occlusions). The quantitative examples of SpelkeNet segments compared to SAM segments using this evaluation framework is shown below.
         </p>
       </div>
       
