@@ -185,7 +185,7 @@
           as existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> 
           rely on semantic labels (e.g. car, tree, sky) to define segments.
           However, reliance on semantic labels to define segments is problematic because these definitions often conflict with the physical structure of scenes
-          and therefore has less utility for robotics tasks like object manipulation, which require an understanding of physical reasoning to understand which parts of a scene move together in the physical world.
+          and therefore has less utility for robotics tasks like object manipulation, which require physical reasoning to understand which parts of a scene move together in the physical world.
         </p>
       </div>
 
@@ -194,7 +194,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define Spelke Objects, segments based on motion correlation </h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define Spelke Objects-segments based on motion correlation </h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -226,7 +226,7 @@
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
           <strong>Segment annotation examples from SpelkeBench.</strong> Existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels),  
-          demonstrating that current benchmarks fail to capture the notion of Spelke segments, limiting their utility for physical reasoning tasks common in robotics. 
+          demonstrating that current benchmarks fail to capture the notion of Spelke segments and limiting their utility for physical reasoning tasks common in robotics. 
           Thus, we introduce SpelkeBench to benchmark the capability of segmentation models to produce segments aligned with Spelke objects.
         </figcaption>
       </figure>
@@ -240,10 +240,9 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           We introduce <strong>SpelkeNet</strong>, our model that learns to complete flow fields and implicitly understands how objects move together in the physical world. 
-          SpelkeNet is an instance of LRAS (Local Random Access Sequence Modeling), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions, enabling flexible composition of input sequences.
+          SpelkeNet is an instance of LRAS (Local Random Access Sequence Modeling), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions.
 
           Specifically, LRAS is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes content tokens representing RGB or flow in arbitrary spatial order. 
-          This sequential design leads to a flexible architecture which can accept a sequence composed of any subset of the combined sequence, making it particularly well-suited for sparse, targeted interventions.
 
           Building on this foundation, <strong>SpelkeNet</strong> capitalizes on LRAS's composable sequence design for Spelke object discovery. 
           Specifically, SpelkeNet applies sparse, localized interventions by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location. 
@@ -265,10 +264,10 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
         <p>
-          To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities independent of camera motion within a scene in order to apply meaningful virtual pokes. 
-          Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions that respond to interaction (e.g., cups or plates) and excluding
+          To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
+          Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g., cups or plates) and excluding
           low-motion regions (e.g., sky or ground) which do not typically do not move upon external forces.
-          We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we extract from SpelkeNet.
+          We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from SpelkeNet.
           To compute \( p_{\text{motion}} \), we sum the predicted flow token distributions at each spatial location for all tokens which represent non-zero motion 
           to yield a 2D heatmap of regions likely to move under external forces.
         </p>
@@ -470,13 +469,13 @@
           <div id="discovery-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
             <div id="discovery-carousel-videos" style="display: flex; transition: transform 0.3s ease-in-out;">
               <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-                <source src="./static/videos/obj_discovery/3.mov" type="video/mp4">
-              </video>
-              <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
                 <source src="./static/videos/obj_discovery/2.mov" type="video/mp4">
               </video>
               <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
                 <source src="./static/videos/obj_discovery/1.mov" type="video/mp4">
+              </video>
+              <video autoplay muted loop playsinline style="width: 100%; height: 650px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+                <source src="./static/videos/obj_discovery/3.mov" type="video/mp4">
               </video>
             </div>
           </div>
@@ -589,14 +588,15 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Segmentation plays a crucial role in object-centric scene editing, where users click on objects and provide edit prompts for 2D or 3D transformations. 
-          The segmentation model creates edit masks from generated segments, making mask quality critical for realistic results. For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
+          In object-centric scene editing tasks, where users provide edit prompts for 2D or 3D transformations, segmentation plays a crucial role in creating edit masks from user prompts, 
+          making mask quality important for realistic results.
+          For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
           As such, Spelke segments prove particularly valuable for this application, yielding more realistic scene edits as we demonstrate in our experiments with SpelkeNet.
         </p>
 
         <p>
           To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
-          Specifically, we use <strong>3DEditBench</strong>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations, inter-object occlusions). 
+          Specifically, we use <strong>3DEditBench</strong>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
           From the table below, we show that for existing object manipulation methods, SpelkeNet segments improve performance signficiantly.
         </p>
       </div>
@@ -608,13 +608,13 @@
         <div id="manipulation-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
           <div id="manipulation-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
             <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/objmanipulation/3_.mov" type="video/mp4">
+              <source src="./static/videos/objmanipulation/3.mov" type="video/mp4">
             </video>
             <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/objmanipulation/2_.mov" type="video/mp4">
+              <source src="./static/videos/objmanipulation/2.mov" type="video/mp4">
             </video>
             <video autoplay muted loop playsinline style="width: 100%; height: 500px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-              <source src="./static/videos/objmanipulation/1_.mov" type="video/mp4">
+              <source src="./static/videos/objmanipulation/1.mov" type="video/mp4">
             </video>
           </div>
         </div>
@@ -630,7 +630,7 @@
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2 has-text-centered" style="font-style: italic; text-align:justify">
         <strong>Comparison of SpelkeNet and SAM in Object Manipulation Pipeline.</strong> 
-        From single-point segmentation prompt, the generated segment is used as input to  LRAS (state of the art image editing method) along with a 3D edit prompt.
+        From single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a>, a state of the art 3D object manipulation image editing method.
         We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
       </figcaption>
       
