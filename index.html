@@ -458,6 +458,9 @@
             Finally, Otsu's method on the averaged dot product yields our desired Spelke segment.  
           </p>
           <p>
+            To evaluate our model’s ability to discover Spelke objects, we formalize the
+            task as point-promoted segmentation: given a single point on an object, the goal is to recover the region
+            that would move together if a virtual force were applied at that point. 
             We evaluate the discovery procedure on SpelkeBench and report AR and IOU for various methods. From the table below, we see that SpelkeNet yields segments which best align with Spelke objects.
           </p>
         </div>
@@ -576,7 +579,7 @@
             <thead>
           </table>
           <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic; text-align:justify">
-            <strong>Evaluation of point-prompted segmentation accuracy across models:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+            <strong>Evaluation of point-prompted segmentation accuracy:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
           </caption>
         </div>
       </div>
