@@ -85,7 +85,7 @@
             </div>
 
             <div class="is-size-6 publication-authors" style="margin-top: 0.5em;">
-              <span class="author-block"><sup>1</sup>Stanford University</span>
+              <span class="author-block"><sup>1</sup>Stanford University,</span>
               <span class="author-block"><sup>2</sup>OpenAI,</span>
               <span class="author-block"><sup>3</sup>Noetik Inc.</span>
             </div>
@@ -149,9 +149,9 @@
       <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic; text-align:justify">
         <strong>Overview of SpelkeNet's Capabilities.</strong> 
         On the <strong>left</strong>, our model first predicts a probability of motion map, indicating regions likely to move if an external force is applied. 
-        We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals other pixels will move in tandem with this poke.
-        Finally, from the flow field we can naturally extract a segment corresponding to an entity that would intuitively move together when acted on by physical forces.
-        On the <strong>right</strong>, we illustrate how these discovered segments are useful in an object editing task to enable more physically plausible object manipulation.
+        We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals other pixels will move as a result of this poke.
+        Finally, from the flow field we can naturally extract a group of pixels (i.e. Spelke segment) that move together.
+        On the <strong>right</strong>, we illustrate how these discovered segments can enable more physically plausible object manipulation.
       </h2>
     </div>
   </div>
