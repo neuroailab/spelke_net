@@ -143,15 +143,15 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" controls autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser_vid.mov"
+      <video id="teaser" controls autoplay muted loop playsinline>
+        <source src="./static/videos/teaser.mov"
                 type="video/mp4">
       </video>
       <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic; text-align:justify">
         <strong>Overview of SpelkeNet's Capabilities.</strong> 
         On the <strong>left</strong>, our model first predicts a probability of motion map, indicating regions likely to move if an external force is applied. 
-        We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals other pixels will move as a result of this poke.
-        Finally, from the flow field we can naturally extract a group of pixels (i.e. Spelke segment) that move together.
+        We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals which other pixels will move as a result of this poke.
+        Finally, from the flow field we can naturally extract a group of pixels—i.e. Spelke segment—which move together.
         On the <strong>right</strong>, we illustrate how these discovered segments can enable more physically plausible object manipulation.
       </h2>
     </div>
@@ -188,7 +188,7 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           To address this limitation in existing definitions, we take from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical things that reliably move together when acted on by physical forces.
-          Spelke objects are defined by category-agnostic causal motion relationships, which better support tasks like manipulation and planning compared to semantic-based segmentation.
+          Spelke objects are defined by category-agnostic causal motion relationships, which can better support tasks like manipulation and planning compared to semantic-based segmentation.
         </p>
       </div>
 
@@ -212,7 +212,7 @@
         <img src="./static/images/benchmark.png"
              class="interpolation-image"
              alt="Comparison between datasets."  />
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic;">
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
           Existing segmentation annotation methods are typically evaluated using benchmarks like SAM and EntitySeg, which frequently produce segments that intuitively do not represent units that would move together as a whole (e.g. camera subcomponents and bottle labels). 
           Since these models are evaluated using existing benchmarks, it becomes difficult to quantify their utility for tasks like robotic manipulation, which require understanding which parts of a scene move together in the physical world. 
           This demonstrates that current benchmarks fail to capture the notion of Spelke segments, limiting their utility for physical reasoning tasks. 
