@@ -144,14 +144,14 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" controls autoplay muted loop playsinline>
-        <source src="./static/videos/teaser.mov"
+        <source src="./static/videos/teaser_vid.mov"
                 type="video/mp4">
       </video>
       <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic; text-align:justify">
         <strong>Overview of SpelkeNet's Capabilities.</strong> 
         On the <strong>left</strong>, our model first predicts a probability of motion map, indicating regions likely to move if an external force is applied. 
         We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals which other pixels will move as a result of this poke.
-        Finally, from the flow field we can naturally extract a group of pixels—i.e. Spelke segment—which move together.
+        Finally, from the flow field we can naturally extract a group of pixels which move together-i.e. a Spelke segment.
         On the <strong>right</strong>, we illustrate how these discovered segments can enable more physically plausible object manipulation.
       </h2>
     </div>
@@ -209,7 +209,7 @@
 
       <!-- Image with caption -->
       <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/benchmark.png"
+        <img src="./static/images/benchmark_comparison.png"
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
