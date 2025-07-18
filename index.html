@@ -269,8 +269,8 @@
       <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic; text-align:justify">
         <strong>Overview of SpelkeNet's Capabilities.</strong> 
         On the <strong>left</strong>, our model first predicts a probability of motion map, indicating regions likely to move if an external force is applied. 
-        We sample a point from this map and apply a virtual poke, conditioning our model to complete a flow field that reveals which other pixels will move as a result of this poke.
-        Finally, from the flow field we can naturally extract a group of pixels which move together—i.e. a Spelke segment.
+        We sample a point from this map, apply a virtual poke, and have the model complete a flow field revealing which other pixels will move as a result of this poke. From this,
+        we can naturally extract a group of pixels which move together—i.e. a Spelke segment.
         On the <strong>right</strong>, we illustrate how these discovered segments can enable more physically plausible object manipulation.
       </h2>
     </div>
@@ -388,7 +388,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Are existing definitions of segmentation sufficient for physical reasoning tasks?</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Existing definitions of segmentation may not be sufficient for physical reasoning tasks</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -406,7 +406,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define segments based on motion correlation—i.e. Spelke segments.</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define segments based on motion correlation—i.e. Spelke segments</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
