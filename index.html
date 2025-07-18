@@ -173,7 +173,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
     transition: background 0.2s;
   }
   
@@ -188,8 +188,8 @@
   
   .scrubber {
     width: 100%;
-    height: 6px;
-    border-radius: 3px;
+    height: 4px;
+    border-radius: 2px;
     background: #ddd;
     outline: none;
     cursor: pointer;
@@ -200,10 +200,10 @@
   .scrubber::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: #007bff;
+    background: #333;
     cursor: pointer;
     transition: transform 0.2s;
   }
@@ -213,10 +213,10 @@
   }
   
   .scrubber::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: #007bff;
+    background: #333;
     cursor: pointer;
     border: none;
     transition: transform 0.2s;
@@ -237,9 +237,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 6px;
-    background: #007bff;
-    border-radius: 3px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
     pointer-events: none;
     transition: width 0.1s;
   }
@@ -254,7 +254,7 @@
       </video>
       
       <div class="video-controls">
-        <button class="play-pause-btn" id="playPauseBtn">⏸️</button>
+        <button class="play-pause-btn" id="playPauseBtn">❚❚</button>
         
         <div class="scrubber-container">
           <div class="progress-bar" id="progressBar"></div>
@@ -331,10 +331,10 @@
     playPauseBtn.addEventListener('click', () => {
       if (video.paused) {
         video.play();
-        playPauseBtn.textContent = '⏸️';
+        playPauseBtn.textContent = '❚❚';
       } else {
         video.pause();
-        playPauseBtn.textContent = '▶️';
+        playPauseBtn.textContent = '▶';
       }
     });
     
@@ -375,7 +375,7 @@
     
     // Update play button state when video ends
     video.addEventListener('ended', () => {
-      playPauseBtn.textContent = '▶️';
+      playPauseBtn.textContent = '▶';
     });
   });
 </script>
@@ -917,7 +917,7 @@
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;" rowspan="2">LRAS</td>
+              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a></td>
               <td style="padding: 8px 12px;">SpelkeNet</td>
               <td style="padding: 8px 12px; font-weight: bold;">0.009</td>
               <td style="padding: 8px 12px; font-weight: bold;">21.64</td>
