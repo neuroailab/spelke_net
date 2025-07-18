@@ -98,7 +98,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="https://neuroailab.github.io/spelke_net/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -107,7 +107,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href="https://neuroailab.github.io/spelke_net/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -117,7 +117,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://neuroailab.github.io/spelke_net/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -127,7 +127,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                <a href="https://neuroailab.github.io/spelke_net/"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -406,7 +406,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke segments-i.e. segments defined based on motion correlation-address this limitation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke segments---i.e. segments defined based on motion correlation---address this limitation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -425,7 +425,7 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          We first benchmark...
+          We first benchmark...(why this needs to benchmark, existing datasets )
           To systematically evaluate segmentation models against Spelke object principles, we introduce <strong>SpelkeBench</strong>—a 500-image dataset that measures how well segments align with Spelke objects.
           We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. 
           This contrast enables evaluation across both unconstrained natural image domains and physically grounded robotics environments.
@@ -452,7 +452,7 @@
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          We introduce <strong>SpelkeNet</strong>, our model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
+          We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
           SpelkeNet is an instance of Local Random Access Sequence Modeling (LRAS), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions.
 
           Specifically, LRAS is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes content tokens representing RGB or flow in arbitrary spatial order. 
@@ -658,11 +658,11 @@
 
       <!-- subsection 4: Spelke Object Discovery Algorithm -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Statistical counterfactual probing for Spelke Object Discovery</h3>
+        <h3 class="has-text-weight-bold is-size-6">Statistical counterfactual probing for Spelke object discovery</h3>
         
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
-            Building on the previously discussed structures, we now combine \( p_{\text{motion}} \) and \( \mathbb{E}_{\text{disp}} \) to discover Spelke objects. 
+            We now combine \( p_{\text{motion}} \) and \( \mathbb{E}_{\text{disp}} \) to discover Spelke objects. 
             We first sample a location that is likely to move from \( p_{\text{motion}} \). 
             Then, to discover Spelke objects we will identify regions that consistently move together under various virtual pokes applied at this location.
             For each poke direction, we compute \( \mathbb{E}_{\text{disp}} \). 
@@ -749,13 +749,12 @@
         })();
         </script>
 
-        <h3 class="has-text-weight-bold is-size-6">SpelkeNet achieves state-of-the-art performance on SpelkeBench-</h3>
+        <h3 class="has-text-weight-bold is-size-6">SpelkeNet achieves state-of-the-art performance on SpelkeBench</h3>
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
             To evaluate our model’s ability to discover Spelke objects, we formalize the
-            task as point-promoted segmentation: given a single point on an object, the goal is to recover the region
-            that would move together if a virtual force were applied at that point. 
-            From the results of our point-prompted segmentation evaluation in the table below, we see that SpelkeNet yields segments which best align with Spelke objects.
+            task as point-promoted segmentation: given a single point on an object, the goal is to predict the Spelke segment associated with that point. 
+            We find that SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model on SpelkeBench.
           </p>
         </div>
         
@@ -796,7 +795,8 @@
             <thead>
           </table>
           <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic; text-align:justify">
-            <strong>Evaluation of point-prompted segmentation accuracy.</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+            <strong>Evaluation of point-prompted segmentation accuracy.</strong> 
+            We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods.
           </caption>
         </div>
       </div>
@@ -894,7 +894,7 @@
       </script>
 
 
-      <h3 class="has-text-weight-bold is-size-6">In existing object manipulation pipelines, Spelke segments yield more physically plausible object edits</h3>
+      <h3 class="has-text-weight-bold is-size-6">Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits</h3>
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
@@ -1023,7 +1023,7 @@
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/supp_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-            <strong>Support Relationships Understanding.</strong> When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
+            <strong>Support Relationships Understanding.</strong> When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the poked object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
           </figcaption>
         </figure>
       </div>
