@@ -288,24 +288,40 @@
     
     let isDragging = false;
     
-    // Format time helper
+    // Format time helper with better error handling
     function formatTime(seconds) {
+      if (isNaN(seconds) || !isFinite(seconds)) {
+        return '0:00';
+      }
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60);
       return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
     
+    // Initialize controls when video metadata is ready
+    function initializeControls() {
+      if (video.duration && isFinite(video.duration)) {
+        durationSpan.textContent = formatTime(video.duration);
+        scrubber.max = 100; // Use percentage instead of seconds
+        scrubber.value = 0;
+        progressBar.style.width = '0%';
+        currentTimeSpan.textContent = formatTime(0);
+      }
+    }
+    
     // Update duration when metadata loads
-    video.addEventListener('loadedmetadata', () => {
-      durationSpan.textContent = formatTime(video.duration);
-      scrubber.max = video.duration;
-    });
+    video.addEventListener('loadedmetadata', initializeControls);
+    
+    // Also try to initialize if metadata is already loaded
+    if (video.readyState >= 1) {
+      initializeControls();
+    }
     
     // Update scrubber and time as video plays
     video.addEventListener('timeupdate', () => {
-      if (!isDragging) {
+      if (!isDragging && video.duration && isFinite(video.duration)) {
         const percentage = (video.currentTime / video.duration) * 100;
-        scrubber.value = video.currentTime;
+        scrubber.value = percentage;
         progressBar.style.width = percentage + '%';
         currentTimeSpan.textContent = formatTime(video.currentTime);
       }
@@ -322,11 +338,14 @@
       }
     });
     
-    // Scrubber functionality
+    // Scrubber functionality - convert percentage back to time
     scrubber.addEventListener('input', () => {
-      const percentage = (scrubber.value / video.duration) * 100;
-      progressBar.style.width = percentage + '%';
-      currentTimeSpan.textContent = formatTime(scrubber.value);
+      if (video.duration && isFinite(video.duration)) {
+        const percentage = scrubber.value;
+        const newTime = (percentage / 100) * video.duration;
+        progressBar.style.width = percentage + '%';
+        currentTimeSpan.textContent = formatTime(newTime);
+      }
     });
     
     scrubber.addEventListener('mousedown', () => {
@@ -335,12 +354,18 @@
     
     scrubber.addEventListener('mouseup', () => {
       isDragging = false;
-      video.currentTime = scrubber.value;
+      if (video.duration && isFinite(video.duration)) {
+        const percentage = scrubber.value;
+        video.currentTime = (percentage / 100) * video.duration;
+      }
     });
     
     scrubber.addEventListener('change', () => {
-      video.currentTime = scrubber.value;
       isDragging = false;
+      if (video.duration && isFinite(video.duration)) {
+        const percentage = scrubber.value;
+        video.currentTime = (percentage / 100) * video.duration;
+      }
     });
     
     // Handle video play/pause on click
