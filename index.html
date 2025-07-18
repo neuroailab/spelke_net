@@ -63,27 +63,27 @@
               <span class="author-block">
                 <a href="https://www.linkedin.com/in/lilian-chen-1975b81b1/" target="_blank" rel="noopener noreferrer">Lilian Naing Chen</a><sup>*1</sup>,
               <span class="author-block">
-                <a href="https://www.linkedin.com/in/seungwoo-simon-kim/" target="_blank" rel="noopener noreferrer">Seungwoo Kim</a><sup>*1</sup>,
+                <a href="https://www.linkedin.com/in/seungwoo-simon-kim/" target="_blank" rel="noopener noreferrer">Seungwoo Kim</a><sup>1</sup>,
               <span class="author-block">
-                <a href="https://www.linkedin.com/in/luca-wheeler-180818244/" target="_blank" rel="noopener noreferrer">Luca Thomas Wheeler</a><sup>*1</sup>,
+                <a href="https://www.linkedin.com/in/luca-wheeler-180818244/" target="_blank" rel="noopener noreferrer">Luca Thomas Wheeler</a><sup>1</sup>,
               <span class="author-block">
-                <a href="https://www.linkedin.com/in/jared-watrous/" target="_blank" rel="noopener noreferrer">Jared Watrous</a><sup>*1</sup>,
+                <a href="https://www.linkedin.com/in/jared-watrous/" target="_blank" rel="noopener noreferrer">Jared Watrous</a><sup>1</sup>,
               </div>
               <div>
                 <span class="author-block">
-                <a href="https://www.linkedin.com/in/ashley-xu-a2588b1a9/" target="_blank" rel="noopener noreferrer">Ashley Xu</a><sup>*1</sup>,
+                <a href="https://www.linkedin.com/in/ashley-xu-a2588b1a9/" target="_blank" rel="noopener noreferrer">Ashley Xu</a><sup>1</sup>,
                 <span class="author-block">
-                  <a href="https://www.linkedin.com/in/gia-ancone-58b545207/" target="_blank" rel="noopener noreferrer">Gia Ancone</a><sup>*1</sup>,
+                  <a href="https://www.linkedin.com/in/gia-ancone-58b545207/" target="_blank" rel="noopener noreferrer">Gia Ancone</a><sup>1</sup>,
                 <span class="author-block">
-                  <a href="https://www.linkedin.com/in/wanhee-lee-31102820b/" target="_blank" rel="noopener noreferrer">Wanhee Lee</a><sup>*1</sup>,
+                  <a href="https://www.linkedin.com/in/wanhee-lee-31102820b/" target="_blank" rel="noopener noreferrer">Wanhee Lee</a><sup>1</sup>,
                 <span class="author-block">
-                  <a href="https://www.linkedin.com/in/honglin-chen-52b13712a/" target="_blank" rel="noopener noreferrer">Honglin Chen</a><sup>*1</sup>,
+                  <a href="https://www.linkedin.com/in/honglin-chen-52b13712a/" target="_blank" rel="noopener noreferrer">Honglin Chen</a><sup>2</sup>,
                 <span class="author-block">
-                  <a href="https://www.linkedin.com/in/daniel-bear-b79480279/" target="_blank" rel="noopener noreferrer">Daniel Bear</a><sup>*3</sup>,
+                  <a href="https://www.linkedin.com/in/daniel-bear-b79480279/" target="_blank" rel="noopener noreferrer">Daniel Bear</a><sup>3</sup>,
                 <span class="author-block">
-                  <a href="https://sstojanov.github.io/" target="_blank" rel="noopener noreferrer">Stefan Stojanov</a><sup>*1</sup>,
+                  <a href="https://sstojanov.github.io/" target="_blank" rel="noopener noreferrer">Stefan Stojanov</a><sup>1</sup>,
                 <span class="author-block">
-                  <a href="https://web.stanford.edu/~yamins/" target="_blank" rel="noopener noreferrer">Daniel Yamins</a><sup>*1</sup>,
+                  <a href="https://web.stanford.edu/~yamins/" target="_blank" rel="noopener noreferrer">Daniel Yamins</a><sup>1</sup>
 
               </div>
             </div>
@@ -176,7 +176,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Are existing definitions of segmentation sufficient for physical reasonings tasks?</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Are existing definitions of segmentation sufficient for physical reasoning tasks?</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -184,8 +184,8 @@
           An ongoing challenge in image segmentation is defining segments with arbitrary categories, 
           as existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> 
           rely on semantic labels (e.g. car, tree, sky) to define segments.
-          However, reliance on semantic labels to define segments is problematic because these definitions often conflict with the physical structure of scenes
-          and therefore has less utility for robotics tasks like object manipulation, which require physical reasoning to understand which parts of a scene move together in the physical world.
+          Although these are useful for recognition tasks, the resulting masks often do not reflect how objects move or interact in the real world, 
+          effectively limiting their utility in robotics tasks like object manipulation, which require physical reasoning capabilities to understand which parts of a scene move together.
         </p>
       </div>
 
@@ -194,13 +194,13 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define Spelke Objects-segments based on motion correlation </h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">To address this limitation, we define segments based on motion correlation—i.e. Spelke segments.</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          To address this limitation in existing definitions, we take from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical things that reliably move together when acted on by physical forces.
-          Spelke objects are defined by category-agnostic causal motion relationships, which can better support tasks like manipulation and planning compared to semantic-based segmentation.
+          To address this limitation, we draw from developmental psychology and introduce <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
+          Unlike semantic segmentation, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
         </p>
       </div>
 
@@ -225,7 +225,7 @@
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>Segment annotation examples from SpelkeBench.</strong> Existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels),  
+          <strong>Example Segments from SpelkeBench.</strong> Existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels),  
           demonstrating that current benchmarks fail to capture the notion of Spelke segments and limiting their utility for physical reasoning tasks common in robotics. 
           Thus, we introduce SpelkeBench to benchmark the capability of segmentation models to produce segments aligned with Spelke objects.
         </figcaption>
@@ -239,8 +239,8 @@
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          We introduce <strong>SpelkeNet</strong>, our model that learns to complete flow fields and implicitly understands how objects move together in the physical world. 
-          SpelkeNet is an instance of LRAS (Local Random Access Sequence Modeling), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions.
+          We introduce <strong>SpelkeNet</strong>, our model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
+          SpelkeNet is an instance of Local Random Access Sequence Modeling (LRAS), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions.
 
           Specifically, LRAS is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes content tokens representing RGB or flow in arbitrary spatial order. 
 
@@ -251,7 +251,7 @@
       </div>
       
       <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/architecture.png"
+        <img src="./static/images/spelkenet_architecture.png"
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
@@ -265,8 +265,8 @@
         <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
         <p>
           To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
-          Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g., cups or plates) and excluding
-          low-motion regions (e.g., sky or ground) which do not typically do not move upon external forces.
+          Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g. cups or plates) and excluding
+          low-motion regions (e.g. sky or ground) which do not typically do not move upon external forces.
           We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from SpelkeNet.
           To compute \( p_{\text{motion}} \), we sum the predicted flow token distributions at each spatial location for all tokens which represent non-zero motion 
           to yield a 2D heatmap of regions likely to move under external forces.
@@ -301,7 +301,7 @@
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
         <strong>Motion Affordance Maps.</strong> Here we illustrate input images and their corresponding
-        probability of motion heatmaps showing regions likely to exhibit motion under externally applied forces
+        probability of motion heatmaps showing regions likely to exhibit motion under externally applied forces.
       </figcaption>
       
       <script>
@@ -376,11 +376,11 @@
         <!-- Carousel Images Container -->
         <div id="displacement-carousel" style="position: relative; overflow: hidden; border-radius: 8px; background: #f5f5f5;">
           <div id="displacement-carousel-images" style="display: flex; transition: transform 0.3s ease-in-out;">
-            <img src="./static/images/expecteddisplacement/1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement/3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement/4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement/5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
-            <img src="./static/images/expecteddisplacement/2_.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/ed1.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/ed3.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/ed4.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/ed5.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
+            <img src="./static/images/expecteddisplacement/ed2.png" style="width: 33.333%; height: 600px; object-fit: contain; flex-shrink: 0; background: white; padding: 0 5px;">
           </div>
         </div>
         
@@ -454,14 +454,8 @@
             Then, to discover Spelke objects we will identify regions that consistently move together under various virtual pokes applied at this location.
             For each poke direction, we compute \( \mathbb{E}_{\text{disp}} \). 
             To find pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all pokes. 
-            This statistical aggregation reveals regions that consistently respond together regardless of poke direction—further implicitly aligning our discovered objects with the notion of Spelke objects which consistently move together. 
+            This statistical aggregation reveals regions which consistently move together across a wide range of applied virtual pokes—further implicitly aligning our discovered objects with the notion of Spelke objects which consistently move together. 
             Finally, Otsu's method on the averaged dot product yields our desired Spelke segment.  
-          </p>
-          <p>
-            To evaluate our model’s ability to discover Spelke objects, we formalize the
-            task as point-promoted segmentation: given a single point on an object, the goal is to recover the region
-            that would move together if a virtual force were applied at that point. 
-            We evaluate the discovery procedure on SpelkeBench and report AR and IOU for various methods. From the table below, we see that SpelkeNet yields segments which best align with Spelke objects.
           </p>
         </div>
         
@@ -541,6 +535,16 @@
           updateDiscoveryCarousel();
         })();
         </script>
+
+        <h3 class="has-text-weight-bold is-size-6">SpelkeNet achieves state-of-the-art performance on SpelkeBench-</h3>
+        <div class="content has-text-justified mt-5 is-size-6">
+          <p>
+            To evaluate our model’s ability to discover Spelke objects, we formalize the
+            task as point-promoted segmentation: given a single point on an object, the goal is to recover the region
+            that would move together if a virtual force were applied at that point. 
+            From the results of our point-prompted segmentation evaluation in the table below, we see that SpelkeNet yields segments which best align with Spelke objects.
+          </p>
+        </div>
         
         <!-- Quantitative Results Table -->
         <div class="content has-text-justified mt-5 is-size-6">
@@ -548,11 +552,11 @@
             <thead>
               <tr style="border-bottom: 2px solid #000;">
                 <th style="padding: 8px 12px;"></th>
-                <th style="padding: 8px 12px;">SAM</th>
-                <th style="padding: 8px 12px;">DINOv1-B/8</th>
-                <th style="padding: 8px 12px;">DINOv2-L/14</th>
-                <th style="padding: 8px 12px;">DINOv2-G/14</th>
-                <th style="padding: 8px 12px;">CWM</th>
+                <th style="padding: 8px 12px;"><a href="https://ai.meta.com/sam2/" target="_blank" rel="noopener noreferrer">SAM2</a></th>
+                <th style="padding: 8px 12px;"><a href="https://github.com/facebookresearch/dino" target="_blank" rel="noopener noreferrer">DINOv1-B/8</a></th> 
+                <th style="padding: 8px 12px;"><a href="https://dinov2.metademolab.com/" target="_blank" rel="noopener noreferrer">DINOv2-L/14</a></th> 
+                <th style="padding: 8px 12px;"><a href="https://dinov2.metademolab.com/" target="_blank" rel="noopener noreferrer">DINOv2-G/14</a></th>
+                <th style="padding: 8px 12px;"><a href="https://neuroailab.github.io/cwm-physics/" target="_blank" rel="noopener noreferrer">CWM</a></th>
                 <th style="padding: 8px 12px;">SpelkeNet</th>
               </tr>
             </thead>
@@ -579,7 +583,7 @@
             <thead>
           </table>
           <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic; text-align:justify">
-            <strong>Evaluation of point-prompted segmentation accuracy:</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
+            <strong>Evaluation of point-prompted segmentation accuracy.</strong> We report Average Recall (AR) and mean Intersection over Union (mIoU) for various segmentation methods. SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model
           </caption>
         </div>
       </div>
@@ -587,7 +591,7 @@
 
     <!-- SEC 4: Using Spelke Segments for Physically Plausible Object Manipulation -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Using Spelke segments for Physically Plausible Object Manipulation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Using Spelke segments for physically plausible object manipulation</h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
@@ -595,12 +599,6 @@
           making mask quality important for realistic results.
           For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
           As such, Spelke segments prove particularly valuable for this application, yielding more realistic scene edits as we demonstrate in our experiments with SpelkeNet.
-        </p>
-
-        <p>
-          To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
-          Specifically, we use <strong>3DEditBench</strong>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
-          From the table below, we show that for existing object manipulation methods, SpelkeNet segments improve performance signficiantly.
         </p>
       </div>
       
@@ -633,8 +631,8 @@
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
         <strong>Comparison of SpelkeNet and SAM in Object Manipulation Pipeline.</strong> 
-        From single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a>, a state of the art 3D object manipulation image editing method.
-        We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often often split up or combine objects in ways that are inconsistent with how they move.
+        From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a>, a state-of-the-art 3D object manipulation image editing method.
+        We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
       </figcaption>
       
       <script>
@@ -682,6 +680,16 @@
       })();
       </script>
 
+
+      <h3 class="has-text-weight-bold is-size-6">In existing object manipulation pipelines, Spelke segments yield more physically plausible object edits</h3>
+      <div class="content has-text-justified mt-5 is-size-6">
+        <p>
+          To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
+          Specifically, we use <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer"><strong>3DEditBench</strong></a>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
+          From the table below, we show that for existing object manipulation methods, SpelkeNet segments improve performance significantly.
+        </p>
+      </div>
+
       <div class="content has-text-justified mt-5 is-size-6">
         <table style="margin: 0 auto; border-collapse: collapse; text-align: center;">
           <thead>
@@ -714,7 +722,7 @@
               <td style="padding: 8px 12px;">0.633</td>
             </tr>
             <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;" rowspan="2">LightningDrag</td>
+              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://lightning-drag.github.io/" target="_blank" rel="noopener noreferrer">LightningDrag</a></td>
               <td style="padding: 8px 12px;">SpelkeNet</td>
               <td style="padding: 8px 12px; font-weight: bold;">0.017</td>
               <td style="padding: 8px 12px; font-weight: bold;">19.16</td>
@@ -731,7 +739,7 @@
               <td style="padding: 8px 12px;">0.536</td>
             </tr>
             <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;" rowspan="2">Diffusion Handles</td>
+              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://diffusionhandles.github.io/" target="_blank" rel="noopener noreferrer">Diffusion Handles</a></td>
               <td style="padding: 8px 12px;">SpelkeNet</td>
               <td style="padding: 8px 12px; font-weight: bold;">0.024</td>
               <td style="padding: 8px 12px; font-weight: bold;">17.42</td>
@@ -748,7 +756,7 @@
               <td style="padding: 8px 12px;">0.495</td>
             </tr>
             <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;" rowspan="2">DiffusionAsShader</td>
+              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://igl-hkust.github.io/das/" target="_blank" rel="noopener noreferrer">Diffusion as Shader</a></td>
               <td style="padding: 8px 12px;">SpelkeNet</td>
               <td style="padding: 8px 12px; font-weight: bold;">0.015</td>
               <td style="padding: 8px 12px; font-weight: bold;">19.29</td>
@@ -778,7 +786,8 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          Beyond discovering co-moving entities, SpelkeNet exhibits emergent properties that demonstrate a deeper understanding of physical scene structure.
+          We have demonstrated SpelkeNet's utility in discovering Spelke segments and shown how these segments enable more realistic scene edits in object manipulation pipelines. 
+          Beyond these applications, SpelkeNet also exhibits emergent properties that reveal a deeper understanding of physical scene structure.
         </p>
       </div>
 
@@ -799,7 +808,7 @@
       <!-- Subsection 2: Understanding Support Relationships -->
       <div class="content has-text-justified mt-5 is-size-6">
         <figure class="image is-inline-block has-text-centered">
-          <img src="./static/images/support.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
+          <img src="./static/images/supp_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
             <strong>Support Relationships Understanding.</strong> When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the directly contacted object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
           </figcaption>
