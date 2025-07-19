@@ -267,7 +267,7 @@
       </div>
       
       <h2 class="subtitle 6 has-text-grey mt-4" style="font-style: italic; text-align:justify">
-        <strong>Overview of SpelkeNet's Capabilities.</strong> 
+        <strong>Overview of SpelkeNet's capabilities.</strong> 
         On the <strong>left</strong>, our model first predicts a probability of motion map, indicating regions likely to move if an external force is applied. 
         We sample a point from this map, apply a virtual poke, and have the model complete a flow field revealing which other pixels will move as a result of this poke. From this,
         we can naturally extract a group of pixels which move together—i.e. a Spelke segment.
@@ -431,7 +431,7 @@
           We first benchmark the Spelke segment concept by introducing <strong>SpelkeBench</strong>: a 500-image evaluation dataset
           designed to assess whether segmentation algorithms can identify Spelke segments.
 
-          As shown below, existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels), demonstrating that current benchmarks fail to capture the notion of Spelke segments and limiting their utility for physical reasoning tasks common in robotics. 
+          As shown below, existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels), demonstrating that current benchmarks fail to capture the notion of Spelke segments.
 
           We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. 
           This contrast enables evaluation across both unconstrained natural image domains and physically grounded robotics environments.
@@ -457,13 +457,11 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
-          SpelkeNet is an instance of Local Random Access Sequence Modeling (LRAS), which provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append localized interventions.
-
-          Specifically, LRAS is a sequence model trained with next token prediction objective common in LLMs, where the final token sequence includes content tokens representing RGB or flow in arbitrary spatial order. 
-
-          Building on this foundation, <strong>SpelkeNet</strong> capitalizes on LRAS's composable sequence design for Spelke object discovery. 
-          Specifically, SpelkeNet applies sparse, localized interventions by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location. 
-          SpelkeNet then discovers Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
+          SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), sequence modeling framework
+          inspired by large language models (LLMs) that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
+          By leveraging LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location, 
+          SpelkeNet can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
+          LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append sparse, localized interventions.
         </p>
       </div>
       
@@ -472,14 +470,14 @@
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>SpelkeNet Architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. 
+          <strong>SpelkeNet architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. 
           These token pairs are passed as an unordered sequence into the model, which outputs a categorical distribution \( \mathcal{D}[i] \) over flow tokens for each spatial location \( i \). In the <strong>right</strong> panel we show that sampling from these distributions yields a complete flow field in pixel space that we use for discovering co-moving entities/segments.
         </figcaption>
       </figure>
 
       <!-- Subsection 2: Motion Affordance Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Motion Affordance Maps</h3>
+        <h3 class="has-text-weight-bold is-size-6">Motion affordance maps</h3>
         <p>
           To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
           Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g. cups or plates) and excluding
@@ -517,7 +515,7 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-        <strong>Motion Affordance Maps.</strong> Here we illustrate input images and their corresponding
+        <strong>Motion affordance maps.</strong> Here we illustrate input images and their corresponding
         probability of motion heatmaps showing regions likely to exhibit motion under externally applied forces.
       </figcaption>
       
@@ -578,7 +576,7 @@
 
       <!-- Subsection 3: Expected Displacement Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
+        <h3 class="has-text-weight-bold is-size-6">Expected displacement maps</h3>
         <p>
           Once we apply a virtual poke at a suitable location, we obtain the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
           
@@ -613,7 +611,7 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-        <strong>Expected Displacement Maps.</strong> Dense vector fields that predict how each pixel in a scene would move in response to a virtual poke applied at a specific location.
+        <strong>Expected displacement maps.</strong> Dense vector fields that predict how each pixel in a scene would move in response to a virtual poke applied at a specific location.
       </figcaption>
       
       <script>
@@ -703,7 +701,7 @@
         
         <!-- Caption -->
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>Spelke Object Discovery Algorithm.</strong>
+          <strong>Spelke object discovery algorithm.</strong>
           Our approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
         </figcaption>
         
@@ -845,7 +843,7 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-        <strong>Comparison of SpelkeNet and SAM in Object Manipulation Pipeline.</strong> 
+        <strong>Comparison of SpelkeNet and SAM in an object manipulation pipeline.</strong> 
         From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art 3D object manipulation image editing method.
       </figcaption>
       
@@ -996,7 +994,7 @@
 
     <!-- SEC 5: Emergent Properties -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent Properties of SpelkeNet</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent properties of SpelkeNet</h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
@@ -1011,7 +1009,7 @@
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-            <strong>Material Property Understanding.</strong> The generated \( p_{\text{motion}} \) maps can be used to infer physical attributes such as rigidity or material type.
+            <strong>Material property understanding.</strong> The generated \( p_{\text{motion}} \) maps can be used to infer physical attributes such as rigidity or material type.
             Rigid objects like laptops and cardboard boxes tend to exhibit a
           uniform probability across the segment, while deformable objects such as cloth and plastic covers
           often show more localized motion responses near the poke point.
@@ -1024,7 +1022,7 @@
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/supp_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-            <strong>Support Relationships Understanding.</strong> When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the poked object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
+            <strong>Support relationships understanding.</strong> When applying a virtual poke to an object within a stack (e.g. the bottom book), the extracted Spelke segment includes both the poked object and all the objects it physically supports, implying an understanding of support hierarchies within a scene.
           </figcaption>
         </figure>
       </div>
