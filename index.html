@@ -458,7 +458,7 @@
         <p>
           We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
           SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), sequence modeling framework
-          inspired by large language models (LLMs) that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
+          inspired by LLMs that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
           By leveraging LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location, 
           SpelkeNet can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
           LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append sparse, localized interventions.
