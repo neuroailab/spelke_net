@@ -345,6 +345,8 @@
         const newTime = (percentage / 100) * video.duration;
         progressBar.style.width = percentage + '%';
         currentTimeSpan.textContent = formatTime(newTime);
+        // Update video in real-time while dragging
+        video.currentTime = newTime;
       }
     });
     
@@ -406,7 +408,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke segments---i.e. segments defined based on motion correlation---address this limitation</h2>
+      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke segments—i.e. segments defined based on motion correlation—address this limitation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -425,8 +427,12 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          We first benchmark...(why this needs to benchmark, existing datasets )
-          To systematically evaluate segmentation models against Spelke object principles, we introduce <strong>SpelkeBench</strong>—a 500-image dataset that measures how well segments align with Spelke objects.
+
+          We first benchmark the Spelke segment concept by introducing <strong>SpelkeBench</strong>: a 500-image evaluation dataset
+          designed to assess whether segmentation algorithms can identify Spelke segments.
+
+          As shown below, existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels), demonstrating that current benchmarks fail to capture the notion of Spelke segments and limiting their utility for physical reasoning tasks common in robotics. 
+
           We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. 
           This contrast enables evaluation across both unconstrained natural image domains and physically grounded robotics environments.
         </p>
@@ -438,9 +444,7 @@
              class="interpolation-image"
              alt="Comparison between datasets."  />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>Example Segments from SpelkeBench.</strong> Existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels),  
-          demonstrating that current benchmarks fail to capture the notion of Spelke segments and limiting their utility for physical reasoning tasks common in robotics. 
-          Thus, we introduce SpelkeBench to benchmark the capability of segmentation models to produce segments aligned with Spelke objects.
+          <strong>Example segments from SpelkeBench. </strong> We compare this with SAM and EntitySeg segments to show that SpelkeBench contains annotated segments which align more with the Spelke notion.
         </figcaption>
       </figure>
     </div>
@@ -576,10 +580,12 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Expected Displacement Maps</h3>
         <p>
-          Another useful structure extracted from SpelkeNet is the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
-          This proves especially valuable in robotics applications where understanding the effects of actions before physical contact is crucial. 
+          Once we apply a virtual poke at a suitable location, we obtain the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
+          
           This map provides guidance about how objects might move if interacted with, enabling robots to predict interaction outcomes without executing actions in the physical world. 
           To obtain \( \mathbb{E}_{\text{disp}} \), we apply a virtual poke at a desired location to obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
+
+          This proves especially valuable in robotics applications where understanding the effects of actions before physical contact is crucial. 
         </p>
       </div>
       
@@ -663,12 +669,9 @@
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
             We now combine \( p_{\text{motion}} \) and \( \mathbb{E}_{\text{disp}} \) to discover Spelke objects. 
-            We first sample a location that is likely to move from \( p_{\text{motion}} \). 
-            Then, to discover Spelke objects we will identify regions that consistently move together under various virtual pokes applied at this location.
-            For each poke direction, we compute \( \mathbb{E}_{\text{disp}} \). 
-            To find pixels that move in coordination with the poke, we average the dot product between each poke vector and the expected motion across all pokes. 
-            This statistical aggregation reveals regions which consistently move together across a wide range of applied virtual pokes—further implicitly aligning our discovered objects with the notion of Spelke objects which consistently move together. 
-            Finally, Otsu's method on the averaged dot product yields our desired Spelke segment.  
+            We first sample a location that is likely to move from \( p_{\text{motion}} \) and apply various virtual pokes at this location in order to identify regions that consistently move together under various virtual pokes.
+            Specifically, to discover co-moving entities (i.e. Spelke objects), we compute the <strong>expected motion correlation</strong> by averaging across various pokes the dot product between the poke vector and associated \( \mathbb{E}_{\text{disp}} \). 
+            Finally, Otsu's thresholding on the averaged dot product yields our desired Spelke segment.  
           </p>
         </div>
         
@@ -701,7 +704,7 @@
         <!-- Caption -->
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
           <strong>Spelke Object Discovery Algorithm.</strong>
-          Multiple virtual pokes are applied at locations sampled from the \( p_{\text{motion}} \) map. As shown, this approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
+          Our approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
         </figcaption>
         
         <script>
@@ -808,10 +811,9 @@
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          In object-centric scene editing tasks, where users provide edit prompts for 2D or 3D transformations, segmentation plays a crucial role in creating edit masks from user prompts, 
-          making mask quality important for realistic results.
-          For physically plausible scene edits, masks must reflect genuinely movable entities rather than arbitrary visual boundaries.
-          As such, Spelke segments prove particularly valuable for this application, yielding more realistic scene edits as we demonstrate in our experiments with SpelkeNet.
+          We consider the task of object-centric scene editing, where a user clicks a point on an object and provides an edit prompt specifying a 2D or 3D transformation. 
+          A segmentation model generates an object edit mask from the point selection and the object manipulation method produces an edited image showing how the scene would appear after applying the specified transformation to the object mask area.
+          We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
         </p>
       </div>
       
@@ -844,8 +846,7 @@
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
         <strong>Comparison of SpelkeNet and SAM in Object Manipulation Pipeline.</strong> 
-        From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a>, a state-of-the-art 3D object manipulation image editing method.
-        We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
+        From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art 3D object manipulation image editing method.
       </figcaption>
       
       <script>
@@ -918,7 +919,7 @@
           </thead>
           <tbody>
             <tr style="border-bottom: 1px solid #ddd;">
-              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS</a></td>
+              <td style="padding: 8px 12px; text-align: left;" rowspan="2"><a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a></td>
               <td style="padding: 8px 12px;">SpelkeNet</td>
               <td style="padding: 8px 12px; font-weight: bold;">0.009</td>
               <td style="padding: 8px 12px; font-weight: bold;">21.64</td>
