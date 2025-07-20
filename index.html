@@ -384,14 +384,14 @@
 
 </body>
 
-<section class="section" style="padding-top: 0.75rem;">
+<section class="section" style="padding-top: 0.25rem;">
   <div class="container is-max-desktop">
     <!-- SEC 1.1: Limitations -->
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Existing definitions of segmentation may be insufficient for physical reasoning tasks</h2>
 
       <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-5 is-size-6">
+      <div class="content has-text-justified mt-4 is-size-6">
         <p>
           An ongoing challenge in image segmentation is defining segments with arbitrary categories, 
           as existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> 
@@ -404,13 +404,13 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 0.5rem;">
+<section class="section" style="padding-top: 0.25rem;">
   <div class="container is-max-desktop">
     <!-- SEC 1.2: Defining Spelke Objects -->
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments based on motion could address this limitation</h2>
       <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-5 is-size-6">
+      <div class="content has-text-justified mt-4 is-size-6">
         <p> 
           We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
           Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
@@ -533,7 +533,7 @@
       </div>
       
       <!-- Caption -->
-      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 4rem;">
+      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 3rem;">
         <strong>Motion affordance maps.</strong> Here we illustrate input images and their corresponding
         probability of motion heatmaps showing regions likely to exhibit motion under externally applied forces.
       </figcaption>
@@ -721,7 +721,7 @@
         </div>
         
         <!-- Caption -->
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 4rem;">
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 3rem;">
           <strong>Spelke object discovery algorithm.</strong>
           Our approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
         </figcaption>
@@ -866,7 +866,7 @@
       </div>
       
       <!-- Caption -->
-      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 4rem;">
+      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 3rem;">
         <strong>Comparison of SpelkeNet and SAM in an object manipulation pipeline.</strong> 
         From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art object manipulation editing method.
       </figcaption>
