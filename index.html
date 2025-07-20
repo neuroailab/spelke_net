@@ -413,7 +413,7 @@
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p> 
-          We draw from developmental psychology and introduce <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
+          We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
           Unlike semantic segmentation, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
         </p>
       </div>
@@ -470,8 +470,11 @@
             class="interpolation-image"
             alt="LRAS Architecture" />
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>SpelkeNet architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—i.e. the LRAS framework applied to optical-flow completion. Each input image and its flow field are tokenized into spatially-indexed RGB and flow tokens. 
-          These token pairs are passed as an unordered sequence into the model, which outputs a categorical distribution \( \mathcal{D}[i] \) over flow tokens for each spatial location \( i \). In the <strong>right</strong> panel we show that sampling from these distributions yields a complete flow field in pixel space that we use for discovering co-moving entities/segments.
+          <strong>SpelkeNet architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—an instance of the LRAS framework applied to optical-flow completion. 
+          The input is a tokenized RGB image and a sparse <em>virtual poke</em>, with each token being paired with a pointer token indictating spatial location. 
+          The model predicts a categorical distribution <em>D</em>[<em>i<sub>j</sub></em>] over flow tokens for every spatial location. 
+          The <strong>right</strong> panel shows autoregressive sampling yielding a complete flow field—at each step we select an undecoded location, sample a flow token from the predicted distribution, and append it to the input sequence to be fed back into the model to generate a new distribution. 
+          This process repeats, progressively completing the flow field and representing how the scene responds to the virtual poke, enabling Spelke segment discovery through motion correlation analysis of the resulting flow fields.
         </figcaption>
       </figure>
 
@@ -578,11 +581,9 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <h3 class="has-text-weight-bold is-size-6">Expected displacement maps</h3>
         <p>
-          Once we apply a virtual poke at a suitable location, we obtain the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
-          
+          Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
+          We call this the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
           This map provides guidance about how objects might move if interacted with, enabling robots to predict interaction outcomes without executing actions in the physical world. 
-          To obtain \( \mathbb{E}_{\text{disp}} \), we apply a virtual poke at a desired location to obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
-
           This proves especially valuable in robotics applications where understanding the effects of actions before physical contact is crucial. 
         </p>
       </div>
@@ -666,9 +667,9 @@
         
         <div class="content has-text-justified mt-5 is-size-6">
           <p>
-            We now combine \( p_{\text{motion}} \) and \( \mathbb{E}_{\text{disp}} \) to discover Spelke objects. 
-            We first sample a location that is likely to move from \( p_{\text{motion}} \) and apply various virtual pokes at this location in order to identify regions that consistently move together under various virtual pokes.
-            Specifically, to discover co-moving entities (i.e. Spelke objects), we compute the <strong>expected motion correlation</strong> by averaging across various pokes the dot product between the poke vector and associated \( \mathbb{E}_{\text{disp}} \). 
+            Using these structure extractions, we first sample a location that is likely to move from \( p_{\text{motion}} \) and apply various virtual pokes at this location 
+            in order to identify regions that consistently move together under various virtual pokes.
+            We then compute the <strong>expected motion correlation</strong> by averaging across various pokes the dot product between the poke vector and associated \( \mathbb{E}_{\text{disp}} \). 
             Finally, Otsu's thresholding on the averaged dot product yields our desired Spelke segment.  
           </p>
         </div>
@@ -810,7 +811,7 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           We consider the task of object-centric scene editing, where a user clicks a point on an object and provides an edit prompt specifying a 2D or 3D transformation. 
-          A segmentation model generates an object edit mask from the point selection and the object manipulation method produces an edited image showing how the scene would appear after applying the specified transformation to the object mask area.
+          A segmentation model generates an object edit mask from the point selection and the object manipulation method produces an edited image after applying the specified transformation to the object mask area.
           We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
         </p>
       </div>
