@@ -249,7 +249,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted playsinline>
-        <source src="./static/videos/teaser_vid.mov"
+        <source src="./static/videos/teaser.mov"
                 type="video/mp4">
       </video>
       
@@ -384,7 +384,7 @@
 
 </body>
 
-<section class="section" style="padding-top: 1rem;">
+<section class="section" style="padding-top: 0.75rem;">
   <div class="container is-max-desktop">
     <!-- SEC 1.1: Limitations -->
     <div class="content">
@@ -404,7 +404,7 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 0.25rem;">
+<section class="section">
   <div class="container is-max-desktop">
     <!-- SEC 1.2: Defining Spelke Objects -->
     <div class="content">
@@ -423,7 +423,7 @@
 </section>
 
 <!-- SEC 2: Benchmarking Spelke Segments -->
-<section class="section" style="padding-top: 0.25rem;">
+<section class="section">
   <div class="container is-max-desktop">
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Benchmarking Spelke segments</h2>
@@ -533,7 +533,7 @@
       </div>
       
       <!-- Caption -->
-      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
+      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 9rem;">
         <strong>Motion affordance maps.</strong> Here we illustrate input images and their corresponding
         probability of motion heatmaps showing regions likely to exhibit motion under externally applied forces.
       </figcaption>
@@ -594,7 +594,7 @@
       </script>
 
       <!-- Subsection 2: Expected Displacement Maps -->
-      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 12rem;">
+      <div class="content has-text-justified mt-5 is-size-6">
         <p>
           <strong>Expected displacement maps.</strong> Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
           We call this the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
@@ -721,7 +721,7 @@
         </div>
         
         <!-- Caption -->
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
+        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 9rem;">
           <strong>Spelke object discovery algorithm.</strong>
           Our approach can discover multiple objects within a scene and produces more meaningful segments that align with Spelke objects as compared to the SAM segments.
         </figcaption>
@@ -771,7 +771,7 @@
         })();
         </script>
 
-        <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 12rem;">
+        <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
           <p>
             <strong>SpelkeNet achieves state-of-the-art performance on SpelkeBench. </strong> To evaluate our model's ability to discover Spelke objects, we formalize the
             task as point-promoted segmentation: given a single point on an object, the goal is to predict the Spelke segment associated with that point. 
@@ -866,7 +866,7 @@
       </div>
       
       <!-- Caption -->
-      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
+      <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 9rem;">
         <strong>Comparison of SpelkeNet and SAM in an object manipulation pipeline.</strong> 
         From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art object manipulation editing method.
       </figcaption>
@@ -916,7 +916,7 @@
       })();
       </script>
 
-      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 12rem;">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <p>
           <strong>Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits.</strong> To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
           Specifically, we use <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer"><strong>3DEditBench</strong></a>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
