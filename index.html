@@ -404,17 +404,17 @@
   </div>
 </section>
 
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1rem;">
   <div class="container is-max-desktop">
     <!-- SEC 1.2: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments, segments defined based on motion correlation, could help address this limitation</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments-segments defined based on motion correlation, could help address this limitation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p> 
           We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
-          Unlike semantic segmentation, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
+          Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
         </p>
       </div>
 
@@ -424,7 +424,7 @@
 </section>
 
 <!-- SEC 2: Benchmarking Spelke Segments -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1rem;">
   <div class="container is-max-desktop">
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Benchmarking Spelke segments</h2>
@@ -457,10 +457,10 @@
 </section>
 
 <!-- SEC 3: Operationalizing Spelke Segments -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1.5rem;">
   <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">SpelkeNet: Operationalizing Spelke Segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">SpelkeNet: Operationalizing Spelke segmentation</h2>
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -491,10 +491,10 @@
 </section>
 
 <!-- SEC 4: LRAS Structure Extractions -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1.5rem;">
   <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Two key structures from LRAS help to discover Spelke objects</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">SpelkeNet enables the extraction of two key structures to discover Spelke objects</h2>
       
       <!-- Subsection 1: Motion Affordance Maps -->
       <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
@@ -595,7 +595,7 @@
       </script>
 
       <!-- Subsection 2: Expected Displacement Maps -->
-      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 6rem;">
         <p>
           <strong>Expected displacement maps.</strong> Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
           We call this the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
@@ -681,7 +681,7 @@
 </section>
 
 <!-- SEC 5: Spelke Object Discovery Algorithm -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1.5rem;">
   <div class="container is-max-desktop">
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Statistical counterfactual probing for Spelke object discovery</h2>
@@ -772,7 +772,7 @@
         })();
         </script>
 
-        <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
+        <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 6rem;">
           <p>
             <strong>SpelkeNet achieves state-of-the-art performance on SpelkeBench. </strong> To evaluate our model's ability to discover Spelke objects, we formalize the
             task as point-promoted segmentation: given a single point on an object, the goal is to predict the Spelke segment associated with that point. 
@@ -827,7 +827,7 @@
 </section>
 
 <!-- SEC 6: Using Spelke Segments for Physically Plausible Object Manipulation -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1.5rem;">
   <div class="container is-max-desktop">
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Using Spelke segments for physically plausible object manipulation</h2>
@@ -917,7 +917,7 @@
       })();
       </script>
 
-      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 6rem;">
         <p>
           <strong>Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits.</strong> To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
           Specifically, we use <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer"><strong>3DEditBench</strong></a>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
@@ -1018,7 +1018,7 @@
 </section>
 
 <!-- SEC 7: Emergent Properties -->
-<section class="section" style="padding-top: 1.75rem;">
+<section class="section" style="padding-top: 1.5rem;">
   <div class="container is-max-desktop">
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Emergent properties of SpelkeNet</h2>
