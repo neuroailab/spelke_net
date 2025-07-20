@@ -390,7 +390,7 @@
 
     <!-- SEC 1: Defining Spelke Objects -->
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Existing definitions of segmentation may not be sufficient for physical reasoning tasks</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Existing definitions of segmentation may not be sufficient for physical reasoning tasks</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -405,10 +405,9 @@
 
     </div>
 
-
-    <!-- SEC 1: Defining Spelke Objects -->
-    <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Spelke segments—i.e. segments defined based on motion correlation—address this limitation</h2>
+    <!-- Subsection within SEC 1 -->
+    <div class="content" style="margin-top: 3rem;">
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments, segments defined based on motion correlation, could help address this limitation</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -420,9 +419,14 @@
 
     </div>
 
-    <!-- SEC 2: Benchmarking Spelke Segments -->
+  </div>
+</section>
+
+<!-- SEC 2: Benchmarking Spelke Segments -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Benchmarking Spelke segments</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Benchmarking Spelke segments</h2>
 
       <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -448,10 +452,14 @@
         </figcaption>
       </figure>
     </div>
+  </div>
+</section>
 
-    <!-- SEC 3: Operationalizing Spelke Segments -->
+<!-- SEC 3: Operationalizing Spelke Segments -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">SpelkeNet: Operationalizing Spelke Segmentation</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">SpelkeNet: Operationalizing Spelke Segmentation</h2>
 
       <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
       <div class="content has-text-justified mt-5 is-size-6">
@@ -477,12 +485,20 @@
           This process repeats, progressively completing the flow field and representing how the scene responds to the virtual poke, enabling Spelke segment discovery through motion correlation analysis of the resulting flow fields.
         </figcaption>
       </figure>
+    </div>
+  </div>
+</section>
 
-      <!-- Subsection 2: Motion Affordance Maps -->
-      <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Motion affordance maps</h3>
+<!-- SEC 4: LRAS Structure Extractions -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Two key structures from LRAS help to discover Spelke objects</h2>
+      
+      <!-- Subsection 1: Motion Affordance Maps -->
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <p>
-          To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
+          <strong>Motion affordance maps. </strong> To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
           Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g. cups or plates) and excluding
           low-motion regions (e.g. sky or ground) which do not typically do not move upon external forces.
           We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from SpelkeNet.
@@ -577,11 +593,10 @@
       })();
       </script>
 
-      <!-- Subsection 3: Expected Displacement Maps -->
-      <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Expected displacement maps</h3>
+      <!-- Subsection 2: Expected Displacement Maps -->
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <p>
-          Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
+          <strong>Expected displacement maps.</strong> Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
           We call this the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
           This map provides guidance about how objects might move if interacted with, enabling robots to predict interaction outcomes without executing actions in the physical world. 
           This proves especially valuable in robotics applications where understanding the effects of actions before physical contact is crucial. 
@@ -660,19 +675,24 @@
         updateDisplacementCarousel();
       })();
       </script>
+    </div>
+  </div>
+</section>
 
-      <!-- subsection 4: Spelke Object Discovery Algorithm -->
+<!-- SEC 5: Spelke Object Discovery Algorithm -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
+    <div class="content">
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Statistical counterfactual probing for Spelke object discovery</h2>
+
+      <!-- Main body paragraph -->
       <div class="content has-text-justified mt-5 is-size-6">
-        <h3 class="has-text-weight-bold is-size-6">Statistical counterfactual probing for Spelke object discovery</h3>
-        
-        <div class="content has-text-justified mt-5 is-size-6">
-          <p>
-            Using these structure extractions, we first sample a location that is likely to move from \( p_{\text{motion}} \) and apply various virtual pokes at this location 
-            in order to identify regions that consistently move together under various virtual pokes.
-            We then compute the <strong>expected motion correlation</strong> by averaging across various pokes the dot product between the poke vector and associated \( \mathbb{E}_{\text{disp}} \). 
-            Finally, Otsu's thresholding on the averaged dot product yields our desired Spelke segment.  
-          </p>
-        </div>
+        <p>
+          Using these structure extractions, we first sample a location that is likely to move from \( p_{\text{motion}} \) and apply various virtual pokes at this location 
+          in order to identify regions that consistently move together under various virtual pokes.
+          We then compute the <strong>expected motion correlation</strong> by averaging across various pokes the dot product between the poke vector and associated \( \mathbb{E}_{\text{disp}} \). 
+          Finally, Otsu's thresholding on the averaged dot product yields our desired Spelke segment.  
+        </p>
         
         <!-- Object Discovery Carousel Container -->
         <div style="margin-top: 1rem; position: relative; max-width: 900px; margin-left: auto; margin-right: auto;">
@@ -751,10 +771,9 @@
         })();
         </script>
 
-        <h3 class="has-text-weight-bold is-size-6">SpelkeNet achieves state-of-the-art performance on SpelkeBench</h3>
-        <div class="content has-text-justified mt-5 is-size-6">
+        <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
           <p>
-            To evaluate our model’s ability to discover Spelke objects, we formalize the
+            <strong>SpelkeNet achieves state-of-the-art performance on SpelkeBench. </strong> To evaluate our model's ability to discover Spelke objects, we formalize the
             task as point-promoted segmentation: given a single point on an object, the goal is to predict the Spelke segment associated with that point. 
             We find that SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model on SpelkeBench.
           </p>
@@ -803,10 +822,14 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- SEC 4: Using Spelke Segments for Physically Plausible Object Manipulation -->
+<!-- SEC 6: Using Spelke Segments for Physically Plausible Object Manipulation -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Using Spelke segments for physically plausible object manipulation</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Using Spelke segments for physically plausible object manipulation</h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
@@ -845,7 +868,7 @@
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
         <strong>Comparison of SpelkeNet and SAM in an object manipulation pipeline.</strong> 
-        From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art 3D object manipulation image editing method.
+        From a single-point segmentation prompt, the generated segment and edit prompt is used as input to  <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art object manipulation editing method.
       </figcaption>
       
       <script>
@@ -893,11 +916,9 @@
       })();
       </script>
 
-
-      <h3 class="has-text-weight-bold is-size-6">Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits</h3>
-      <div class="content has-text-justified mt-5 is-size-6">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <p>
-          To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
+          <strong>Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits.</strong> To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
           Specifically, we use <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer"><strong>3DEditBench</strong></a>, a benchmark containing 100 image pairs with associated ground truth point prompts and 3D scene edits (e.g. rotations, translations). 
           From the table below, we show that for existing object manipulation methods, SpelkeNet segments improve performance significantly.
         </p>
@@ -992,10 +1013,14 @@
         </caption>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- SEC 5: Emergent Properties -->
+<!-- SEC 7: Emergent Properties -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-5 mb-4">Emergent properties of SpelkeNet</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Emergent properties of SpelkeNet</h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
@@ -1005,7 +1030,7 @@
       </div>
 
       <!-- Subsection 1: Material Property Understanding -->
-      <div class="content has-text-justified mt-5 is-size-6">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/material.png" alt="Material Understanding" style="height: 500px; object-fit: contain; max-width: 100%;">
@@ -1019,7 +1044,7 @@
       </div>
 
       <!-- Subsection 2: Understanding Support Relationships -->
-      <div class="content has-text-justified mt-5 is-size-6">
+      <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <figure class="image is-inline-block has-text-centered">
           <img src="./static/images/supp_relationships.png" alt="Support Relationships" style="height: 500px; object-fit: contain; max-width: 100%;">
           <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
