@@ -500,7 +500,7 @@
         <p>
           <strong>Motion affordance maps. </strong> To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
           Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g. cups or plates) and excluding
-          low-motion regions (e.g. sky or ground) which do not typically do not move upon external forces.
+          low-motion regions (e.g. sky or ground) which do not typically move upon external forces.
           We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from SpelkeNet.
           To compute \( p_{\text{motion}} \), we sum the predicted flow token distributions at each spatial location for all tokens which represent non-zero motion 
           to yield a 2D heatmap of regions likely to move under external forces.
@@ -596,7 +596,7 @@
       <!-- Subsection 2: Expected Displacement Maps -->
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          <strong>Expected displacement maps.</strong> Once we apply a virtual poke at a suitable location, we obtain obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
+          <strong>Expected displacement maps.</strong> Once we apply a virtual poke at a suitable location, we obtain a predicted distribution, which we then compute as a probability-weighted average over the flow vectors, giving us a dense 2D vector field over spatial locations.
           We call this the <strong>expected displacement map</strong>, denoted \( \mathbb{E}_{\text{disp}} \), which is an estimate of likely flow at each location conditioned on a virtual poke. 
           This map provides guidance about how objects might move if interacted with, enabling robots to predict interaction outcomes without executing actions in the physical world. 
           This proves especially valuable in robotics applications where understanding the effects of actions before physical contact is crucial. 
@@ -1061,7 +1061,7 @@
     <h2 class="title">BibTeX</h2>
     <pre><code>@misc{venkatesh2025discoveringandusingsegments,
   title        = {Discovering and using Spelke segments}, 
-  author       = {Rahul Venkatesh and Klemen Kotar and Lilian Naing Chen and Seoungwoo Kim and Luca Thomas Wheeler and Jared Watrous and Ashley Xu and Gia Ancone and Wanhee Lee and Honglin Chen and Daniel Bear and Stefan Stojanov and Daniel Yamins},
+  author       = {Rahul Venkatesh and Klemen Kotar and Lilian Naing Chen and Seungwoo Kim and Luca Thomas Wheeler and Jared Watrous and Ashley Xu and Gia Ancone and Wanhee Lee and Honglin Chen and Daniel Bear and Stefan Stojanov and Daniel Yamins},
   year         = {2025},
   eprint       = {TODO},
   archivePrefix = {arXiv},
