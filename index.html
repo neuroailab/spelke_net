@@ -402,55 +402,55 @@
       </div>
     </div>
   </div>
-</section>
 
-<section class="section" style="padding-top: 0.5rem; padding-bottom: 0rem;">
-  <div class="container is-max-desktop">
-    <!-- SEC 1.2: Defining Spelke Objects -->
-    <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments based on motion could address this limitation</h2>
-      <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-2 is-size-6">
-        <p> 
-          We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
-          Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
-        </p>
+  <div style="margin-top: 0.75rem;">
+    <div class="container is-max-desktop">
+      <!-- SEC 1.2: Defining Spelke Objects -->
+      <div class="content" style="margin-bottom: 0;">
+        <h2 class="has-text-weight-bold is-size-4" style="margin-bottom: 0.5rem;">Spelke segments based on motion could address this limitation</h2>
+        <!-- Main body paragraph -->
+        <div class="content has-text-justified is-size-6" style="margin-top: 0;">
+          <p style="margin-bottom: 0;"> 
+            We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
+            Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
+          </p>
+        </div>
+
       </div>
 
     </div>
-
   </div>
-</section>
 
 <!-- SEC 2: Benchmarking Spelke Segments -->
-<section class="section" style="padding-top: 0.5rem; padding-bottom: 0rem;">
-  <div class="container is-max-desktop">
-    <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Benchmarking Spelke segments</h2>
+  <div style="margin-top: 0.75rem;">
+    <div class="container is-max-desktop">
+      <div class="content">
+        <h2 class="has-text-weight-bold is-size-4 mb-4">Benchmarking Spelke segments</h2>
 
-      <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-5 is-size-6">
-        <p>
+        <!-- Main body paragraph -->
+        <div class="content has-text-justified mt-5 is-size-6">
+          <p>
 
-          We first benchmark the Spelke segment concept by introducing <strong>SpelkeBench</strong>: a 500-image evaluation dataset
-          designed to assess whether segmentation algorithms can identify Spelke segments.
+            We first benchmark the Spelke segment concept by introducing <strong>SpelkeBench</strong>: a 500-image evaluation dataset
+            designed to assess whether segmentation algorithms can identify Spelke segments.
 
-          As shown below, existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels), demonstrating that current benchmarks fail to capture the notion of Spelke segments.
+            As shown below, existing segmentation annotation methods like SAM and EntitySeg frequently contain segments that do not represent units that would intuitively move together in the real world (e.g. camera subcomponents and bottle labels), demonstrating that current benchmarks fail to capture the notion of Spelke segments.
 
-          We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. 
-          This contrast enables evaluation across both unconstrained natural image domains and physically grounded robotics environments.
-        </p>
+            We curate the dataset from two complementary sources: <a href="http://luqi.info/entityv2.github.io/" target="_blank" rel="noopener noreferrer">EntitySeg</a>, featuring high-resolution internet imagery with dense segmentation annotations, and <a href="https://robotics-transformer-x.github.io/" target="_blank" rel="noopener noreferrer">Open X-Embodiment</a>, consisting of real-world egocentric robot interactions. 
+            This contrast enables evaluation across both unconstrained natural image domains and physically grounded robotics environments.
+          </p>
+        </div>
+
+        <!-- Image with caption -->
+        <figure class="image is-inline-block has-text-centered">
+          <img src="./static/images/benchmark_comparison.png"
+              class="interpolation-image"
+              alt="Comparison between datasets."  />
+          <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
+            <strong>Example segments from SpelkeBench. </strong> We compare this with SAM and EntitySeg segments to show that SpelkeBench contains annotated segments which align more with the Spelke notion.
+          </figcaption>
+        </figure>
       </div>
-
-      <!-- Image with caption -->
-      <figure class="image is-inline-block has-text-centered">
-        <img src="./static/images/benchmark_comparison.png"
-             class="interpolation-image"
-             alt="Comparison between datasets."  />
-        <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
-          <strong>Example segments from SpelkeBench. </strong> We compare this with SAM and EntitySeg segments to show that SpelkeBench contains annotated segments which align more with the Spelke notion.
-        </figcaption>
-      </figure>
     </div>
   </div>
 </section>
