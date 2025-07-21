@@ -391,7 +391,7 @@
       <h2 class="has-text-weight-bold is-size-4 mb-4">Existing definitions of segmentation may be insufficient for physical reasoning tasks</h2>
 
       <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-4 is-size-6">
+      <div class="content has-text-justified mt-2 is-size-6">
         <p>
           An ongoing challenge in image segmentation is defining segments with arbitrary categories, 
           as existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> 
@@ -410,7 +410,7 @@
     <div class="content">
       <h2 class="has-text-weight-bold is-size-4 mb-4">Spelke segments based on motion could address this limitation</h2>
       <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-4 is-size-6">
+      <div class="content has-text-justified mt-2 is-size-6">
         <p> 
           We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
           Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
@@ -465,10 +465,10 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
-          SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), sequence modeling framework
+          SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), a sequence modeling framework
           inspired by LLMs that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
-          By leveraging LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location, 
-          <strong>SpelkeNet</strong> can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
+          We leverage LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location. 
+          From this, <strong>SpelkeNet</strong> can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
           LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append sparse, localized interventions.
         </p>
       </div>
@@ -480,7 +480,7 @@
         <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
           <strong>SpelkeNet architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—an instance of the LRAS framework applied to optical-flow completion. 
           The input is a tokenized RGB image and a sparse <em>virtual poke</em>, with each token being paired with a pointer token indictating spatial location. 
-          The model predicts a categorical distribution \( \mathcal{D}[i_j] \) over flow tokens for every spatial location \( j \). 
+          The model predicts a categorical distribution \( \mathcal{D}[i_j] \) over flow tokens for every spatial location \( i_j \). 
           The <strong>right</strong> panel shows autoregressive sampling yielding a complete flow field—at each step we select an undecoded location, sample a flow token from the predicted distribution, and append it to the input sequence to be fed back into the model to generate a new distribution. 
           This process repeats, progressively completing the flow field and representing how the scene responds to the virtual poke, enabling Spelke segment discovery through motion correlation analysis of the resulting flow fields.
         </figcaption>
