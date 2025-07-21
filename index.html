@@ -250,7 +250,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video id="teaser" autoplay muted playsinline>
-        <source src="./static/videos/teaser.mov"
+        <source src="./static/videos/teaser_vid.mov"
                 type="video/mp4">
       </video>
       
@@ -460,8 +460,8 @@
           SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), a sequence modeling framework
           inspired by LLMs that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
           We leverage LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location. 
-          From this, <strong>SpelkeNet</strong> can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
-          LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append sparse, localized interventions.
+          From this, <strong>SpelkeNet</strong> can discover Spelke objects by completing the remaining token sequence and extracting the flow field that reveals how the rest of the scene responds to this intervention.
+          LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to inject sparse, localized interventions.
         </p>
       </div>
       
