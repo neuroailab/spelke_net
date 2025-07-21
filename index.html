@@ -384,15 +384,15 @@
 
 </body>
 
-<section class="section" style="padding-top: 0.25rem;">
+<div style="padding: 0;">
   <div class="container is-max-desktop">
     <!-- SEC 1.1: Limitations -->
-    <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Existing definitions of segmentation may be insufficient for physical reasoning tasks</h2>
+    <div class="content" style="margin: 0;">
+      <h2 class="has-text-weight-bold is-size-4" style="margin: 0 0 0.25rem 0;">Existing definitions of segmentation may be insufficient for physical reasoning tasks</h2>
 
       <!-- Main body paragraph -->
-      <div class="content has-text-justified mt-2 is-size-6">
-        <p>
+      <div class="content has-text-justified is-size-6" style="margin: 0;">
+        <p style="margin: 0;">
           An ongoing challenge in image segmentation is defining segments with arbitrary categories, 
           as existing segmentation datasets like <a href="https://cocodataset.org/#home" target="_blank" rel="noopener noreferrer">COCO</a> and <a href="https://ade20k.csail.mit.edu/" target="_blank" rel="noopener noreferrer">ADE20K</a> 
           rely on semantic labels (e.g. car, tree, sky) to define segments.
@@ -403,33 +403,31 @@
     </div>
   </div>
 
-  <div style="margin-top: 0.75rem;">
+  <div style="margin-top: 0.5rem;">
     <div class="container is-max-desktop">
       <!-- SEC 1.2: Defining Spelke Objects -->
-      <div class="content" style="margin-bottom: 0;">
-        <h2 class="has-text-weight-bold is-size-4" style="margin-bottom: 0.5rem;">Spelke segments based on motion could address this limitation</h2>
+      <div class="content" style="margin: 0;">
+        <h2 class="has-text-weight-bold is-size-4" style="margin: 0 0 0.25rem 0;">Spelke segments based on motion could address this limitation</h2>
         <!-- Main body paragraph -->
-        <div class="content has-text-justified is-size-6" style="margin-top: 0;">
-          <p style="margin-bottom: 0;"> 
+        <div class="content has-text-justified is-size-6" style="margin: 0;">
+          <p style="margin: 0;"> 
             We draw from developmental psychology the notion of <strong>Spelke objects</strong>—groupings of physical entities that reliably move together under applied forces, a concept first established by Liz Spelke in <a href="https://www.harvardlds.org/wp-content/uploads/2017/01/Spelke1990-1.pdf" target="_blank" rel="noopener noreferrer">Principles of Object Perception</a>. 
             Unlike existing segmentation definitions, Spelke objects are defined by category-agnostic causal motion relationships, making them inherently better suited to support robotics tasks such as manipulation and planning.
           </p>
         </div>
-
       </div>
-
     </div>
   </div>
 
   <!-- SEC 2: Benchmarking Spelke Segments -->
   <div style="margin-top: 0.5rem;">
     <div class="container is-max-desktop">
-      <div class="content">
-        <h2 class="has-text-weight-bold is-size-4" style="margin-bottom: 0.5rem;">Benchmarking Spelke segments</h2>
+      <div class="content" style="margin: 0;">
+        <h2 class="has-text-weight-bold is-size-4" style="margin: 0 0 0.25rem 0;">Benchmarking Spelke segments</h2>
 
         <!-- Main body paragraph -->
-        <div class="content has-text-justified is-size-6" style="margin-top: 0.5rem;">
-          <p>
+        <div class="content has-text-justified is-size-6" style="margin: 0;">
+          <p style="margin: 0 0 0.5rem 0;">
 
             We first benchmark the Spelke segment concept by introducing <strong>SpelkeBench</strong>: a 500-image evaluation dataset
             designed to assess whether segmentation algorithms can identify Spelke segments.
@@ -442,18 +440,52 @@
         </div>
 
         <!-- Image with caption -->
-        <figure class="image is-inline-block has-text-centered">
+        <figure class="image is-inline-block has-text-centered" style="margin: 0;">
           <img src="./static/images/benchmark_comparison.png"
               class="interpolation-image"
               alt="Comparison between datasets."  />
-          <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify">
+          <figcaption class="is-size-6 has-text-grey" style="font-style: italic; text-align:justify; margin: 0.25rem 0 0 0;">
             <strong>Example segments from SpelkeBench. </strong> We compare this with SAM and EntitySeg segments to show that SpelkeBench contains annotated segments which align more with the Spelke notion.
           </figcaption>
         </figure>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- SEC 3: Operationalizing Spelke Segments -->
+<div style="margin-top: 0.5rem;">
+  <div class="container is-max-desktop">
+    <div class="content" style="margin: 0;">
+      <h2 class="has-text-weight-bold is-size-4" style="margin: 0 0 0.25rem 0;">SpelkeNet: Operationalizing Spelke segmentation</h2>
+
+      <!-- Subsection 1: Local Random Access Sequence Modeling (LRAS) -->
+      <div class="content has-text-justified is-size-6" style="margin: 0;">
+        <p style="margin: 0 0 0.5rem 0;">
+          We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
+          SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), a sequence modeling framework
+          inspired by LLMs that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
+          We leverage LRAS's sequence design for Spelke object discovery by simply appending a flow token representing the desired motion—i.e. a <strong>virtual poke</strong>—along with a corresponding pointer token indicating the poke location. 
+          From this, <strong>SpelkeNet</strong> can discover Spelke objects by completing the remaining token sequence and extracting the completed flow field that reveals how the rest of the scene responds to this intervention.
+          LRAS thus provides an ideal foundation for this task because unlike diffusion models that require dense global conditioning, LRAS's autoregressive nature makes it simple to append sparse, localized interventions.
+        </p>
+      </div>
+      
+      <figure class="image is-inline-block has-text-centered" style="margin: 0;">
+        <img src="./static/images/spelkenet_architecture.png"
+            class="interpolation-image"
+            alt="LRAS Architecture" />
+        <figcaption class="is-size-6 has-text-grey" style="font-style: italic; text-align:justify; margin: 0.25rem 0 0 0;">
+          <strong>SpelkeNet architecture.</strong> On the <strong>left</strong> we illustrate SpelkeNet—an instance of the LRAS framework applied to optical-flow completion. 
+          The input is a tokenized RGB image and a sparse <em>virtual poke</em>, with each token being paired with a pointer token indictating spatial location. 
+          The model predicts a categorical distribution \( \mathcal{D}[i_j] \) over flow tokens for every spatial location \( i_j \). 
+          The <strong>right</strong> panel shows autoregressive sampling yielding a complete flow field—at each step we select an undecoded location, sample a flow token from the predicted distribution, and append it to the input sequence to be fed back into the model to generate a new distribution. 
+          This process repeats, progressively completing the flow field and representing how the scene responds to the virtual poke, enabling Spelke segment discovery through motion correlation analysis of the resulting flow fields.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
 
 <!-- SEC 3: Operationalizing Spelke Segments -->
 <section class="section" style="padding-top: 1.25rem;">
