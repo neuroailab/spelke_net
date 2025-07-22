@@ -448,7 +448,7 @@
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
           We build <strong>SpelkeNet</strong>, a model that learns to complete flow fields and implicitly captures how objects move together in the physical world. 
-          SpelkeNet is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), a sequence modeling framework
+          <strong>SpelkeNet</strong> is an instance of <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">Local Random Access Sequence Modeling</a> (LRAS), a sequence modeling framework
           inspired by LLMs that causally predicts locally quantized image (i.e. RGB) and optical flow patches.
           <strong>SpelkeNet</strong> leverages LRAS's flexible, autoregressive sequence design properties to apply sparse, localized interventions simply by appending to the input sequence a flow token representing a <strong>virtual poke</strong>
           and discovers Spelke objects by completing the flow field which indicates how the rest of the scene will respond.
@@ -477,7 +477,7 @@
 <section class="section" style="padding-top: 1.25rem;">
   <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">SpelkeNet enables the extraction of two key structures to discover Spelke objects</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4"><strong>SpelkeNet</strong> enables the extraction of two key structures to discover Spelke objects</h2>
       
       <!-- Subsection 1: Motion Affordance Maps -->
       <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
@@ -485,7 +485,7 @@
           <strong>Motion affordance maps. </strong> To discover Spelke objects, we must first identify which pixels correspond to candidate movable entities within a scene in order to apply meaningful virtual pokes. 
           Motion affordance maps prove especially valuable in robotics applications for identifying high-motion regions independent of camera motion that respond to interaction (e.g., cups or plates) and excluding
           low-motion regions (e.g., sky or ground) which do not typically move upon external forces.
-          We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from SpelkeNet.
+          We refer to this notion as the <strong>probability of motion affordance map</strong>, denoted \( p_{\text{motion}} \), which is a structure that we can extract from <strong>SpelkeNet</strong>.
           To compute \( p_{\text{motion}} \), we sum the predicted flow token distributions at each spatial location for all tokens which represent non-zero motion 
           to yield a 2D heatmap of regions likely to move under external forces.
         </p>
@@ -759,7 +759,7 @@
           <p>
             <strong>SpelkeNet achieves state-of-the-art performance on SpelkeBench. </strong> To evaluate our model's ability to discover Spelke objects, we formalize the
             task as point-promoted segmentation: given a single point on an object, the goal is to predict the Spelke segment associated with that point. 
-            We find that SpelkeNet outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model on SpelkeBench.
+            We find that <strong>SpelkeNet</strong> outperforms both self-supervised baselines (DINO, CWM) and the supervised SAM2 model on SpelkeBench.
           </p>
         </div>
         
@@ -774,7 +774,7 @@
                 <th style="padding: 8px 12px;"><a href="https://dinov2.metademolab.com/" target="_blank" rel="noopener noreferrer">DINOv2-L/14</a></th> 
                 <th style="padding: 8px 12px;"><a href="https://dinov2.metademolab.com/" target="_blank" rel="noopener noreferrer">DINOv2-G/14</a></th>
                 <th style="padding: 8px 12px;"><a href="https://neuroailab.github.io/cwm-physics/" target="_blank" rel="noopener noreferrer">CWM</a></th>
-                <th style="padding: 8px 12px;">SpelkeNet</th>
+                <th style="padding: 8px 12px;"><strong>SpelkeNet</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -819,7 +819,7 @@
         <p>
           We consider the task of object-centric scene editing, where a user clicks a point on an object and provides an edit prompt specifying a 2D or 3D transformation. 
           A segmentation model generates an object edit mask from the point selection, and the object manipulation method produces an edited image after applying the specified transformation to the object mask area.
-          We show that SpelkeNet segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
+          We show that <strong>SpelkeNet</strong> segments enable more physically plausible object editing as opposed to existing segmentation methods like SAM, which often split up or combine objects in ways that are inconsistent with how they move.
         </p>
       </div>
       
@@ -851,8 +851,8 @@
       
       <!-- Caption -->
       <figcaption class="is-size-6 has-text-grey mt-2" style="font-style: italic; text-align:justify; margin-bottom: 3rem;">
-        <strong>Comparison of SpelkeNet and SAM in an object manipulation pipeline.</strong> 
-        To perform object manipulation, we provide a segment map and a 3D edit prompt to <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art object manipulation model. Here, we show that SpelkeNet segments yield more physically plausible edits than SAM edits.
+        <strong>Comparison of <strong>SpelkeNet</strong> and SAM in an object manipulation pipeline.</strong> 
+        To perform object manipulation, we provide a segment map and a 3D edit prompt to <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer">LRAS-3D</a>, a state-of-the-art object manipulation model. Here, we show that <strong>SpelkeNet</strong> segments yield more physically plausible edits than SAM edits.
       </figcaption>
       
       <script>
@@ -902,9 +902,9 @@
 
       <div class="content has-text-justified mt-5 is-size-6" style="margin-top: 3rem;">
         <p>
-          <strong>Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits.</strong> To evaluate the utility of SpelkeNet segments for object manipulation, we replace SAM with SpelkeNet in the pipeline for existing object editing models.
+          <strong>Across various object manipulation pipelines, Spelke segments yield more physically plausible object edits.</strong> To evaluate the utility of <strong>SpelkeNet</strong> segments for object manipulation, we replace SAM with <strong>SpelkeNet</strong> in the pipeline for existing object editing models.
           Specifically, we use <a href="https://neuroailab.github.io/projects/lras_3d/" target="_blank" rel="noopener noreferrer"><strong>3DEditBench</strong></a>, a recently introduced benchmark for evaluating physically plausible object manipulation.
-          From the table below, we show that for existing object manipulation methods, SpelkeNet segments improve performance significantly.
+          From the table below, we show that for existing object manipulation methods, <strong>SpelkeNet</strong> segments improve performance significantly.
         </p>
       </div>
 
@@ -993,7 +993,7 @@
           </tbody>
         </table>
         <caption class="is-size-6 has-text-grey mt-4" style="margin-bottom: 1rem; font-style: italic; text-align:justify">
-          <strong>Evaluation of edit quality across segmentation methods and editing pipelines.</strong> We report results for edits generated using SAM versus SpelkeNet segments across four editing methods. Lower ↓ is better, higher ↑ is better.
+          <strong>Evaluation of edit quality across segmentation methods and editing pipelines.</strong> We report results for edits generated using SAM versus <strong>SpelkeNet</strong> segments across four editing methods. Lower ↓ is better, higher ↑ is better.
         </caption>
       </div>
     </div>
@@ -1004,12 +1004,12 @@
 <section class="section" style="padding-top: 1.25rem;">
   <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="has-text-weight-bold is-size-4 mb-4">Emergent properties of SpelkeNet</h2>
+      <h2 class="has-text-weight-bold is-size-4 mb-4">Emergent properties of <strong>SpelkeNet</strong></h2>
       
       <div class="content has-text-justified mt-5 is-size-6">
         <p>
-          We have demonstrated SpelkeNet's utility in discovering Spelke segments and shown how these segments enable more realistic scene edits in object manipulation pipelines. 
-          Beyond these applications, SpelkeNet also exhibits emergent properties that reveal a deeper understanding of physical scene structure.
+          We have demonstrated <strong>SpelkeNet</strong>'s utility in discovering Spelke segments and shown how these segments enable more realistic scene edits in object manipulation pipelines. 
+          Beyond these applications, <strong>SpelkeNet</strong> also exhibits emergent properties that reveal a deeper understanding of physical scene structure.
         </p>
       </div>
 
